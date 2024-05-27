@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "47643058336",
+    "project_id": "tikiti-efbd5",
+    "storage_bucket": "tikiti-efbd5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47643058336:android:e16a2a2e4343d2aedae9c5",
+        "android_client_info": {
+          "package_name": "com.example.tikiti"
+        }
+      },
+      
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_rd86ATbbyfgfCRRHeyp9mmelxKeCuA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
