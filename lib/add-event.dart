@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tikiti/event-desc.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -67,7 +68,7 @@ class AddEvent extends StatelessWidget {
                   height: 31,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/61x31"),
+                      image: AssetImage("assets/Menu.png"),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -430,20 +431,28 @@ class AddEvent extends StatelessWidget {
               Positioned(
                 left: 35,
                 top: 776,
-                child: Container(
-                  width: 274,
-                  height: 33,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFFFD4C00),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EventDets()),
+                    );
+                  },
+                  child: Container(
+                    width: 274,
+                    height: 33,
+                    decoration: ShapeDecoration(
+                      color: Color(0xFFFD4C00),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
                     ),
                   ),
                 ),
               ),
               Positioned(
                 left: 35,
-                top: 776,
+                top: 790,
                 child: SizedBox(
                   width: 273,
                   height: 33,

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:tikiti/signup.dart';
 
 // ... other imports for your app
 
@@ -80,13 +81,21 @@ class AndroidLarge1 extends StatelessWidget {
               Positioned(
                 left: 48,
                 top: 320,
-                child: Container(
-                  width: 248,
-                  height: 40,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFFFF3E01),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignupPage()),
+                    );
+                  },
+                  child: Container(
+                    width: 248,
+                    height: 40,
+                    decoration: ShapeDecoration(
+                      color: Color(0xFFFF3E01),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
                 ),

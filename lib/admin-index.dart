@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tikiti/add-event.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -67,7 +68,7 @@ class Home extends StatelessWidget {
                   height: 31,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/61x31"),
+                      image: AssetImage("assets/Menu.png"),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -151,7 +152,7 @@ class Home extends StatelessWidget {
                   height: 75,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/107x75"),
+                      image: AssetImage("assets/Rectangle 97.png"),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -191,7 +192,7 @@ class Home extends StatelessWidget {
                   height: 75,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/107x75"),
+                     image: AssetImage("assets/Rectangle 97.png"),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -248,7 +249,7 @@ class Home extends StatelessWidget {
                   height: 75,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/107x75"),
+                      image: AssetImage("assets/Rectangle 97.png"),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -300,20 +301,28 @@ class Home extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+                Positioned(
                 left: 257,
                 top: 693,
-                child: Container(
+                child: GestureDetector(
+                  onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddEvent()),
+                  );
+                  },
+                  child: Container(
                   width: 75,
                   height: 75,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/75x75"),
-                      fit: BoxFit.contain,
+                    image: AssetImage("assets/Add (1).png"),
+                    fit: BoxFit.contain,
                     ),
                   ),
+                  ),
                 ),
-              ),
+                ),
             ],
           ),
         ),
