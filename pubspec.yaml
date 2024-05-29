@@ -66,6 +66,14 @@ flutter:
     - assets/Add (1).png
     - assets/Menu.png
     - assets/Rectangle 97.png
+    - assets/Expand Arrow.png
+    - assets/Time.png
+    - assets/Calendar Plus.png
+    - assets/Events.png
+    - assets/People.png
+    - assets/Profile.png
+    - assets/Logout.png
+    - assets/User.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

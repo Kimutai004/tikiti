@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:tikiti/signup.dart';
+import 'package:tikiti/login.dart';
 
 // ... other imports for your app
 
@@ -214,15 +215,23 @@ class AndroidLarge1 extends StatelessWidget {
               Positioned(
                 left: 48,
                 top: 500,
-                child: Text(
-                  'I have bought Tickets, but I do not have an account',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF1CA2F9),
-                    fontSize: 10,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w600,
-                    height: 0,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+                  },
+                  child: Text(
+                    'Have an Account, Click here to Login',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF1CA2F9),
+                      fontSize: 10,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      height: 0,
+                    ),
                   ),
                 ),
               ),

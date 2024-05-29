@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tikiti/event-desc.dart';
+import 'package:tikiti/menu.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -27,8 +28,242 @@ class FigmaToCodeApp extends StatelessWidget {
 class AddEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Event'),
+        backgroundColor: Color(0xFF706E6E),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            Container(
+              width: 360,
+              height: 800,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(color: Colors.white),
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      width: 236,
+                      height: 800,
+                      decoration: BoxDecoration(color: Color(0xFF626262)),
+                    ),
+                  ),
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      width: 236,
+                      height: 154,
+                      decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
+                    ),
+                  ),
+                  Positioned(
+                    left: 74,
+                    top: 185,
+                    child: SizedBox(
+                      width: 49,
+                      child: Text(
+                        'Events',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 74,
+                    top: 231,
+                    child: SizedBox(
+                      width: 98,
+                      child: Text(
+                        'Create Event',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 74,
+                    top: 277,
+                    child: SizedBox(
+                      width: 98,
+                      child: Text(
+                        'Attendees',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 74,
+                    top: 323,
+                    child: SizedBox(
+                      width: 98,
+                      child: Text(
+                        'Profile',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 74,
+                    top: 415,
+                    child: SizedBox(
+                      width: 98,
+                      child: Text(
+                        'LogOut',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 178,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Events.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 224,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Events.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 270,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/People.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 316,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Profile.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 408,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Logout.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 84,
+                    top: 23,
+                    child: Container(
+                      width: 88,
+                      height: 87,
+                      decoration: ShapeDecoration(
+                        color: Color(0xFFD9D9D9),
+                        shape: OvalBorder(),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 91,
+                    top: 30,
+                    child: Container(
+                      width: 74,
+                      height: 74,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/User.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 91,
+                    top: 115,
+                    child: Text(
+                      'Parody',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: ListView(
+        children: [
         Container(
           width: 360,
           height: 831,
@@ -60,20 +295,7 @@ class AddEvent extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                left: 0,
-                top: 13,
-                child: Container(
-                  width: 61,
-                  height: 31,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/Menu.png"),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ),
+                
               Positioned(
                 left: 0,
                 top: 63,
@@ -477,7 +699,7 @@ class AddEvent extends StatelessWidget {
                   height: 30,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/30x30"),
+                      image: AssetImage("assets/Expand Arrow.png"),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -491,7 +713,7 @@ class AddEvent extends StatelessWidget {
                   height: 30,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/30x30"),
+                      image: AssetImage("assets/Time.png"),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -505,7 +727,7 @@ class AddEvent extends StatelessWidget {
                   height: 30,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/30x30"),
+                      image: AssetImage("assets/Time.png"),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -515,6 +737,8 @@ class AddEvent extends StatelessWidget {
           ),
         ),
       ],
+      ),
     );
+  
   }
 }

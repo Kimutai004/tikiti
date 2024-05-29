@@ -15,11 +15,7 @@ class FigmaToCodeApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
-      home: Scaffold(
-        body: ListView(children: [
-          Home(),
-        ]),
-      ),
+      home: Home(),
     );
   }
 }
@@ -27,306 +23,504 @@ class FigmaToCodeApp extends StatelessWidget {
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 360,
-          height: 800,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Stack(
-            children: [
-              Positioned(
-                left: 0,
-                top: 0,
-                child: Container(
-                  width: 360,
-                  height: 63,
-                  decoration: BoxDecoration(color: Color(0xFF706E6E)),
-                ),
-              ),
-              Positioned(
-                left: 95,
-                top: 19,
-                child: Text(
-                  'Events',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontFamily: 'Kavoon',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Events'),
+        backgroundColor: Color(0xFF706E6E),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            Container(
+              width: 360,
+              height: 800,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(color: Colors.white),
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      width: 236,
+                      height: 800,
+                      decoration: BoxDecoration(color: Color(0xFF626262)),
+                    ),
                   ),
-                ),
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      width: 236,
+                      height: 154,
+                      decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
+                    ),
+                  ),
+                  Positioned(
+                    left: 74,
+                    top: 185,
+                    child: SizedBox(
+                      width: 49,
+                      child: Text(
+                        'Events',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 74,
+                    top: 231,
+                    child: SizedBox(
+                      width: 98,
+                      child: Text(
+                        'Create Event',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 74,
+                    top: 277,
+                    child: SizedBox(
+                      width: 98,
+                      child: Text(
+                        'Attendees',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 74,
+                    top: 323,
+                    child: SizedBox(
+                      width: 98,
+                      child: Text(
+                        'Profile',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 74,
+                    top: 415,
+                    child: SizedBox(
+                      width: 98,
+                      child: Text(
+                        'LogOut',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 178,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Events.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 224,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Calendar Plus.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 270,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("People.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 316,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Profile.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 408,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/LogOut.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 84,
+                    top: 23,
+                    child: Container(
+                      width: 88,
+                      height: 87,
+                      decoration: ShapeDecoration(
+                        color: Color(0xFFD9D9D9),
+                        shape: OvalBorder(),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 91,
+                    top: 30,
+                    child: Container(
+                      width: 74,
+                      height: 74,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/User.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 91,
+                    top: 115,
+                    child: Text(
+                      'Parody',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Positioned(
-                left: 0,
-                top: 13,
-                child: Container(
-                  width: 61,
-                  height: 31,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/Menu.png"),
-                      fit: BoxFit.contain,
+            ),
+          ],
+        ),
+      ),
+      body: ListView(
+        children: [
+          Container(
+            width: 360,
+            height: 800,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(color: Colors.white),
+            child: Stack(
+              children: [
+                
+                Positioned(
+                  left: 37,
+                  top: 50,
+                  child: Text(
+                    'Live',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                      height: 1,
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                left: 37,
-                top: 94,
-                child: Text(
-                  'Live',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
+                Positioned(
+                  left: 274,
+                  top: 50,
+                  child: Text(
+                    'Past',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                      height: 1,
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                left: 274,
-                top: 94,
-                child: Text(
-                  'Past',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
+                Positioned(
+                  left: 139,
+                  top: 50,
+                  child: Text(
+                    'Upcoming',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                      height: 1,
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                left: 139,
-                top: 94,
-                child: Text(
-                  'Upcoming',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 14,
-                top: 120,
-                child: Container(
-                  width: 81.50,
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        strokeAlign: BorderSide.strokeAlignCenter,
-                        color: Color(0xFFFF3E01),
+                Positioned(
+                  left: 14,
+                  top: 76,
+                  child: Container(
+                    width: 81.50,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          strokeAlign: BorderSide.strokeAlignCenter,
+                          color: Color(0xFFFF3E01),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                left: 14,
-                top: 131,
-                child: Container(
-                  width: 324,
-                  height: 75,
-                  decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
-                ),
-              ),
-              Positioned(
-                left: 14,
-                top: 131,
-                child: Container(
-                  width: 107,
-                  height: 75,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/Rectangle 97.png"),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 139,
-                top: 169,
-                child: SizedBox(
-                  width: 177,
-                  child: Text(
-                    'Sat 25 may 2024, 1500hrs - 2100hrs',
-                    style: TextStyle(
-                      color: Color(0xFFFF3D00),
-                      fontSize: 12,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 14,
-                top: 217,
-                child: Container(
-                  width: 324,
-                  height: 75,
-                  decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
-                ),
-              ),
-              Positioned(
-                left: 14,
-                top: 217,
-                child: Container(
-                  width: 107,
-                  height: 75,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                     image: AssetImage("assets/Rectangle 97.png"),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 139,
-                top: 229,
-                child: SizedBox(
-                  width: 183,
-                  child: Text(
-                    'Kitchen Cooking Competition',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 139,
-                top: 255,
-                child: SizedBox(
-                  width: 177,
-                  child: Text(
-                    'Sat 25 may 2024, 1500hrs - 2100hrs',
-                    style: TextStyle(
-                      color: Color(0xFFFF3D00),
-                      fontSize: 12,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 15,
-                top: 303,
-                child: Container(
-                  width: 324,
-                  height: 75,
-                  decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
-                ),
-              ),
-              Positioned(
-                left: 15,
-                top: 303,
-                child: Container(
-                  width: 107,
-                  height: 75,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/Rectangle 97.png"),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 140,
-                top: 315,
-                child: SizedBox(
-                  width: 183,
-                  child: Text(
-                    'Kitchen Cooking Competition',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 140,
-                top: 341,
-                child: SizedBox(
-                  width: 177,
-                  child: Text(
-                    'Sat 25 may 2024, 1500hrs - 2100hrs',
-                    style: TextStyle(
-                      color: Color(0xFFFF3D00),
-                      fontSize: 12,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 257,
-                top: 693,
-                child: Container(
-                  width: 75,
-                  height: 75,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFF706E6E),
-                    shape: OvalBorder(),
-                  ),
-                ),
-              ),
                 Positioned(
-                left: 257,
-                top: 693,
-                child: GestureDetector(
-                  onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddEvent()),
-                  );
-                  },
+                  left: 14,
+                  top: 131,
                   child: Container(
-                  width: 75,
-                  height: 75,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                    image: AssetImage("assets/Add (1).png"),
-                    fit: BoxFit.contain,
+                    width: 324,
+                    height: 75,
+                    decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
+                  ),
+                ),
+                Positioned(
+                  left: 14,
+                  top: 131,
+                  child: Container(
+                    width: 107,
+                    height: 75,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/Rectangle 97.png"),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
+                ),
+                Positioned(
+                  left: 139,
+                  top: 169,
+                  child: SizedBox(
+                    width: 177,
+                    child: Text(
+                      'Sat 25 may 2024, 1500hrs - 2100hrs',
+                      style: TextStyle(
+                        color: Color(0xFFFF3D00),
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 1,
+                      ),
+                    ),
                   ),
                 ),
+                Positioned(
+                  left: 14,
+                  top: 217,
+                  child: Container(
+                    width: 324,
+                    height: 75,
+                    decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
+                  ),
                 ),
-            ],
+                Positioned(
+                  left: 14,
+                  top: 217,
+                  child: Container(
+                    width: 107,
+                    height: 75,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/Rectangle 97.png"),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 139,
+                  top: 229,
+                  child: SizedBox(
+                    width: 183,
+                    child: Text(
+                      'Kitchen Cooking Competition',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Kavoon',
+                        fontWeight: FontWeight.w400,
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 139,
+                  top: 255,
+                  child: SizedBox(
+                    width: 177,
+                    child: Text(
+                      'Sat 25 may 2024, 1500hrs - 2100hrs',
+                      style: TextStyle(
+                        color: Color(0xFFFF3D00),
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 15,
+                  top: 303,
+                  child: Container(
+                    width: 324,
+                    height: 75,
+                    decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
+                  ),
+                ),
+                Positioned(
+                  left: 15,
+                  top: 303,
+                  child: Container(
+                    width: 107,
+                    height: 75,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/Rectangle 97.png"),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 140,
+                  top: 315,
+                  child: SizedBox(
+                    width: 183,
+                    child: Text(
+                      'Kitchen Cooking Competition',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Kavoon',
+                        fontWeight: FontWeight.w400,
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 140,
+                  top: 341,
+                  child: SizedBox(
+                    width: 177,
+                    child: Text(
+                      'Sat 25 may 2024, 1500hrs - 2100hrs',
+                      style: TextStyle(
+                        color: Color(0xFFFF3D00),
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 257,
+                  top: 693,
+                  child: Container(
+                    width: 75,
+                    height: 75,
+                    decoration: ShapeDecoration(
+                      color: Color(0xFF706E6E),
+                      shape: OvalBorder(),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 257,
+                  top: 693,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddEvent()),
+                      );
+                    },
+                    child: Container(
+                      width: 75,
+                      height: 75,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Add (1).png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
