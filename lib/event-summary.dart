@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tikiti/Event-tickets.dart';
+import 'package:tikiti/add-event.dart';
+import 'package:tikiti/admin-index.dart';
+import 'package:tikiti/login.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -31,240 +35,266 @@ class EventSummary extends StatelessWidget {
           title: const Text('Events Summary'),
         ),
         drawer: Drawer(
-          child: Column(
-            children: [
-              Container(
-                width: 360,
-                height: 800,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(color: Colors.white),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 0,
-                      top: 0,
-                      child: Container(
-                        width: 236,
-                        height: 800,
-                        decoration: BoxDecoration(color: Color(0xFF626262)),
-                      ),
+        child: Column(
+          children: [
+            Container(
+              width: 360,
+              height: 800,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(color: Colors.white),
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      width: 236,
+                      height: 800,
+                      decoration: BoxDecoration(color: Color(0xFF626262)),
                     ),
-                    Positioned(
-                      left: 0,
-                      top: 0,
-                      child: Container(
-                        width: 236,
-                        height: 154,
-                        decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
-                      ),
+                  ),
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      width: 236,
+                      height: 154,
+                      decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
                     ),
+                  ),
                     Positioned(
-                      left: 74,
-                      top: 185,
+                    left: 74,
+                    top: 185,
+                    child: GestureDetector(
+                      onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                      },
                       child: SizedBox(
-                        width: 49,
-                        child: Text(
-                          'Events',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                          ),
+                      width: 49,
+                      child: Text(
+                        'Events',
+                        style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
                         ),
                       ),
+                      ),
+                    ),
                     ),
                     Positioned(
-                      left: 74,
-                      top: 231,
+                    left: 74,
+                    top: 231,
+                    child: GestureDetector(
+                      onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddEvent()),
+                      );
+                      },
                       child: SizedBox(
-                        width: 98,
-                        child: Text(
-                          'Create Event',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                          ),
+                      width: 98,
+                      child: Text(
+                        'Create Event',
+                        style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
                         ),
                       ),
+                      ),
+                    ),
                     ),
                     Positioned(
                       left: 74,
                       top: 277,
-                      child: SizedBox(
-                        width: 98,
-                        child: Text(
-                          'Attendees',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Ticket()),
+                          );
+                        },
+                        child: SizedBox(
+                          width: 98,
+                          child: Text(
+                            'Attendees',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w700,
+                              height: 1,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    Positioned(
-                      left: 74,
-                      top: 323,
-                      child: SizedBox(
-                        width: 98,
-                        child: Text(
-                          'Profile',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 74,
-                      top: 415,
-                      child: SizedBox(
-                        width: 98,
-                        child: Text(
-                          'LogOut',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 23,
-                      top: 178,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/Events.png"),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 23,
-                      top: 224,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/Calendar Plus.png"),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 23,
-                      top: 270,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/People.png"),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 23,
-                      top: 316,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/Profile.png"),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 23,
-                      top: 408,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "Assets/LogOut.png"),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 84,
-                      top: 23,
-                      child: Container(
-                        width: 88,
-                        height: 87,
-                        decoration: ShapeDecoration(
-                          color: Color(0xFFD9D9D9),
-                          shape: OvalBorder(),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 91,
-                      top: 30,
-                      child: Container(
-                        width: 74,
-                        height: 74,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/User.png"),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 91,
-                      top: 115,
+                  Positioned(
+                    left: 74,
+                    top: 323,
+                    child: SizedBox(
+                      width: 98,
                       child: Text(
-                        'Parody',
+                        'Profile',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: 12,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w700,
                           height: 1,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                    Positioned(
+                    left: 74,
+                    top: 415,
+                    child: GestureDetector(
+                      onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      );
+                      },
+                      child: SizedBox(
+                      width: 98,
+                      child: Text(
+                        'LogOut',
+                        style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
+                        ),
+                      ),
+                      ),
+                    ),
+                    ),
+                  Positioned(
+                    left: 23,
+                    top: 178,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Events.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 224,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Events.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 270,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/People.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 316,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Profile.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 23,
+                    top: 408,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Logout.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 84,
+                    top: 23,
+                    child: Container(
+                      width: 88,
+                      height: 87,
+                      decoration: ShapeDecoration(
+                        color: Color(0xFFD9D9D9),
+                        shape: OvalBorder(),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 91,
+                    top: 30,
+                    child: Container(
+                      width: 74,
+                      height: 74,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/User.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 91,
+                    top: 115,
+                    child: Text(
+                      'Parody',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
         body: ListView(
           children: [
             Container(

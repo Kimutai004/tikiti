@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tikiti/Event-tickets.dart';
+import 'package:tikiti/admin-index.dart';
 import 'package:tikiti/event-desc.dart';
+import 'package:tikiti/login.dart';
 import 'package:tikiti/menu.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -61,57 +65,81 @@ class AddEvent extends StatelessWidget {
                       decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
                     ),
                   ),
-                  Positioned(
+                    Positioned(
                     left: 74,
                     top: 185,
-                    child: SizedBox(
+                    child: GestureDetector(
+                      onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                      },
+                      child: SizedBox(
                       width: 49,
                       child: Text(
                         'Events',
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1,
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
                         ),
                       ),
+                      ),
                     ),
-                  ),
-                  Positioned(
+                    ),
+                    Positioned(
                     left: 74,
                     top: 231,
-                    child: SizedBox(
+                    child: GestureDetector(
+                      onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddEvent()),
+                      );
+                      },
+                      child: SizedBox(
                       width: 98,
                       child: Text(
                         'Create Event',
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1,
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
+                        ),
+                      ),
+                      ),
+                    ),
+                    ),
+                    Positioned(
+                      left: 74,
+                      top: 277,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Ticket()),
+                          );
+                        },
+                        child: SizedBox(
+                          width: 98,
+                          child: Text(
+                            'Attendees',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w700,
+                              height: 1,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    left: 74,
-                    top: 277,
-                    child: SizedBox(
-                      width: 98,
-                      child: Text(
-                        'Attendees',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1,
-                        ),
-                      ),
-                    ),
-                  ),
                   Positioned(
                     left: 74,
                     top: 323,
@@ -129,23 +157,31 @@ class AddEvent extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                    Positioned(
                     left: 74,
                     top: 415,
-                    child: SizedBox(
+                    child: GestureDetector(
+                      onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      );
+                      },
+                      child: SizedBox(
                       width: 98,
                       child: Text(
                         'LogOut',
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1,
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
                         ),
                       ),
+                      ),
                     ),
-                  ),
+                    ),
                   Positioned(
                     left: 23,
                     top: 178,
@@ -265,7 +301,7 @@ class AddEvent extends StatelessWidget {
       body: ListView(
         children: [
         Container(
-          width: 360,
+          width: 600,
           height: 831,
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(color: Color(0xFFFBFBFB)),
@@ -276,53 +312,37 @@ class AddEvent extends StatelessWidget {
                 top: 0,
                 child: Container(
                   width: 360,
-                  height: 63,
-                  decoration: BoxDecoration(color: Color(0xFF706E6E)),
-                ),
-              ),
-              Positioned(
-                left: 95,
-                top: 19,
-                child: Text(
-                  'Events',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontFamily: 'Kavoon',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                ),
-              ),
-                
-              Positioned(
-                left: 0,
-                top: 63,
-                child: Container(
-                  width: 360,
                   height: 150,
                   decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
                 ),
               ),
-              Positioned(
+                Positioned(
                 left: 0,
-                top: 63,
-                child: Container(
+                top: 0,
+                child: GestureDetector(
+                  onTap: () async* {
+                    // TODO: Implement image picker logic here
+                    final ImagePicker picker = ImagePicker();
+                      // Pick an image.
+                      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+                      // Capture a photo.
+                      final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+                  },
+                  child: Container(
                   width: 360,
                   height: 150,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image:
-                          NetworkImage("https://via.placeholder.com/360x150"),
-                      fit: BoxFit.fill,
+                    image: AssetImage("assets/placeholder.png"),
+                    fit: BoxFit.fill,
                     ),
                   ),
+                  ),
                 ),
-              ),
+                ),
               Positioned(
                 left: 14,
-                top: 235,
+                top: 200,
                 child: Text(
                   'Event Title',
                   textAlign: TextAlign.center,
@@ -337,7 +357,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 14,
-                top: 300,
+                top: 265,
                 child: Text(
                   'Event Description',
                   textAlign: TextAlign.center,
@@ -352,7 +372,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 25,
-                top: 471,
+                top: 446,
                 child: Text(
                   'Location',
                   textAlign: TextAlign.center,
@@ -367,7 +387,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 25,
-                top: 576,
+                top: 541,
                 child: Text(
                   'Event Type',
                   textAlign: TextAlign.center,
@@ -382,7 +402,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 25,
-                top: 675,
+                top: 640,
                 child: Text(
                   'Tickets',
                   textAlign: TextAlign.center,
@@ -397,7 +417,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 31,
-                top: 376,
+                top: 341,
                 child: Text(
                   'Start',
                   textAlign: TextAlign.center,
@@ -412,7 +432,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 185,
-                top: 376,
+                top: 341,
                 child: Text(
                   'Ends',
                   textAlign: TextAlign.center,
@@ -425,54 +445,80 @@ class AddEvent extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+                Positioned(
                 left: 107,
-                top: 225,
+                top: 190,
                 child: Container(
                   width: 191,
                   height: 37,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
+                  child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(width: 1),
                     ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
                   ),
                 ),
-              ),
-              Positioned(
+                ),
+                Positioned(
                 left: 32,
-                top: 328,
+                top: 293,
                 child: Container(
                   width: 284,
                   height: 37,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
+                  child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(width: 1),
                     ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
                   ),
                 ),
-              ),
-              Positioned(
-                left: 25,
-                top: 616,
-                child: Container(
+                ),
+                Positioned(
+                  left: 25,
+                  top: 581,
+                  child: Container(
                   width: 284,
                   height: 37,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
+                  child: DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                    border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(width: 1),
                     ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    ),
+                    items: [
+                    DropdownMenuItem(
+                      value: 'Option 1',
+                      child: Text('Option 1'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Option 2',
+                      child: Text('Option 2'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Option 3',
+                      child: Text('Option 3'),
+                    ),
+                    ],
+                    onChanged: (value) {
+                    // Handle dropdown value change
+                    },
+                  ),
                   ),
                 ),
-              ),
               Positioned(
                 left: 35,
-                top: 414,
+                top: 379,
                 child: Container(
                   width: 125,
                   height: 37,
@@ -487,7 +533,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 25,
-                top: 514,
+                top: 476,
                 child: Container(
                   width: 125,
                   height: 37,
@@ -502,7 +548,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 176,
-                top: 514,
+                top: 476,
                 child: Container(
                   width: 125,
                   height: 37,
@@ -515,24 +561,27 @@ class AddEvent extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+                Positioned(
                 left: 14,
-                top: 705,
+                top: 670,
                 child: Container(
                   width: 93,
                   height: 37,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
+                  child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(width: 1),
                     ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
                   ),
                 ),
-              ),
+                ),
               Positioned(
                 left: 136,
-                top: 705,
+                top: 670,
                 child: Container(
                   width: 93,
                   height: 37,
@@ -547,7 +596,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 254,
-                top: 705,
+                top: 670,
                 child: Container(
                   width: 93,
                   height: 37,
@@ -562,7 +611,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 191,
-                top: 414,
+                top: 379,
                 child: Container(
                   width: 125,
                   height: 37,
@@ -577,7 +626,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 31,
-                top: 716,
+                top: 681,
                 child: Text(
                   'Early Bird',
                   textAlign: TextAlign.center,
@@ -592,7 +641,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 68,
-                top: 527,
+                top: 492,
                 child: Text(
                   'Online',
                   textAlign: TextAlign.center,
@@ -607,7 +656,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 213,
-                top: 524,
+                top: 492,
                 child: Text(
                   'Physical',
                   textAlign: TextAlign.center,
@@ -622,7 +671,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 156,
-                top: 716,
+                top: 679,
                 child: Text(
                   'Regular',
                   textAlign: TextAlign.center,
@@ -637,7 +686,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 289,
-                top: 716,
+                top: 679,
                 child: Text(
                   'VIP',
                   textAlign: TextAlign.center,
@@ -652,7 +701,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 35,
-                top: 776,
+                top: 741,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -674,7 +723,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 35,
-                top: 790,
+                top: 745,
                 child: SizedBox(
                   width: 273,
                   height: 33,
@@ -693,7 +742,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 268,
-                top: 620,
+                top: 585,
                 child: Container(
                   width: 30,
                   height: 30,
@@ -707,7 +756,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 120,
-                top: 418,
+                top: 383,
                 child: Container(
                   width: 30,
                   height: 30,
@@ -721,7 +770,7 @@ class AddEvent extends StatelessWidget {
               ),
               Positioned(
                 left: 278,
-                top: 416,
+                top: 383,
                 child: Container(
                   width: 30,
                   height: 30,

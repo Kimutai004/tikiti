@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/add-event.dart';
+import 'package:tikiti/login.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -56,57 +58,81 @@ class Home extends StatelessWidget {
                       decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
                     ),
                   ),
-                  Positioned(
+                    Positioned(
                     left: 74,
                     top: 185,
-                    child: SizedBox(
+                    child: GestureDetector(
+                      onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                      },
+                      child: SizedBox(
                       width: 49,
                       child: Text(
                         'Events',
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1,
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
                         ),
                       ),
+                      ),
                     ),
-                  ),
-                  Positioned(
+                    ),
+                    Positioned(
                     left: 74,
                     top: 231,
-                    child: SizedBox(
+                    child: GestureDetector(
+                      onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddEvent()),
+                      );
+                      },
+                      child: SizedBox(
                       width: 98,
                       child: Text(
                         'Create Event',
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1,
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
+                        ),
+                      ),
+                      ),
+                    ),
+                    ),
+                    Positioned(
+                      left: 74,
+                      top: 277,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Ticket()),
+                          );
+                        },
+                        child: SizedBox(
+                          width: 98,
+                          child: Text(
+                            'Attendees',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w700,
+                              height: 1,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    left: 74,
-                    top: 277,
-                    child: SizedBox(
-                      width: 98,
-                      child: Text(
-                        'Attendees',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1,
-                        ),
-                      ),
-                    ),
-                  ),
                   Positioned(
                     left: 74,
                     top: 323,
@@ -124,23 +150,31 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                    Positioned(
                     left: 74,
                     top: 415,
-                    child: SizedBox(
+                    child: GestureDetector(
+                      onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      );
+                      },
+                      child: SizedBox(
                       width: 98,
                       child: Text(
                         'LogOut',
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1,
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 1,
                         ),
                       ),
+                      ),
                     ),
-                  ),
+                    ),
                   Positioned(
                     left: 23,
                     top: 178,
@@ -163,7 +197,7 @@ class Home extends StatelessWidget {
                       height: 30,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/Calendar Plus.png"),
+                          image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -177,7 +211,7 @@ class Home extends StatelessWidget {
                       height: 30,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("People.png"),
+                          image: AssetImage("assets/People.png"),
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -205,7 +239,7 @@ class Home extends StatelessWidget {
                       height: 30,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/LogOut.png"),
+                          image: AssetImage("assets/Logout.png"),
                           fit: BoxFit.contain,
                         ),
                       ),

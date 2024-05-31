@@ -46,7 +46,7 @@ android {
         applicationId "com.example.tikiti"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -67,6 +67,7 @@ flutter {
 
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:33.0.0')
+    implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-analytics'// Replace with the latest version (check pub.dev)// Replace with the latest version (check pub.dev)
 
 

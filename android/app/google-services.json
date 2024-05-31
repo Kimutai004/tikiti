@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "47643058336",
+    "firebase_url": "https://tikiti-efbd5-default-rtdb.firebaseio.com",
     "project_id": "tikiti-efbd5",
     "storage_bucket": "tikiti-efbd5.appspot.com"
   },
@@ -12,7 +13,6 @@
           "package_name": "com.example.tikiti"
         }
       },
-      
       "oauth_client": [],
       "api_key": [
         {
