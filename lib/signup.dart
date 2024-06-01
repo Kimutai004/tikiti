@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:tikiti/index.dart';
 import 'admin-index.dart'; // Assuming you have a Home widget in home.dart
 
 class SignupPage extends StatefulWidget {
@@ -48,13 +49,19 @@ class _SignupPageState extends State<SignupPage> {
                         email: _emailController.text, // Use _emailController
                         password:
                             _passwordController.text, // Use _passwordController
-                      )
-                          .then((value) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Home()),
-                        );
-                      }).catchError((onError) {
+                      ).then((value) {
+                          if (_dropdownValue == 'Organiser') {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Home()),
+                              );
+                            } else {
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Index()),
+                              );
+                            }
+                          }).catchError((onError) {
                         print(onError);
                       });
                     },
