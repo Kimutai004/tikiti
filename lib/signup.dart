@@ -9,9 +9,20 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  TextEditingController _emailController = TextEditingController(); // Define _emailController
-  TextEditingController _passwordController = TextEditingController(); // Define _passwordController
- 
+  TextEditingController _emailController =
+      TextEditingController(); // Define _emailController
+  TextEditingController _passwordController =
+      TextEditingController(); // Define _passwordController
+
+  void dropdownCallback(String SelectedValue) {
+  if (SelectedValue is String) {
+    setState(() {
+      _dropdownValue = SelectedValue;
+    });
+  }
+  }
+
+  String _dropdownValue = 'Organiser'; // Initial dropdown value
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,19 +35,20 @@ class _SignupPageState extends State<SignupPage> {
             width: 360,
             height: 800,
             clipBehavior: Clip.antiAlias,
-            decoration: const BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(color: Color(0xFFF5F5F5)),
             child: Stack(
               children: [
                 Positioned(
                   left: 56,
-                  top: 634,
+                  top: 700,
                   child: GestureDetector(
                     onTap: () {
                       FirebaseAuth.instance
                           .createUserWithEmailAndPassword(
-                            email: _emailController.text, // Use _emailController
-                            password: _passwordController.text, // Use _passwordController
-                          )
+                        email: _emailController.text, // Use _emailController
+                        password:
+                            _passwordController.text, // Use _passwordController
+                      )
                           .then((value) {
                         Navigator.push(
                           context,
@@ -65,16 +77,19 @@ class _SignupPageState extends State<SignupPage> {
                     width: 248,
                     height: 42,
                     decoration: const BoxDecoration(
-                      color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       ),
                     ),
                     child: TextField(
-                      controller: _emailController, // Use _emailController
+                      controller: _emailController,
+                      style: TextStyle(
+                          color: Colors.black,
+                        ), // Use _emailController
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Enter your text',
+                        
                       ),
                     ),
                   ),
@@ -93,6 +108,9 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     child: TextField(
                       controller: _passwordController, // Use _passwordController
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Enter your text',
@@ -113,6 +131,9 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                     child: TextField(
+                      style: TextStyle(
+                          color: Colors.black,
+                        ),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Enter your text',
@@ -147,6 +168,9 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                     child: TextField(
+                      style: TextStyle(
+                          color: Colors.black,
+                        ),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Enter your text',
@@ -198,7 +222,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 Positioned(
                   left: 72,
-                  top: 566,
+                  top: 648,
                   child: GestureDetector(
                     onTap: () {
                       // Handle checkbox click event here
@@ -219,9 +243,76 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                 ),
+                Positioned(
+                  left: 45,
+                  top: 560,
+                  child: Text(
+                    'Account Type',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontFamily: 'Kaisei Decol',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 52,
+                  top: 590,
+                  
+                  child: Container(
+                    width: 248,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.7799999713897705),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border(
+                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                      ),
+                    ),
+                    
+                    child: DropdownButton<String>(
+                      value: _dropdownValue,
+                      style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      items: [
+                      DropdownMenuItem(
+                        value: "Organiser",
+                        child: Text("Organiser"),
+                        
+                      ),
+                      DropdownMenuItem(
+                        value: "Participant",
+                        child: Text("Participant"),
+                      ),
+                      ],
+                      onChanged: (String? value) {
+                      setState(() {
+                        _dropdownValue = value!;
+                      });
+                      },
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 265,
+                  top: 600,
+                  child: Container(
+                    width: 25,
+                    height: 25,
+                    decoration: BoxDecoration(
+                      image: const DecorationImage(
+                        image: AssetImage("assets/Expand Arrow.png"),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
                 const Positioned(
                   left: 113,
-                  top: 572,
+                  top: 650,
                   child: Text(
                     'Keep Me signed In',
                     style: TextStyle(
@@ -235,7 +326,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 Positioned(
                   left: 164,
-                  top: 648,
+                  top: 715,
                   child: Text(
                     'SignUp',
                     textAlign: TextAlign.center,
@@ -248,7 +339,6 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                 ),
-                
               ],
             ),
           ),
