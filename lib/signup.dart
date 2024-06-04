@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:tikiti/index.dart';
 import 'admin-index.dart'; // Assuming you have a Home widget in home.dart
 

@@ -3,7 +3,7 @@ import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/add-event.dart';
 import 'package:tikiti/admin-index.dart';
 import 'package:tikiti/login.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -321,9 +321,9 @@ class EventDets extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () async {
                       try {
-                        DatabaseReference ref =
-                            FirebaseDatabase.instance.ref("events");
-                        await ref.push().set({
+                        // Get a reference to the "events" collection
+                        CollectionReference eventsCollection = FirebaseFirestore.instance.collection('events');
+                        DocumentReference newEventRef = await eventsCollection.add({
                           'early_tickets': _earlyticketscontroller.text,
                           'early_price': _earlypricecontroller.text,
                           'reg_tickets': _regticketscontroller.text,
@@ -334,6 +334,7 @@ class EventDets extends StatelessWidget {
                           'online_link': _onlinecontroller.text,
                           'location': _locationcontroller.text,
                         });
+                        
                         print('Data sent successfully');
                       } catch (e) {
                         print('Error sending data: $e');
