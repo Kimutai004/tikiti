@@ -446,13 +446,16 @@ class AddEvent extends StatelessWidget {
                   width: 250,
                   height: 37,
                   child: TextField(
+                  style: TextStyle(
+                  color: Colors.black,
+                  ),
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(width: 1),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(width: 1),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
                   ),
                   ),
                 ),
@@ -464,13 +467,16 @@ class AddEvent extends StatelessWidget {
                   width: 284,
                   height: 37,
                   child: TextField(
+                  style: TextStyle(
+                  color: Colors.black,
+                  ),
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(width: 1),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(width: 1),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
                   ),
                   ),
                 ),
