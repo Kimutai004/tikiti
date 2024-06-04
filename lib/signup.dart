@@ -31,12 +31,14 @@ class _SignupPageState extends State<SignupPage> {
         title: const Text('Sign Up'),
       ),
       body: ListView(
+      
         children: [
+
           Container(
             width: 360,
             height: 800,
             clipBehavior: Clip.antiAlias,
-            decoration: const BoxDecoration(color: Color(0xFFF5F5F5)),
+            decoration: const BoxDecoration(color: Color.fromARGB(255, 234, 218, 218)),
             child: Stack(
               children: [
                 Positioned(
@@ -66,7 +68,7 @@ class _SignupPageState extends State<SignupPage> {
                       });
                     },
                     child: Container(
-                      width: 248,
+                      width: 300,
                       height: 40,
                       decoration: ShapeDecoration(
                         color: const Color(0xFFFF3E01),
@@ -81,19 +83,20 @@ class _SignupPageState extends State<SignupPage> {
                   left: 59,
                   top: 207,
                   child: Container(
-                    width: 248,
+                    width: 300,
                     height: 42,
                     decoration: const BoxDecoration(
+                      color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       ),
                     ),
                     child: TextField(
                       controller: _emailController,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.black,
                         ), // Use _emailController
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Enter your text',
                         
@@ -105,7 +108,7 @@ class _SignupPageState extends State<SignupPage> {
                   left: 59,
                   top: 396,
                   child: Container(
-                    width: 248,
+                    width: 300,
                     height: 42,
                     decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
@@ -115,10 +118,10 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     child: TextField(
                       controller: _passwordController, // Use _passwordController
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Enter your text',
                       ),
@@ -129,15 +132,15 @@ class _SignupPageState extends State<SignupPage> {
                   left: 59,
                   top: 496,
                   child: Container(
-                    width: 248,
+                    width: 300,
                     height: 42,
                     decoration: const BoxDecoration(
-                      color: Color(0xC6F6F6F6),
+                      color: Color.fromARGB(140, 246, 246, 246),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       ),
                     ),
-                    child: TextField(
+                    child: const TextField(
                       style: TextStyle(
                           color: Colors.black,
                         ),
@@ -166,7 +169,7 @@ class _SignupPageState extends State<SignupPage> {
                   left: 56,
                   top: 301,
                   child: Container(
-                    width: 248,
+                    width: 300,
                     height: 42,
                     decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
@@ -174,7 +177,7 @@ class _SignupPageState extends State<SignupPage> {
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       ),
                     ),
-                    child: TextField(
+                    child: const TextField(
                       style: TextStyle(
                           color: Colors.black,
                         ),
@@ -238,11 +241,11 @@ class _SignupPageState extends State<SignupPage> {
                       width: 25,
                       height: 25,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(
+                        color: const Color.fromARGB(
                             245, 255, 85, 0), // Set initial color to orange
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.check,
                         color: Colors.white,
                         size: 20,
@@ -250,7 +253,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 45,
                   top: 560,
                   child: Text(
@@ -267,30 +270,29 @@ class _SignupPageState extends State<SignupPage> {
                 Positioned(
                   left: 52,
                   top: 590,
-                  
                   child: Container(
-                    width: 248,
+                    width: 300,
                     height: 42,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.7799999713897705),
+                      color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.7799999713897705),
                       borderRadius: BorderRadius.circular(10),
-                      border: Border(
+                      border: const Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       ),
                     ),
                     
                     child: DropdownButton<String>(
                       value: _dropdownValue,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.black,
                         ),
                       items: [
-                      DropdownMenuItem(
+                       DropdownMenuItem(
                         value: "Organiser",
                         child: Text("Organiser"),
                         
                       ),
-                      DropdownMenuItem(
+                      const DropdownMenuItem(
                         value: "Participant",
                         child: Text("Participant"),
                       ),
@@ -304,13 +306,13 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
                 Positioned(
-                  left: 265,
+                  left: 300,
                   top: 600,
                   child: Container(
                     width: 25,
                     height: 25,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
                         image: AssetImage("assets/Expand Arrow.png"),
                         fit: BoxFit.contain,
                       ),
@@ -331,7 +333,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 164,
                   top: 715,
                   child: Text(

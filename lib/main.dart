@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:tikiti/signup.dart';
 import 'package:tikiti/login.dart';
+import 'package:tikiti/event-desc.dart';
 
 // ... other imports for your app
 
@@ -192,7 +193,7 @@ class AndroidLarge1 extends StatelessWidget {
                   height: 30,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/22x30"),
+                      image: AssetImage("assets/Facebook.png"),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -206,7 +207,7 @@ class AndroidLarge1 extends StatelessWidget {
                   height: 21,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/20x21"),
+                      image: AssetImage("assets/Google.png"),
                       fit: BoxFit.contain,
                     ),
                   ),

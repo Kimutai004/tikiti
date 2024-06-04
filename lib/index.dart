@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/login.dart';
+import 'package:tikiti/profile.dart';
+import 'package:tikiti/search.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -28,17 +31,6 @@ class Index extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Figma to Code'),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () {
-            // Add your onPressed logic here
-          },
-        ),
-      ],
-      ),
       body: ListView(
         children: [
           Container(
@@ -89,8 +81,7 @@ class Index extends StatelessWidget {
                     height: 12,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image:
-                            NetworkImage("https://via.placeholder.com/12x12"),
+                        image: AssetImage("assets/Search.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -105,7 +96,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/33x33"),
+                              AssetImage("assets/Tikiti.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -120,7 +111,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/156x105"),
+                            AssetImage("assets/Rectangle 97.png"),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -135,7 +126,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/156x105"),
+                            AssetImage("assets/Rectangle 97.png"),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -150,7 +141,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/156x105"),
+                            AssetImage("assets/Rectangle 97.png"),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -349,7 +340,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/20x20"),
+                            AssetImage("assets/Share.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -364,7 +355,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/20x20"),
+                            AssetImage("assets/Favorite.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -379,7 +370,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/20x20"),
+                            AssetImage("assets/Share.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -394,7 +385,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/20x20"),
+                            AssetImage("assets/Favorite.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -409,7 +400,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/20x20"),
+                            AssetImage("assets/Share.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -424,7 +415,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/20x20"),
+                            AssetImage("assets/Favorite.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -447,31 +438,47 @@ class Index extends StatelessWidget {
                 Positioned(
                   left: 107,
                   top: 740,
+                  child: GestureDetector(
+                  onTap: () {
+                    // Add code to navigate to search.dart
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Search()),
+                    );
+                  },
                   child: Container(
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            NetworkImage("https://via.placeholder.com/40x40"),
-                        fit: BoxFit.contain,
-                      ),
+                    image: DecorationImage(
+                      image: AssetImage("assets/Search.png"),
+                      fit: BoxFit.contain,
                     ),
+                    ),
+                  ),
                   ),
                 ),
                 Positioned(
                   left: 273,
                   top: 740,
+                  child: GestureDetector(
+                  onTap: () {
+                    // Add code to navigate to profile.dart
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Profile()),
+                    );
+                  },
                   child: Container(
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            NetworkImage("https://via.placeholder.com/40x40"),
-                        fit: BoxFit.contain,
-                      ),
+                    image: DecorationImage(
+                      image: AssetImage("assets/Account.png"),
+                      fit: BoxFit.contain,
                     ),
+                    ),
+                  ),
                   ),
                 ),
                 Positioned(
@@ -483,7 +490,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/40x40"),
+                            AssetImage("assets/Home.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -492,16 +499,25 @@ class Index extends StatelessWidget {
                 Positioned(
                   left: 190,
                   top: 740,
+                  child: GestureDetector(
+                  onTap: () {
+                    // Add code to navigate to ticket.dat
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Ticket()),
+                    );
+                    
+                  },
                   child: Container(
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            NetworkImage("https://via.placeholder.com/40x40"),
-                        fit: BoxFit.contain,
-                      ),
+                    image: DecorationImage(
+                      image: AssetImage("assets/Ticket.png"),
+                      fit: BoxFit.contain,
                     ),
+                    ),
+                  ),
                   ),
                 ),
                 Positioned(
@@ -524,7 +540,7 @@ class Index extends StatelessWidget {
                 ),
                 Positioned(
                   left: 135,
-                  top: 672,
+                  top: 680,
                   child: SizedBox(
                     width: 129,
                     height: 39,
@@ -550,7 +566,7 @@ class Index extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image:
-                            NetworkImage("https://via.placeholder.com/25x29"),
+                            AssetImage("assets/Location (1).png"),
                         fit: BoxFit.contain,
                       ),
                     ),

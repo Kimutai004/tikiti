@@ -3,6 +3,8 @@ import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/add-event.dart';
 import 'package:tikiti/admin-index.dart';
 import 'package:tikiti/login.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -27,7 +29,21 @@ class FigmaToCodeApp extends StatelessWidget {
   }
 }
 
+
+
 class EventDets extends StatelessWidget {
+
+  final TextEditingController _earlyticketscontroller = TextEditingController();
+  final TextEditingController _earlypricecontroller = TextEditingController();
+  final TextEditingController _regticketscontroller = TextEditingController();
+  final TextEditingController _regpricecontroller = TextEditingController();
+  final TextEditingController _vipticketscontroller = TextEditingController();
+  final TextEditingController _vippricecontroller = TextEditingController();
+  final TextEditingController _ticketscontroller = TextEditingController();
+  final TextEditingController _onlinecontroller = TextEditingController();
+  final TextEditingController _locationcontroller = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +64,7 @@ class EventDets extends StatelessWidget {
                     left: 0,
                     top: 0,
                     child: Container(
-                      width: 236,
+                      width: 300,
                       height: 800,
                       decoration: BoxDecoration(color: Color(0xFF626262)),
                     ),
@@ -57,7 +73,7 @@ class EventDets extends StatelessWidget {
                     left: 0,
                     top: 0,
                     child: Container(
-                      width: 236,
+                      width: 300,
                       height: 154,
                       decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
                     ),
@@ -308,22 +324,44 @@ class EventDets extends StatelessWidget {
                 Positioned(
                   left: 59,
                   top: 689,
-                  child: Container(
-                    width: 274,
-                    height: 33,
-                    decoration: ShapeDecoration(
-                      color: Color(0xFFFD4C00),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
+                  child: GestureDetector(
+                    onTap: () async {
+                      try {
+                        DatabaseReference ref = FirebaseDatabase.instance.ref("events");
+                        await ref.push().set({
+                          'early_tickets': _earlyticketscontroller.text,
+                          'early_price': _earlypricecontroller.text,
+                          'reg_tickets': _regticketscontroller.text,
+                          'reg_price': _regpricecontroller.text,
+                          'vip_tickets': _vipticketscontroller.text,
+                          'vip_price': _vippricecontroller.text,
+                          'no_of_tickets': _ticketscontroller.text,
+                          'online_link': _onlinecontroller.text,
+                          'location': _locationcontroller.text,
+                        });
+                        print('Data sent successfully');
+                      } catch (e) {
+                        print('Error sending data: $e');
+                      }
+                    },
+                    
+                    child: Container(
+                      width: 274,
+                      height: 33,
+                      decoration: ShapeDecoration(
+                        color: Color(0xFFFD4C00),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
                       ),
                     ),
                   ),
                 ),
                 Positioned(
                   left: 62,
-                  top: 689,
+                  top: 695,
                   child: SizedBox(
-                    width: 273,
+                    width: 200,
                     height: 33,
                     child: Text(
                       'Post',
@@ -357,14 +395,21 @@ class EventDets extends StatelessWidget {
                   left: 56,
                   top: 128,
                   child: Container(
-                    width: 248,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: Color(0xC6F6F6F6),
-                      border: Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      ),
+                  width: 248,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    
+                    color: Color(0xC6F6F6F6),
+                    border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                     ),
+                  ),
+                  child: TextField(
+                    controller: _ticketscontroller,
+                    decoration: InputDecoration(
+                    border: InputBorder.none,
+                    ),
+                  ),
                   ),
                 ),
                 Positioned(
@@ -386,14 +431,42 @@ class EventDets extends StatelessWidget {
                   left: 56,
                   top: 235,
                   child: Container(
-                    width: 248,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: Color(0xC6F6F6F6),
-                      border: Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      ),
+                  width: 248,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Color(0xC6F6F6F6),
+                    border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                     ),
+                  ),
+                  child: TextField(
+                    controller: _onlinecontroller,
+                    decoration: InputDecoration(
+                    border: InputBorder.none,
+                    ),
+                  ),
+                  ),
+                ),
+                Positioned(
+                  left: 56,
+                  top: 328,
+                  child: Container(
+                  width: 248,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Color(0xC6F6F6F6),
+                    border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    ),
+                  ),
+                  child: TextField(
+                    controller: _locationcontroller,
+                    decoration: InputDecoration(
+                    border: InputBorder.none,
+                    ),
+                    onChanged: (value) {
+                    },
+                  ),
                   ),
                 ),
                 Positioned(
@@ -427,48 +500,6 @@ class EventDets extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  left: 56,
-                  top: 328,
-                  child: Container(
-                    width: 248,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: Color(0xC6F6F6F6),
-                      border: Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 140,
-                  top: 436,
-                  child: Container(
-                    width: 79,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: Color(0xC6F6F6F6),
-                      border: Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 247,
-                  top: 436,
-                  child: Container(
-                    width: 79,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: Color(0xC6F6F6F6),
-                      border: Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
                   left: 53,
                   top: 449,
                   child: Text(
@@ -483,34 +514,48 @@ class EventDets extends StatelessWidget {
                     ),
                   ),
                 ),
+                
                 Positioned(
                   left: 140,
-                  top: 490,
+                  top: 436,
                   child: Container(
-                    width: 79,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: Color(0xC6F6F6F6),
-                      border: Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      ),
+                  width: 79,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Color(0xC6F6F6F6),
+                    border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                     ),
+                  ),
+                  child: TextField(
+                    controller: _earlyticketscontroller,
+                    decoration: InputDecoration(
+                    border: InputBorder.none,
+                    ),
+                  ),
                   ),
                 ),
                 Positioned(
                   left: 247,
-                  top: 490,
+                  top: 436,
                   child: Container(
-                    width: 79,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: Color(0xC6F6F6F6),
-                      border: Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      ),
+                  width: 79,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Color(0xC6F6F6F6),
+                    border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                     ),
                   ),
+                  child: TextField(
+                    controller: _earlypricecontroller,
+                    decoration: InputDecoration(
+                    border: InputBorder.none,
+                    ),
+                  ),
+                  ),
                 ),
+
                 Positioned(
                   left: 59,
                   top: 503,
@@ -526,39 +571,125 @@ class EventDets extends StatelessWidget {
                     ),
                   ),
                 ),
+                
+                Positioned(
+                  left: 140,
+                  top: 490,
+                  child: Container(
+                  width: 79,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Color(0xC6F6F6F6),
+                    border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    ),
+                  ),
+                  child: TextField(
+                    controller: _regticketscontroller,
+                    decoration: InputDecoration(
+                    border: InputBorder.none,
+                    ),
+                  ),
+                  ),
+                ),
+                Positioned(
+                  left: 247,
+                  top: 490,
+                  child: Container(
+                  width: 79,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Color(0xC6F6F6F6),
+                    border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    ),
+                  ),
+                  child: TextField(
+                    controller: _regpricecontroller,
+                    decoration: InputDecoration(
+                    border: InputBorder.none,
+                    ),
+                  ),
+                  ),
+                ),
+
+                Positioned(
+                  left: 72,
+                  top: 557,
+                  child: Text(
+                    'VIP',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      fontFamily: 'Kavoon',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  ),
+                ),
+                
                 Positioned(
                   left: 140,
                   top: 544,
                   child: Container(
-                    width: 79,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: Color(0xC6F6F6F6),
-                      border: Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      ),
+                  width: 79,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Color(0xC6F6F6F6),
+                    border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                     ),
+                  ),
+                  child: TextField(
+                    controller: _vipticketscontroller,
+                    decoration: InputDecoration(
+                    border: InputBorder.none,
+                    ),
+                  ),
                   ),
                 ),
                 Positioned(
                   left: 247,
                   top: 544,
                   child: Container(
-                    width: 79,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: Color(0xC6F6F6F6),
-                      border: Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      ),
+                  width: 79,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Color(0xC6F6F6F6),
+                    border: Border(
+                    bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    ),
+                  ),
+                  child: TextField(
+                    controller: _vippricecontroller,
+                    decoration: InputDecoration(
+                    border: InputBorder.none,
+                    ),
+                  ),
+                  ),
+                ),
+                
+                Positioned(
+                  left: 250,
+                  top: 420,
+                  child: Text(
+                    'Ticket Price',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      fontFamily: 'Kavoon',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
                     ),
                   ),
                 ),
                 Positioned(
-                  left: 72,
-                  top: 557,
+                  left: 150,
+                  top: 420,
                   child: Text(
-                    'VIP',
+                    'No of tickets',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,

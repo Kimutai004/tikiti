@@ -311,7 +311,7 @@ class AddEvent extends StatelessWidget {
                 left: 0,
                 top: 0,
                 child: Container(
-                  width: 360,
+                  width: 500,
                   height: 150,
                   decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
                 ),
@@ -320,23 +320,17 @@ class AddEvent extends StatelessWidget {
                 left: 0,
                 top: 0,
                 child: GestureDetector(
-                  onTap: () async* {
-                    // TODO: Implement image picker logic here
-                    final ImagePicker picker = ImagePicker();
-                      // Pick an image.
-                      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-                      // Capture a photo.
-                      final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+                  onTap: () async {
+                  // TODO: Implement image picker logic here
+                  final ImagePicker picker = ImagePicker();
+                    // Pick an image.
+                    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+                    // Capture a photo.
+                    final XFile? photo = await picker.pickImage(source: ImageSource.camera);
                   },
                   child: Container(
                   width: 360,
                   height: 150,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                    image: AssetImage("assets/placeholder.png"),
-                    fit: BoxFit.fill,
-                    ),
-                  ),
                   ),
                 ),
                 ),
@@ -449,7 +443,7 @@ class AddEvent extends StatelessWidget {
                 left: 107,
                 top: 190,
                 child: Container(
-                  width: 191,
+                  width: 250,
                   height: 37,
                   child: TextField(
                   decoration: InputDecoration(
