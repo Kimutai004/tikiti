@@ -4,6 +4,7 @@ import 'package:tikiti/add-event.dart';
 import 'package:tikiti/admin-index.dart';
 import 'package:tikiti/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tikiti/add-event.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());

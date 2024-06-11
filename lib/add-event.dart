@@ -1,9 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/admin-index.dart';
 import 'package:tikiti/event-desc.dart';
 import 'package:tikiti/login.dart';
-import 'package:tikiti/menu.dart';
 import 'package:image_picker/image_picker.dart';
 
 void main() {
@@ -29,7 +29,26 @@ class FigmaToCodeApp extends StatelessWidget {
   }
 }
 
-class AddEvent extends StatelessWidget {
+
+class AddEvent extends StatefulWidget {
+  @override
+  _AddEventState createState() => _AddEventState();
+}
+
+
+class _AddEventState extends State<AddEvent>{
+  String? _imagePath;
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _imagePath = pickedImage.path;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -299,6 +318,7 @@ class AddEvent extends StatelessWidget {
         ),
       ),
       body: ListView(
+        
         children: [
         Container(
           width: 600,
@@ -316,24 +336,40 @@ class AddEvent extends StatelessWidget {
                   decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
                 ),
               ),
-                Positioned(
+              Positioned(
                 left: 0,
                 top: 0,
                 child: GestureDetector(
                   onTap: () async {
-                  // TODO: Implement image picker logic here
-                  final ImagePicker picker = ImagePicker();
+                    final ImagePicker picker = ImagePicker();
                     // Pick an image.
-                    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-                    // Capture a photo.
-                    final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+                    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+                    if (pickedImage != null) {
+                      setState(() {
+                        // Update the image path or display the image.
+                        String? _imagePath;
+                       _imagePath = pickedImage.path;
+                      });
+                    }
                   },
                   child: Container(
-                  width: 360,
-                  height: 150,
+                    width: 500,
+                    height: 150,
+                    color: const Color.fromARGB(255, 227, 227, 227),
+                    child: _imagePath != null
+                        ? Image.file(
+                            File(_imagePath!),
+                            fit: BoxFit.cover,
+                          )
+                        : Center(
+                            child: Text(
+                              'Tap to select an image',
+                              style: TextStyle(color: Color.fromRGBO(4, 4, 4, 1)),
+                            ),
+                          ),
                   ),
                 ),
-                ),
+              ),
               Positioned(
                 left: 14,
                 top: 200,
