@@ -41,6 +41,20 @@ class _SignupPageState extends State<SignupPage> {
             child: Stack(
               children: [
                 Positioned(
+                  left: 159,
+                  top: 20,
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/Tikiti.png'),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
                   left: 56,
                   top: 700,
                   child: GestureDetector(

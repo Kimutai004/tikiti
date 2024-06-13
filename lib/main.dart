@@ -41,20 +41,20 @@ class AndroidLarge1 extends StatelessWidget {
           width: 412,
           height: 815,
           clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Colors.white),
+          decoration: BoxDecoration(color: Color.fromARGB(222, 232, 71, 35)),
           child: Stack(
             children: [
               Positioned(
                 left: 24,
                 top: 72,
                 child: SizedBox(
-                  width: 210,
-                  height: 34,
+                  width: 350,
+                  height: 68,
                   child: Text(
                     'Let’s get Started',
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20,
+                      fontSize: 35,
                       fontFamily: 'Kavoon',
                       fontWeight: FontWeight.w400,
                       height: 0,
@@ -64,14 +64,14 @@ class AndroidLarge1 extends StatelessWidget {
               ),
               Positioned(
                 left: 26,
-                top: 106,
+                top: 116,
                 child: SizedBox(
-                  width: 154,
+                  width: 300,
                   child: Text(
-                    'sign up or login to see what’s happening near yoy',
+                    'sign up or login to see what’s happening near you',
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 10,
+                      fontSize: 15,
                       fontFamily: 'Kaisei Decol',
                       fontWeight: FontWeight.w400,
                       height: 0,

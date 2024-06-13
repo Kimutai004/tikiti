@@ -38,6 +38,7 @@ class AddEvent extends StatefulWidget {
 
 class _AddEventState extends State<AddEvent>{
   String? _imagePath;
+  var data = "";
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -318,7 +319,6 @@ class _AddEventState extends State<AddEvent>{
         ),
       ),
       body: ListView(
-        
         children: [
         Container(
           width: 600,
@@ -386,6 +386,31 @@ class _AddEventState extends State<AddEvent>{
                 ),
               ),
               Positioned(
+                left: 107,
+                top: 190,
+                child: Container(
+                  width: 250,
+                  height: 37,
+                  child: TextField(
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(width: 1),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                  onChanged: (value) {
+                    // Use the entered data
+                    EventDets(data: value);
+                  },
+                  ),
+                ),
+                ),
+              Positioned(
                 left: 14,
                 top: 265,
                 child: Text(
@@ -399,6 +424,32 @@ class _AddEventState extends State<AddEvent>{
                     height: 0,
                   ),
                 ),
+              ),
+              Positioned(
+                  left: 32,
+                  top: 293,
+                  child: Container(
+                    width: 284,
+                    height: 37,
+                    child: TextField(
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(width: 1),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (value) {
+                      // Use the entered data
+                    EventDets(data: value);
+
+                    },
+                    ),
+                  ),
               ),
               Positioned(
                 left: 25,
@@ -415,6 +466,55 @@ class _AddEventState extends State<AddEvent>{
                   ),
                 ),
               ),
+                Positioned(
+                left: 25,
+                top: 476,
+                child: ElevatedButton(
+                  onPressed: () {
+                  String eventType = 'Physical Event';
+                  // Handle button click with eventType
+                  // Use the entered data
+                    EventDets(data: eventType);
+
+                  },
+                  style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(200, 241, 240, 239),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  ),
+                  child: Container(
+                  width: 85,
+                  height: 37,
+                  ),
+                ),
+                ),
+                
+                Positioned(
+                left: 176,
+                top: 476,
+                child: ElevatedButton(
+                  onPressed: () {
+                  String eventType = 'Online Event';
+                  // Handle button click with eventType
+                  // Use the entered data
+                    EventDets(data: eventType);
+
+                  },
+                  style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(225, 255, 81, 0),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  ),
+                  child: Container(
+                  width: 85,
+                  height: 37,
+                  ),
+                ),
+                ),
               Positioned(
                 left: 25,
                 top: 541,
@@ -430,6 +530,43 @@ class _AddEventState extends State<AddEvent>{
                   ),
                 ),
               ),
+                Positioned(
+                  left: 25,
+                  top: 581,
+                  child: Container(
+                  width: 284,
+                  height: 37,
+                  child: DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(width: 1),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  ),
+                  items: [
+                  DropdownMenuItem(
+                    value: 'Option 1',
+                    child: Text('Option 1'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Option 2',
+                    child: Text('Option 2'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Option 3',
+                    child: Text('Option 3'),
+                  ),
+                  ],
+                  onChanged: (value) {
+                    // Use the entered data
+                    EventDets(data: value!);
+
+                  },
+                  ),
+                  ),
+                ),
               Positioned(
                 left: 25,
                 top: 640,
@@ -460,6 +597,58 @@ class _AddEventState extends State<AddEvent>{
                   ),
                 ),
               ),
+                Positioned(
+                left: 35,
+                top: 379,
+                child: GestureDetector(
+                  onTap: () {
+                  // Show date picker
+                  showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2022),
+                  ).then((selectedDate) {
+                    if (selectedDate != null) {
+                    // Show time picker
+                    showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    ).then((selectedTime) {
+                      if (selectedTime != null) {
+                      // Combine date and time
+                      DateTime selectedDateTime = DateTime(
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day,
+                        selectedTime.hour,
+                        selectedTime.minute,
+                      );
+                      // Pass the selected date and time to the next page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => EventDets(data: selectedDateTime.toString()),
+                        ),
+                      );
+                      }
+                    });
+                    }
+                  });
+                  },
+                  child: Container(
+                  width: 125,
+                  height: 37,
+                  decoration: ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                    side: BorderSide(width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  ),
+                ),
+                ),
               Positioned(
                 left: 185,
                 top: 341,
@@ -475,129 +664,76 @@ class _AddEventState extends State<AddEvent>{
                   ),
                 ),
               ),
-                Positioned(
-                left: 107,
-                top: 190,
-                child: Container(
-                  width: 250,
-                  height: 37,
-                  child: TextField(
-                  style: TextStyle(
-                  color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(width: 1),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  ),
-                  ),
-                ),
-                ),
-                Positioned(
-                left: 32,
-                top: 293,
-                child: Container(
-                  width: 284,
-                  height: 37,
-                  child: TextField(
-                  style: TextStyle(
-                  color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(width: 1),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  ),
-                  ),
-                ),
-                ),
-                Positioned(
-                  left: 25,
-                  top: 581,
-                  child: Container(
-                  width: 284,
-                  height: 37,
-                  child: DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(width: 1),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    ),
-                    items: [
-                    DropdownMenuItem(
-                      value: 'Option 1',
-                      child: Text('Option 1'),
-                    ),
-                    DropdownMenuItem(
-                      value: 'Option 2',
-                      child: Text('Option 2'),
-                    ),
-                    DropdownMenuItem(
-                      value: 'Option 3',
-                      child: Text('Option 3'),
-                    ),
-                    ],
-                    onChanged: (value) {
-                    // Handle dropdown value change
-                    },
-                  ),
-                  ),
-                ),
               Positioned(
-                left: 35,
+                left: 191,
                 top: 379,
-                child: Container(
+                child: GestureDetector(
+                  onTap: () {
+                  // Show date picker
+                  showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2022),
+                  ).then((selectedDate) {
+                    if (selectedDate != null) {
+                    // Show time picker
+                    showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    ).then((selectedTime) {
+                      if (selectedTime != null) {
+                      // Combine date and time
+                      DateTime selectedDateTime = DateTime(
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day,
+                        selectedTime.hour,
+                        selectedTime.minute,
+                      );
+                      // Pass the selected date and time to the next page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => EventDets(data: selectedDateTime.toString()),
+                        ),
+                      );
+                      }
+                    });
+                    }
+                  });
+                  },
+                  child: Container(
                   width: 125,
                   height: 37,
                   decoration: ShapeDecoration(
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(width: 1),
+                    borderRadius: BorderRadius.circular(10),
                     ),
+                  ),
+                  ),
+                ),
+                ),
+  
+              
+              Positioned(
+                left: 31,
+                top: 681,
+                child: Text(
+                  'Early Bird',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Kavoon',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
                   ),
                 ),
               ),
               Positioned(
-                left: 25,
-                top: 476,
-                child: Container(
-                  width: 125,
-                  height: 37,
-                  decoration: ShapeDecoration(
-                    color: Color(0xC9FF3D00),
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 176,
-                top: 476,
-                child: Container(
-                  width: 125,
-                  height: 37,
-                  decoration: ShapeDecoration(
-                    color: Color(0xC9FD4C00),
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-                Positioned(
                 left: 14,
                 top: 670,
                 child: Container(
@@ -615,66 +751,6 @@ class _AddEventState extends State<AddEvent>{
                   ),
                 ),
                 ),
-              Positioned(
-                left: 136,
-                top: 670,
-                child: Container(
-                  width: 93,
-                  height: 37,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 254,
-                top: 670,
-                child: Container(
-                  width: 93,
-                  height: 37,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 191,
-                top: 379,
-                child: Container(
-                  width: 125,
-                  height: 37,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 31,
-                top: 681,
-                child: Text(
-                  'Early Bird',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontFamily: 'Kavoon',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                ),
-              ),
               Positioned(
                 left: 68,
                 top: 492,
@@ -721,6 +797,21 @@ class _AddEventState extends State<AddEvent>{
                 ),
               ),
               Positioned(
+                left: 136,
+                top: 670,
+                child: Container(
+                  width: 93,
+                  height: 37,
+                  decoration: ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(width: 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
                 left: 289,
                 top: 679,
                 child: Text(
@@ -736,13 +827,29 @@ class _AddEventState extends State<AddEvent>{
                 ),
               ),
               Positioned(
+                left: 254,
+                top: 670,
+                child: Container(
+                  width: 93,
+                  height: 37,
+                  decoration: ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(width: 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+              
+              Positioned(
                 left: 35,
                 top: 741,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => EventDets()),
+                      MaterialPageRoute(builder: (context) => EventDets(data: '',)),
                     );
                   },
                   child: Container(

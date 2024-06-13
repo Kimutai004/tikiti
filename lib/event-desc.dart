@@ -22,7 +22,7 @@ class FigmaToCodeApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: ListView(children: [
-          EventDets(),
+          EventDets(data: '',),
         ]),
       ),
     );
@@ -30,6 +30,10 @@ class FigmaToCodeApp extends StatelessWidget {
 }
 
 class EventDets extends StatelessWidget {
+  final String data;
+
+  EventDets({required this.data});
+
   final TextEditingController _earlyticketscontroller = TextEditingController();
   final TextEditingController _earlypricecontroller = TextEditingController();
   final TextEditingController _regticketscontroller = TextEditingController();
