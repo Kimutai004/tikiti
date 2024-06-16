@@ -40,6 +40,7 @@ class _AddEventState extends State<AddEvent> {
   String? _imagePath;
   DateTime? selectedstartDate;
   DateTime? selectedEndDate;
+  
 
 
   void dropdownCallback(String SelectedValue) {
@@ -695,7 +696,7 @@ class _AddEventState extends State<AddEvent> {
                           ).then((selectedTime) {
                             if (selectedTime != null) {
                               // Combine date and time
-                              DateTime selectedEndDate = DateTime(
+                              selectedEndDate = DateTime(
                                 selectedDate.year,
                                 selectedDate.month,
                                 selectedDate.day,
