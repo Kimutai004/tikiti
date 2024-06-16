@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
-import 'package:tikiti/login.dart';
 import 'package:tikiti/profile.dart';
 import 'package:tikiti/search.dart';
 

@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/admin-index.dart';
-import 'package:tikiti/event-desc.dart';
 import 'package:tikiti/login.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -38,7 +38,16 @@ class AddEvent extends StatefulWidget {
 
 class _AddEventState extends State<AddEvent>{
   String? _imagePath;
-  var data = "";
+
+  void dropdownCallback(String SelectedValue) {
+  if (SelectedValue is String) {
+    setState(() {
+      _dropdownValue = SelectedValue;
+    });
+  }
+  }
+
+  String _dropdownValue = 'Organiser'; // Initial dropdown value
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -49,6 +58,18 @@ class _AddEventState extends State<AddEvent>{
       });
     }
   }
+
+  final TextEditingController _eventtitlecontroller = TextEditingController();
+  final TextEditingController _eventdesccontroller = TextEditingController();
+  final TextEditingController _earlyticketscontroller = TextEditingController();
+  final TextEditingController _earlypricecontroller = TextEditingController();
+  final TextEditingController _regticketscontroller = TextEditingController();
+  final TextEditingController _regpricecontroller = TextEditingController();
+  final TextEditingController _vipticketscontroller = TextEditingController();
+  final TextEditingController _vippricecontroller = TextEditingController();
+  final TextEditingController _ticketscontroller = TextEditingController();
+  final TextEditingController _onlinecontroller = TextEditingController();
+  final TextEditingController _locationcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -322,7 +343,7 @@ class _AddEventState extends State<AddEvent>{
         children: [
         Container(
           width: 600,
-          height: 831,
+          height: 1463,
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(color: Color(0xFFFBFBFB)),
           child: Stack(
@@ -340,18 +361,17 @@ class _AddEventState extends State<AddEvent>{
                 left: 0,
                 top: 0,
                 child: GestureDetector(
-                  onTap: () async {
+                    onTap: () async {
                     final ImagePicker picker = ImagePicker();
                     // Pick an image.
                     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
                     if (pickedImage != null) {
                       setState(() {
-                        // Update the image path or display the image.
-                        String? _imagePath;
-                       _imagePath = pickedImage.path;
+                      // Update the image path or display the image.
+                      _imagePath = pickedImage.path;
                       });
                     }
-                  },
+                    },
                   child: Container(
                     width: 500,
                     height: 150,
@@ -392,6 +412,7 @@ class _AddEventState extends State<AddEvent>{
                   width: 250,
                   height: 37,
                   child: TextField(
+                  controller: _eventtitlecontroller,
                   style: TextStyle(
                     color: Colors.black,
                   ),
@@ -405,7 +426,7 @@ class _AddEventState extends State<AddEvent>{
                   ),
                   onChanged: (value) {
                     // Use the entered data
-                    EventDets(data: value);
+                    
                   },
                   ),
                 ),
@@ -432,6 +453,7 @@ class _AddEventState extends State<AddEvent>{
                     width: 284,
                     height: 37,
                     child: TextField(
+                    controller: _eventdesccontroller,
                     style: TextStyle(
                       color: Colors.black,
                     ),
@@ -445,7 +467,7 @@ class _AddEventState extends State<AddEvent>{
                     ),
                     onChanged: (value) {
                       // Use the entered data
-                    EventDets(data: value);
+                    
 
                     },
                     ),
@@ -474,8 +496,7 @@ class _AddEventState extends State<AddEvent>{
                   String eventType = 'Physical Event';
                   // Handle button click with eventType
                   // Use the entered data
-                    EventDets(data: eventType);
-
+                    
                   },
                   style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromARGB(200, 241, 240, 239),
@@ -497,10 +518,9 @@ class _AddEventState extends State<AddEvent>{
                 child: ElevatedButton(
                   onPressed: () {
                   String eventType = 'Online Event';
-                  // Handle button click with eventType
-                  // Use the entered data
-                    EventDets(data: eventType);
 
+              
+                    
                   },
                   style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromARGB(225, 255, 81, 0),
@@ -530,41 +550,43 @@ class _AddEventState extends State<AddEvent>{
                   ),
                 ),
               ),
-                Positioned(
+              Positioned(
                   left: 25,
-                  top: 581,
+                  top: 590,
                   child: Container(
-                  width: 284,
-                  height: 37,
-                  child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(width: 1),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  ),
-                  items: [
-                  DropdownMenuItem(
-                    value: 'Option 1',
-                    child: Text('Option 1'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Option 2',
-                    child: Text('Option 2'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Option 3',
-                    child: Text('Option 3'),
-                  ),
-                  ],
-                  onChanged: (value) {
-                    // Use the entered data
-                    EventDets(data: value!);
-
-                  },
-                  ),
+                    width: 300,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.7799999713897705),
+                      borderRadius: BorderRadius.circular(10),
+                      border: const Border(
+                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                      ),
+                    ),
+                    
+                    child: DropdownButton<String>(
+                      value: _dropdownValue,
+                      style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                        
+                      items: [
+                       DropdownMenuItem(
+                        value: "Organiser",
+                        child: Text("Organiser"),
+                        
+                      ),
+                      const DropdownMenuItem(
+                        value: "Participant",
+                        child: Text("Participant"),
+                      ),
+                      ],
+                      onChanged: (String? value) {
+                      setState(() {
+                        _dropdownValue = value!;
+                      });
+                      },
+                    ),
                   ),
                 ),
               Positioned(
@@ -607,7 +629,7 @@ class _AddEventState extends State<AddEvent>{
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime.now(),
-                    lastDate: DateTime(2022),
+                    lastDate: DateTime(2025),
                   ).then((selectedDate) {
                     if (selectedDate != null) {
                     // Show time picker
@@ -624,13 +646,7 @@ class _AddEventState extends State<AddEvent>{
                         selectedTime.hour,
                         selectedTime.minute,
                       );
-                      // Pass the selected date and time to the next page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) => EventDets(data: selectedDateTime.toString()),
-                        ),
-                      );
+                      
                       }
                     });
                     }
@@ -649,11 +665,12 @@ class _AddEventState extends State<AddEvent>{
                   ),
                 ),
                 ),
-              Positioned(
-                left: 185,
+
+                Positioned(
+                left: 200,
                 top: 341,
                 child: Text(
-                  'Ends',
+                  'End',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
@@ -664,8 +681,8 @@ class _AddEventState extends State<AddEvent>{
                   ),
                 ),
               ),
-              Positioned(
-                left: 191,
+                Positioned(
+                left: 200,
                 top: 379,
                 child: GestureDetector(
                   onTap: () {
@@ -674,7 +691,7 @@ class _AddEventState extends State<AddEvent>{
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime.now(),
-                    lastDate: DateTime(2022),
+                    lastDate: DateTime(2025),
                   ).then((selectedDate) {
                     if (selectedDate != null) {
                     // Show time picker
@@ -691,13 +708,7 @@ class _AddEventState extends State<AddEvent>{
                         selectedTime.hour,
                         selectedTime.minute,
                       );
-                      // Pass the selected date and time to the next page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) => EventDets(data: selectedDateTime.toString()),
-                        ),
-                      );
+                      
                       }
                     });
                     }
@@ -758,7 +769,7 @@ class _AddEventState extends State<AddEvent>{
                   'Online',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Kavoon',
                     fontWeight: FontWeight.w400,
@@ -788,7 +799,7 @@ class _AddEventState extends State<AddEvent>{
                   'Regular',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 12,
                     fontFamily: 'Kavoon',
                     fontWeight: FontWeight.w400,
@@ -844,14 +855,32 @@ class _AddEventState extends State<AddEvent>{
               
               Positioned(
                 left: 35,
-                top: 741,
+                top: 1407,
                 child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EventDets(data: '',)),
-                    );
-                  },
+                  onTap: () async {
+                      try {
+                        // Get a reference to the "events" collection
+                        CollectionReference eventsCollection = FirebaseFirestore.instance.collection('events');
+                        DocumentReference newEventRef = await eventsCollection.add({
+                          'early_tickets': _earlyticketscontroller.text,
+                          'early_price': _earlypricecontroller.text,
+                          'reg_tickets': _regticketscontroller.text,
+                          'reg_price': _regpricecontroller.text,
+                          'vip_tickets': _vipticketscontroller.text,
+                          'vip_price': _vippricecontroller.text,
+                          'no_of_tickets': _ticketscontroller.text,
+                          'online_link': _onlinecontroller.text,
+                          'location': _locationcontroller.text,
+                          'dropdown_value': _dropdownValue,
+                          'event_title': _eventtitlecontroller.text,
+                          'event_desc': _eventdesccontroller.text,
+                        });
+                        
+                        print('Data sent successfully');
+                      } catch (e) {
+                        print('Error sending data: $e');
+                      }
+                    },
                   child: Container(
                     width: 274,
                     height: 33,
@@ -866,12 +895,12 @@ class _AddEventState extends State<AddEvent>{
               ),
               Positioned(
                 left: 35,
-                top: 745,
+                top: 1415,
                 child: SizedBox(
                   width: 273,
                   height: 33,
                   child: Text(
-                    'Next',
+                    'Submit',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -920,6 +949,341 @@ class _AddEventState extends State<AddEvent>{
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Time.png"),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
+               Positioned(
+                left: 26,
+                top: 815,
+                child: Text(
+                  'No Of  T ickets',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Kavoon',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+                Positioned(
+                left: 51,
+                top: 842,
+                child: Container(
+                  width: 248,
+                  height: 42,
+                  child: TextField(
+                  controller: _ticketscontroller,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  ),
+                ),
+                ),
+              Positioned(
+                left: 32,
+                top: 922,
+                child: Text(
+                  'Online Link',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Kavoon',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+                Positioned(
+                left: 51,
+                top: 949,
+                child: Container(
+                  width: 248,
+                  height: 42,
+                  child: TextField(
+                  controller: _onlinecontroller,
+                  decoration: InputDecoration(
+                    
+                    filled: true,
+                    fillColor: Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  ),
+                ),
+                ),
+              Positioned(
+                left: 41,
+                top: 1015,
+                child: Text(
+                  'Location',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Kavoon',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 34,
+                top: 1108,
+                child: Text(
+                  'Ticket Prices and Seats',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Kavoon',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+                Positioned(
+                left: 51,
+                top: 1042,
+                child: Container(
+                  width: 248,
+                  height: 42,
+                  child: TextField(
+                  controller: _locationcontroller,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  ),
+                ),
+                ),
+                Positioned(
+                left: 135,
+                top: 1150,
+                child: Container(
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                  controller: _earlyticketscontroller,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  ),
+                ),
+                ),
+                Positioned(
+                left: 242,
+                top: 1150,
+                child: Container(
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                  controller: _earlypricecontroller,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  ),
+                ),
+                ),
+              Positioned(
+                left: 48,
+                top: 1163,
+                child: Text(
+                  'Early Bird',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Kavoon',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 142,
+                top: 1130,
+                child: Text(
+                  'No of Seats',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Kavoon',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 267,
+                top: 1130,
+                child: Text(
+                  'Price',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Kavoon',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+                Positioned(
+                left: 135,
+                top: 1204,
+                child: Container(
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                  controller: _regticketscontroller,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  ),
+                ),
+                ),
+                Positioned(
+                left: 242,
+                top: 1204,
+                child: Container(
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                  controller: _regpricecontroller,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  ),
+                ),
+                ),
+              Positioned(
+                left: 54,
+                top: 1217,
+                child: Text(
+                  'Regular',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Kavoon',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+                Positioned(
+                left: 135,
+                top: 1258,
+                child: Container(
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                    controller: _vipticketscontroller,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  ),
+                ),
+                ),
+                Positioned(
+                left: 242,
+                top: 1258,
+                child: Container(
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                    controller: _vippricecontroller,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                    borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  ),
+                ),
+                ),
+              Positioned(
+                left: 67,
+                top: 1271,
+                child: Text(
+                  'VIP',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'Kavoon',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 73,
+                top: 1357,
+                child: Text(
+                  'i Agree With Terms And Conditions',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 10,
+                    fontFamily: 'Kaisei Decol',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 27,
+                top: 1351,
+                child: Container(
+                  width: 25,
+                  height: 25,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage("https://via.placeholder.com/25x25"),
                       fit: BoxFit.contain,
                     ),
                   ),

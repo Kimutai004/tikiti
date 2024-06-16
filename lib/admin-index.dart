@@ -301,67 +301,98 @@ class Home extends StatelessWidget {
             child: Stack(
               children: [
                 
-                Positioned(
-                  left: 37,
-                  top: 50,
-                  child: Text(
-                    'Live',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 1,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 274,
-                  top: 50,
-                  child: Text(
-                    'Past',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 1,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 139,
-                  top: 50,
-                  child: Text(
-                    'Upcoming',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 1,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 14,
-                  top: 76,
-                  child: Container(
-                    width: 81.50,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          strokeAlign: BorderSide.strokeAlignCenter,
-                          color: Color(0xFFFF3E01),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          // Handle Live section tap
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 30),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2,
+                                color: Color(0xFFFF3E01),
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            'Live',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                              height: 1,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          // Handle Upcoming section tap
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 30),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2,
+                                color: Color(0xFFFF3E01),
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            'Upcoming',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                              height: 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          // Handle Past section tap
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 30),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 2,
+                                color: Color(0xFFFF3E01),
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            'Past',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                              height: 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+                
                 Positioned(
                   left: 14,
                   top: 131,
@@ -518,7 +549,7 @@ class Home extends StatelessWidget {
                 ),
                 Positioned(
                   left: 257,
-                  top: 693,
+                  top: 680,
                   child: Container(
                     width: 75,
                     height: 75,
@@ -530,7 +561,7 @@ class Home extends StatelessWidget {
                 ),
                 Positioned(
                   left: 257,
-                  top: 693,
+                  top: 680,
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(

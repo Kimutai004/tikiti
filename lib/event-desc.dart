@@ -4,7 +4,6 @@ import 'package:tikiti/add-event.dart';
 import 'package:tikiti/admin-index.dart';
 import 'package:tikiti/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tikiti/add-event.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -22,7 +21,6 @@ class FigmaToCodeApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: ListView(children: [
-          EventDets(data: '',),
         ]),
       ),
     );
@@ -30,9 +28,6 @@ class FigmaToCodeApp extends StatelessWidget {
 }
 
 class EventDets extends StatelessWidget {
-  final String data;
-
-  EventDets({required this.data});
 
   final TextEditingController _earlyticketscontroller = TextEditingController();
   final TextEditingController _earlypricecontroller = TextEditingController();
