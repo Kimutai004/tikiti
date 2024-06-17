@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/admin-index.dart';
@@ -40,6 +41,7 @@ class _AddEventState extends State<AddEvent> {
   String? _imagePath;
   DateTime? selectedstartDate;
   DateTime? selectedEndDate;
+  String downloadURL = '';
   
 
 
@@ -364,17 +366,47 @@ class _AddEventState extends State<AddEvent> {
                 Positioned(
                   left: 0,
                   top: 0,
-                  child: GestureDetector(
+                    child: GestureDetector(
                     onTap: () async {
                       final ImagePicker picker = ImagePicker();
-                      // Pick an image.
-                      final pickedImage =
-                          await picker.pickImage(source: ImageSource.gallery);
+                      final pickedImage = await picker.pickImage(source: ImageSource.gallery);
                       if (pickedImage != null) {
                         setState(() {
-                          // Update the image path or display the image.
                           _imagePath = pickedImage.path;
                         });
+
+                        try {
+                          print('Picked image path: ${pickedImage.path}');
+                          
+                          // Create a reference to the file in Firebase Storage
+                          final storageRef = FirebaseStorage.instance.ref().child('uploads/${pickedImage.name}');
+
+                          // Upload the image to Firebase Storage
+                          UploadTask uploadTask = storageRef.putFile(File(pickedImage.path));
+
+                          // Monitor the upload task
+                          uploadTask.snapshotEvents.listen((event) {
+                            print('Task state: ${event.state}'); // Handle the progress
+                            print('Progress: ${(event.bytesTransferred / event.totalBytes) * 100} %');
+                          });
+
+                          // Wait until the upload is complete
+                          await uploadTask.whenComplete(() {
+                            print('Upload complete');
+                          });
+
+                          // Get the download URL after successful upload
+                          var downloadURL = await storageRef.getDownloadURL();
+                          print('Download URL: $downloadURL');
+
+                          setState(() {
+                            downloadURL = downloadURL; 
+                          });
+                        } on FirebaseException catch (e) {
+                          print('FirebaseException: ${e.message}');
+                        } catch (e) {
+                          print('General exception: $e');
+                        }
                       }
                     },
                     child: Container(
@@ -394,8 +426,10 @@ class _AddEventState extends State<AddEvent> {
                               ),
                             ),
                     ),
+                    ),
+                    
                   ),
-                ),
+
                 Positioned(
                   left: 14,
                   top: 200,
@@ -633,7 +667,7 @@ class _AddEventState extends State<AddEvent> {
                           ).then((selectedTime) {
                             if (selectedTime != null) {
                               // Combine date and time
-                              DateTime selectedstartDate = DateTime(
+                              DateTime selectedDateTime = DateTime(
                                 selectedDate.year,
                                 selectedDate.month,
                                 selectedDate.day,
@@ -641,7 +675,7 @@ class _AddEventState extends State<AddEvent> {
                                 selectedTime.minute,
                               );
                               setState(() {
-                                selectedstartDate = selectedstartDate;
+                                selectedstartDate = selectedDateTime;
                               });
                             }
                           });
@@ -649,13 +683,23 @@ class _AddEventState extends State<AddEvent> {
                       });
                     },
                     child: Container(
-                      width: 125,
-                      height: 37,
+                      width: 150,
+                      height: 50,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
                           side: BorderSide(width: 1),
                           borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          selectedstartDate != null
+                              ? "${selectedstartDate!.toLocal()}".split(' ')[0] +
+                                  ' ' +
+                                  "${selectedstartDate!.hour.toString().padLeft(2, '0')}:${selectedstartDate!.minute.toString().padLeft(2, '0')}"
+                              : 'Select Date & Time',
+                          style: TextStyle(fontSize: 16),
                         ),
                       ),
                     ),
@@ -679,7 +723,7 @@ class _AddEventState extends State<AddEvent> {
                 Positioned(
                   left: 200,
                   top: 379,
-                  child: GestureDetector(
+                   child: GestureDetector(
                     onTap: () {
                       // Show date picker
                       showDatePicker(
@@ -696,7 +740,7 @@ class _AddEventState extends State<AddEvent> {
                           ).then((selectedTime) {
                             if (selectedTime != null) {
                               // Combine date and time
-                              selectedEndDate = DateTime(
+                              DateTime selectedDateTime = DateTime(
                                 selectedDate.year,
                                 selectedDate.month,
                                 selectedDate.day,
@@ -704,7 +748,7 @@ class _AddEventState extends State<AddEvent> {
                                 selectedTime.minute,
                               );
                               setState(() {
-                                selectedEndDate = selectedEndDate;
+                                selectedEndDate = selectedDateTime;
                               });
                             }
                           });
@@ -712,8 +756,8 @@ class _AddEventState extends State<AddEvent> {
                       });
                     },
                     child: Container(
-                      width: 125,
-                      height: 37,
+                      width: 150,
+                      height: 50,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -721,8 +765,18 @@ class _AddEventState extends State<AddEvent> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
+                      child: Center(
+                        child: Text(
+                          selectedEndDate != null
+                              ? "${selectedEndDate!.toLocal()}".split(' ')[0] +
+                                  ' ' +
+                                  "${selectedEndDate!.hour.toString().padLeft(2, '0')}:${selectedEndDate!.minute.toString().padLeft(2, '0')}"
+                              : 'Select End Date & Time',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
                     ),
-                  ),
+                  )
                 ),
                 Positioned(
                   left: 31,
@@ -879,12 +933,13 @@ class _AddEventState extends State<AddEvent> {
                           'dropdown_value': _dropdownValue,
                           'event_title': _eventtitlecontroller.text,
                           'event_desc': _eventdesccontroller.text,
-                          'image_path': _imagePath,
+                          'url': downloadURL,
                           'online': 'online Event',
                           'physical': 'Physical Event',
                           'start': formattedStartDate,
                           'end': formattedEndDate,
-                        });
+                        });;
+                        
 
                         print('Data sent successfully');
                       } catch (e) {

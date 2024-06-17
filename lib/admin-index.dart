@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/add-event.dart';
 import 'package:tikiti/login.dart';
+import 'dart:io';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -23,6 +25,12 @@ class FigmaToCodeApp extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
+
+  String selectedTab = 'Live';
+
+ 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -392,160 +400,40 @@ class Home extends StatelessWidget {
                     ),
                   ],
                 ),
-                
-                Positioned(
-                  left: 14,
-                  top: 131,
-                  child: Container(
-                    width: 324,
-                    height: 75,
-                    decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
-                  ),
-                ),
-                Positioned(
-                  left: 14,
-                  top: 131,
-                  child: Container(
-                    width: 107,
-                    height: 75,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/Rectangle 97.png"),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 139,
-                  top: 169,
-                  child: SizedBox(
-                    width: 177,
-                    child: Text(
-                      'Sat 25 may 2024, 1500hrs - 2100hrs',
-                      style: TextStyle(
-                        color: Color(0xFFFF3D00),
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        height: 1,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 14,
-                  top: 217,
-                  child: Container(
-                    width: 324,
-                    height: 75,
-                    decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
-                  ),
-                ),
-                Positioned(
-                  left: 14,
-                  top: 217,
-                  child: Container(
-                    width: 107,
-                    height: 75,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/Rectangle 97.png"),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 139,
-                  top: 229,
-                  child: SizedBox(
-                    width: 183,
-                    child: Text(
-                      'Kitchen Cooking Competition',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Kavoon',
-                        fontWeight: FontWeight.w400,
-                        height: 1,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 139,
-                  top: 255,
-                  child: SizedBox(
-                    width: 177,
-                    child: Text(
-                      'Sat 25 may 2024, 1500hrs - 2100hrs',
-                      style: TextStyle(
-                        color: Color(0xFFFF3D00),
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        height: 1,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 15,
-                  top: 303,
-                  child: Container(
-                    width: 324,
-                    height: 75,
-                    decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
-                  ),
-                ),
-                Positioned(
-                  left: 15,
-                  top: 303,
-                  child: Container(
-                    width: 107,
-                    height: 75,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/Rectangle 97.png"),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 140,
-                  top: 315,
-                  child: SizedBox(
-                    width: 183,
-                    child: Text(
-                      'Kitchen Cooking Competition',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Kavoon',
-                        fontWeight: FontWeight.w400,
-                        height: 1,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 140,
-                  top: 341,
-                  child: SizedBox(
-                    width: 177,
-                    child: Text(
-                      'Sat 25 may 2024, 1500hrs - 2100hrs',
-                      style: TextStyle(
-                        color: Color(0xFFFF3D00),
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        height: 1,
-                      ),
-                    ),
-                  ),
+                StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance.collection('your_collection').snapshots(),
+                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text("Loading");
+                    }
+
+                    return new Stack(
+                      children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                        return Positioned(
+                          left: 14,
+                          top: 100,
+                          child: Container(
+                            width: 500,
+                            height: 100,
+                            decoration: BoxDecoration(color: Color.fromARGB(255, 249, 54, 54)),
+                            child: Column(
+                              children: <Widget>[
+                                Text(data['event_title'] ?? 'Default Title'),
+                                Text(data['event_desc'] ?? 'Default Description'),
+                                data['image_path'] != null ? Image.file(File(data['image_path'])) : Container(),
+                                // Add more fields as needed
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  },
                 ),
                 Positioned(
                   left: 257,
