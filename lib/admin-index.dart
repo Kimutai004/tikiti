@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/add-event.dart';
@@ -33,6 +34,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Events'),
@@ -400,41 +403,59 @@ class Home extends StatelessWidget {
                     ),
                   ],
                 ),
+                
                 StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance.collection('your_collection').snapshots(),
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return Text('Something went wrong');
-                    }
+                stream: FirebaseFirestore.instance
+                  .collection('events')
+                  .where('user_id', isEqualTo: userId)
+                  .snapshots(),
 
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text("Loading");
-                    }
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
 
-                    return new Stack(
-                      children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-                        return Positioned(
-                          left: 14,
-                          top: 100,
-                          child: Container(
-                            width: 500,
-                            height: 100,
-                            decoration: BoxDecoration(color: Color.fromARGB(255, 249, 54, 54)),
-                            child: Column(
-                              children: <Widget>[
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text("Loading");
+                  }
+
+                  return ListView(
+                    padding: const EdgeInsets.only(top: 80.0, left: 14.0),
+                    children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                      return Container(
+                        width: 360,
+                        height: 100,
+                        decoration: BoxDecoration(color: Color.fromARGB(0, 0, 0, 0)),
+                        child: Row(
+                          children: <Widget>[
+                            // New container for the image
+                            Container(
+                              width: 100,
+                              height: 100,
+                              child: data['path'] != null ? Image.file(File(data['path'])) : Container(),
+                            ),
+                            SizedBox(width: 10), // Spacing between image and text
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                                 Text(data['event_title'] ?? 'Default Title'),
+                                SizedBox(height: 5), // Spacing between title and description
                                 Text(data['event_desc'] ?? 'Default Description'),
-                                data['image_path'] != null ? Image.file(File(data['image_path'])) : Container(),
-                                // Add more fields as needed
+                                SizedBox(height: 5), // Spacing between description and date
+                                Text(data['start'] ?? 'Default Date'),
                               ],
                             ),
-                          ),
-                        );
-                      }).toList(),
-                    );
-                  },
-                ),
+                            SizedBox(width: 10),
+                            // Add more fields as needed
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  );
+                },
+              ),
+
                 Positioned(
                   left: 257,
                   top: 680,

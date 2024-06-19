@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
@@ -41,7 +42,9 @@ class _AddEventState extends State<AddEvent> {
   String? _imagePath;
   DateTime? selectedstartDate;
   DateTime? selectedEndDate;
+  final userId = FirebaseAuth.instance.currentUser!.uid;
   String downloadURL = '';
+  File? image;
   
 
 
@@ -374,39 +377,7 @@ class _AddEventState extends State<AddEvent> {
                         setState(() {
                           _imagePath = pickedImage.path;
                         });
-
-                        try {
-                          print('Picked image path: ${pickedImage.path}');
-                          
-                          // Create a reference to the file in Firebase Storage
-                          final storageRef = FirebaseStorage.instance.ref().child('uploads/${pickedImage.name}');
-
-                          // Upload the image to Firebase Storage
-                          UploadTask uploadTask = storageRef.putFile(File(pickedImage.path));
-
-                          // Monitor the upload task
-                          uploadTask.snapshotEvents.listen((event) {
-                            print('Task state: ${event.state}'); // Handle the progress
-                            print('Progress: ${(event.bytesTransferred / event.totalBytes) * 100} %');
-                          });
-
-                          // Wait until the upload is complete
-                          await uploadTask.whenComplete(() {
-                            print('Upload complete');
-                          });
-
-                          // Get the download URL after successful upload
-                          var downloadURL = await storageRef.getDownloadURL();
-                          print('Download URL: $downloadURL');
-
-                          setState(() {
-                            downloadURL = downloadURL; 
-                          });
-                        } on FirebaseException catch (e) {
-                          print('FirebaseException: ${e.message}');
-                        } catch (e) {
-                          print('General exception: $e');
-                        }
+                        
                       }
                     },
                     child: Container(
@@ -427,7 +398,7 @@ class _AddEventState extends State<AddEvent> {
                             ),
                     ),
                     ),
-                    
+          
                   ),
 
                 Positioned(
@@ -916,11 +887,14 @@ class _AddEventState extends State<AddEvent> {
                           if (selectedEndDate != null) {
                             formattedEndDate = DateFormat('yyyy-MM-dd').format(selectedEndDate!);
                           }
+
+                          
                         // Get a reference to the "events" collection
                         CollectionReference eventsCollection =
                             FirebaseFirestore.instance.collection('events');
                         DocumentReference newEventRef =
                             await eventsCollection.add({
+                              'user_id': userId,
                           'early_tickets': _earlyticketscontroller.text,
                           'early_price': _earlypricecontroller.text,
                           'reg_tickets': _regticketscontroller.text,
@@ -933,7 +907,7 @@ class _AddEventState extends State<AddEvent> {
                           'dropdown_value': _dropdownValue,
                           'event_title': _eventtitlecontroller.text,
                           'event_desc': _eventdesccontroller.text,
-                          'url': downloadURL,
+                          'path': _imagePath,
                           'online': 'online Event',
                           'physical': 'Physical Event',
                           'start': formattedStartDate,
