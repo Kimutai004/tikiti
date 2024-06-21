@@ -165,11 +165,12 @@ class Home extends StatelessWidget {
                     left: 74,
                     top: 415,
                     child: GestureDetector(
-                      onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Login()),
-                      );
+                      onTap: () async {
+                        await FirebaseAuth.instance.signOut();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
                       },
                       child: SizedBox(
                       width: 98,

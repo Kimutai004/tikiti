@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/profile.dart';
@@ -39,6 +42,98 @@ class Index extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.white),
             child: Stack(
               children: [
+
+                StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                  .collection('events')
+                  .snapshots(),
+
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text("Loading");
+                  }
+
+                  return ListView(
+                    padding: const EdgeInsets.only(top: 80.0, left: 14.0),
+                    children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                      return Container(
+                        width: 360,
+                        height: 100,
+                        decoration: BoxDecoration(color: Color.fromARGB(0, 0, 0, 0)),
+                        child: Row(
+                          children: <Widget>[
+                            // New container for the image
+                            Container(
+                              width: 156,
+                              height: 100,
+                              child: data['path'] != null ? Image.file(File(data['path'])) : Container(
+                               
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                        width: 1,
+                                        color: Colors.black.withOpacity(0.23999999463558197),
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
+                            ),
+                            SizedBox(width: 10), // Spacing between image and text
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(data['event_title'] ?? 'Default Title'),
+                                SizedBox(height: 5), // Spacing between title and description
+                                Text(data['event_desc'] ?? 'Default Description'),
+                                SizedBox(height: 5), // Spacing between description and date
+                                Text(data['start'] ?? 'Default Date'),
+                              ],
+                            ),
+                            SizedBox(width: 10),
+                            // Add more fields as needed
+                            Positioned(
+                              left: 280,
+                              top: 176,
+                              child: Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage("assets/Share.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              left: 313,
+                              top: 176,
+                              child: Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage("assets/Favorite.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  );
+                },
+              ),
+                
                 Positioned(
                   left: 78,
                   top: 12,
@@ -101,51 +196,7 @@ class Index extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 24,
-                  top: 97,
-                  child: Container(
-                    width: 156,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/Rectangle 97.png"),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 24,
-                  top: 351,
-                  child: Container(
-                    width: 156,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/Rectangle 97.png"),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 24,
-                  top: 224,
-                  child: Container(
-                    width: 156,
-                    height: 105,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/Rectangle 97.png"),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ),
+                
                 Positioned(
                   left: 24,
                   top: 63,
@@ -164,262 +215,10 @@ class Index extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 195,
-                  top: 118,
-                  child: Text(
-                    'Sat 25 may 2024, 1500hrs - 2100hrs',
-                    style: TextStyle(
-                      color: Color(0xFFFF3D00),
-                      fontSize: 8,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 140,
-                  child: SizedBox(
-                    width: 138,
-                    child: Text(
-                      'Kitchen Cooking Competition',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 189,
-                  child: Text(
-                    'Ruiru town',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 6,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w300,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 118,
-                  child: Text(
-                    'Sat 25 may 2024, 1500hrs - 2100hrs',
-                    style: TextStyle(
-                      color: Color(0xFFFF3D00),
-                      fontSize: 8,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 140,
-                  child: SizedBox(
-                    width: 138,
-                    child: Text(
-                      'Kitchen Cooking Competition',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 241,
-                  child: Text(
-                    'Sat 25 may 2024, 1500hrs - 2100hrs',
-                    style: TextStyle(
-                      color: Color(0xFFFF3D00),
-                      fontSize: 8,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 263,
-                  child: SizedBox(
-                    width: 138,
-                    child: Text(
-                      'Kitchen Cooking Competition',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 315,
-                  child: Text(
-                    'Ruiru town',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 6,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w300,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 364,
-                  child: Text(
-                    'Sat 25 may 2024, 1500hrs - 2100hrs',
-                    style: TextStyle(
-                      color: Color(0xFFFF3D00),
-                      fontSize: 8,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 386,
-                  child: SizedBox(
-                    width: 138,
-                    child: Text(
-                      'Kitchen Cooking Competition',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 441,
-                  child: Text(
-                    'Ruiru town',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 6,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w300,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 280,
-                  top: 176,
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/Share.png"),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 313,
-                  top: 176,
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/Favorite.png"),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 280,
-                  top: 305,
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/Share.png"),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 313,
-                  top: 305,
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/Favorite.png"),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 280,
-                  top: 428,
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/Share.png"),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 313,
-                  top: 428,
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/Favorite.png"),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
+                
+                
+                
+                
                 Positioned(
                   left: 144,
                   top: 481,
@@ -571,60 +370,7 @@ class Index extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 194,
-                  top: 176,
-                  child: SizedBox(
-                    width: 72,
-                    height: 7,
-                    child: Text(
-                      'Party or social Gathering',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 6,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 194,
-                  top: 298,
-                  child: SizedBox(
-                    width: 72,
-                    height: 7,
-                    child: Text(
-                      'Party or social Gathering',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 6,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 195,
-                  top: 424,
-                  child: SizedBox(
-                    width: 72,
-                    height: 7,
-                    child: Text(
-                      'Party or social Gathering',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 6,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
+                
               ],
             ),
           ),
