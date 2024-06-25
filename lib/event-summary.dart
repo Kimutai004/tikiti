@@ -41,7 +41,7 @@ class EventSummary extends StatelessWidget {
               width: 360,
               height: 800,
               clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(color: Colors.white),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
                   Positioned(
@@ -50,7 +50,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 236,
                       height: 800,
-                      decoration: BoxDecoration(color: Color(0xFF626262)),
+                      decoration: const BoxDecoration(color: Color(0xFF626262)),
                     ),
                   ),
                   Positioned(
@@ -59,7 +59,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 236,
                       height: 154,
-                      decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
+                      decoration: const BoxDecoration(color: Color(0xFFF4F4F4)),
                     ),
                   ),
                     Positioned(
@@ -72,7 +72,7 @@ class EventSummary extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Home()),
                       );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                       width: 49,
                       child: Text(
                         'Events',
@@ -97,7 +97,7 @@ class EventSummary extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => AddEvent()),
                       );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                       width: 98,
                       child: Text(
                         'Create Event',
@@ -122,7 +122,7 @@ class EventSummary extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => Ticket()),
                           );
                         },
-                        child: SizedBox(
+                        child: const SizedBox(
                           width: 98,
                           child: Text(
                             'Attendees',
@@ -137,7 +137,7 @@ class EventSummary extends StatelessWidget {
                         ),
                       ),
                     ),
-                  Positioned(
+                  const Positioned(
                     left: 74,
                     top: 323,
                     child: SizedBox(
@@ -164,7 +164,7 @@ class EventSummary extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Login()),
                       );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                       width: 98,
                       child: Text(
                         'LogOut',
@@ -185,7 +185,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
@@ -199,7 +199,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
@@ -213,7 +213,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/People.png"),
                           fit: BoxFit.contain,
@@ -227,7 +227,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Profile.png"),
                           fit: BoxFit.contain,
@@ -241,7 +241,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Logout.png"),
                           fit: BoxFit.contain,
@@ -255,7 +255,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 88,
                       height: 87,
-                      decoration: ShapeDecoration(
+                      decoration: const ShapeDecoration(
                         color: Color(0xFFD9D9D9),
                         shape: OvalBorder(),
                       ),
@@ -267,7 +267,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 74,
                       height: 74,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/User.png"),
                           fit: BoxFit.contain,
@@ -275,7 +275,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 91,
                     top: 115,
                     child: Text(
@@ -301,7 +301,7 @@ class EventSummary extends StatelessWidget {
               width: 360,
               height: 800,
               clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(color: Colors.white),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
                   Positioned(
@@ -310,7 +310,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 360,
                       height: 63,
-                      decoration: BoxDecoration(color: Color(0xFF706E6E)),
+                      decoration: const BoxDecoration(color: Color(0xFF706E6E)),
                     ),
                   ),
                   
@@ -320,7 +320,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 61,
                       height: 31,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image:
                               NetworkImage("https://via.placeholder.com/61x31"),
@@ -335,7 +335,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 360,
                       height: 219,
-                      decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                      decoration: const BoxDecoration(color: Color(0xFFD9D9D9)),
                     ),
                   ),
                   Positioned(
@@ -344,7 +344,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 335,
                       height: 91,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xFFF4F4F4),
                         border: Border(
                           left: BorderSide(width: 4, color: Color(0xFFFF3D00)),
@@ -366,7 +366,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 335,
                       height: 53,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xFFF4F4F4),
                         border: Border(
                           left: BorderSide(width: 4, color: Color(0xFFFF3D00)),
@@ -388,7 +388,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 334,
                       height: 327,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xFFF9F9F9),
                         border: Border(
                           left: BorderSide(width: 4, color: Color(0xFFFF3D00)),
@@ -396,7 +396,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 37,
                     top: 314,
                     child: Text(
@@ -410,7 +410,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 37,
                     top: 348,
                     child: Text(
@@ -424,7 +424,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 38,
                     top: 502,
                     child: Text(
@@ -445,7 +445,7 @@ class EventSummary extends StatelessWidget {
                       width: 253,
                       height: 44,
                       decoration: ShapeDecoration(
-                        color: Color(0xFFF1F1F1),
+                        color: const Color(0xFFF1F1F1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -459,7 +459,7 @@ class EventSummary extends StatelessWidget {
                       width: 253,
                       height: 44,
                       decoration: ShapeDecoration(
-                        color: Color(0xFFF1F1F1),
+                        color: const Color(0xFFF1F1F1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -473,7 +473,7 @@ class EventSummary extends StatelessWidget {
                       width: 253,
                       height: 44,
                       decoration: ShapeDecoration(
-                        color: Color(0xFFF1F1F1),
+                        color: const Color(0xFFF1F1F1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -487,7 +487,7 @@ class EventSummary extends StatelessWidget {
                       width: 72,
                       height: 44,
                       decoration: ShapeDecoration(
-                        color: Color(0xFFFD4C00),
+                        color: const Color(0xFFFD4C00),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -501,7 +501,7 @@ class EventSummary extends StatelessWidget {
                       width: 72,
                       height: 44,
                       decoration: ShapeDecoration(
-                        color: Color(0xFFFD4C00),
+                        color: const Color(0xFFFD4C00),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -515,14 +515,14 @@ class EventSummary extends StatelessWidget {
                       width: 72,
                       height: 44,
                       decoration: ShapeDecoration(
-                        color: Color(0xFFFD4C00),
+                        color: const Color(0xFFFD4C00),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 72,
                     top: 562,
                     child: Text(
@@ -537,7 +537,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 78,
                     top: 623,
                     child: Text(
@@ -552,7 +552,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 91,
                     top: 679,
                     child: Text(
@@ -567,7 +567,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 203,
                     top: 314,
                     child: Text(
@@ -581,7 +581,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 203,
                     top: 348,
                     child: Text(
@@ -595,7 +595,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 236,
                     top: 553,
                     child: SizedBox(
@@ -614,7 +614,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 236,
                     top: 671,
                     child: SizedBox(
@@ -633,7 +633,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 236,
                     top: 609,
                     child: SizedBox(
@@ -652,7 +652,7 @@ class EventSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 32,
                     top: 418,
                     child: Text(
@@ -673,7 +673,7 @@ class EventSummary extends StatelessWidget {
                     child: Container(
                       width: 42,
                       height: 31,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image:
                               NetworkImage("https://via.placeholder.com/42x31"),
@@ -689,7 +689,7 @@ class EventSummary extends StatelessWidget {
                       width: 363,
                       height: 219,
                       clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Stack(
                         children: [
                           Positioned(
@@ -713,7 +713,7 @@ class EventSummary extends StatelessWidget {
                                             child: Container(
                                               width: 4.35,
                                               height: 32.32,
-                                              child: Stack(
+                                              child: const Stack(
                                                 children: [
                                                   Positioned(
                                                     left: 0,
@@ -746,7 +746,7 @@ class EventSummary extends StatelessWidget {
                                             child: Container(
                                               width: 3.26,
                                               height: 32.32,
-                                              child: Stack(
+                                              child: const Stack(
                                                 children: [
                                                   Positioned(
                                                     left: 0,
@@ -779,7 +779,7 @@ class EventSummary extends StatelessWidget {
                                             child: Container(
                                               width: 4.35,
                                               height: 32.32,
-                                              child: Stack(
+                                              child: const Stack(
                                                 children: [
                                                   Positioned(
                                                     left: 0,
@@ -812,7 +812,7 @@ class EventSummary extends StatelessWidget {
                                             child: Container(
                                               width: 4.35,
                                               height: 32.32,
-                                              child: Stack(
+                                              child: const Stack(
                                                 children: [
                                                   Positioned(
                                                     left: 0,
@@ -869,7 +869,7 @@ class EventSummary extends StatelessWidget {
                                             child: Container(
                                               width: 10.32,
                                               height: 16.42,
-                                              child: Stack(
+                                              child: const Stack(
                                                 children: [
                                                   Positioned(
                                                     left: 0,
@@ -902,7 +902,7 @@ class EventSummary extends StatelessWidget {
                                             child: Container(
                                               width: 18.48,
                                               height: 49.28,
-                                              child: Stack(
+                                              child: const Stack(
                                                 children: [
                                                   Positioned(
                                                     left: 0,
@@ -935,7 +935,7 @@ class EventSummary extends StatelessWidget {
                                             child: Container(
                                               width: 18.48,
                                               height: 49.28,
-                                              child: Stack(
+                                              child: const Stack(
                                                 children: [
                                                   Positioned(
                                                     left: 0,
@@ -968,7 +968,7 @@ class EventSummary extends StatelessWidget {
                                             child: Container(
                                               width: 17.93,
                                               height: 49.28,
-                                              child: Stack(
+                                              child: const Stack(
                                                 children: [
                                                   Positioned(
                                                     left: 0,
@@ -1001,7 +1001,7 @@ class EventSummary extends StatelessWidget {
                                             child: Container(
                                               width: 21.74,
                                               height: 32.85,
-                                              child: Stack(
+                                              child: const Stack(
                                                 children: [
                                                   Positioned(
                                                     left: 0,
@@ -1050,7 +1050,7 @@ class EventSummary extends StatelessWidget {
                                     child: Container(
                                       width: 324.96,
                                       height: 175.20,
-                                      child: Stack(),
+                                      child: const Stack(),
                                     ),
                                   ),
                                   Positioned(
@@ -1059,7 +1059,7 @@ class EventSummary extends StatelessWidget {
                                     child: Container(
                                       width: 324.96,
                                       height: 175.20,
-                                      child: Stack(),
+                                      child: const Stack(),
                                     ),
                                   ),
                                 ],
@@ -1072,7 +1072,7 @@ class EventSummary extends StatelessWidget {
                             child: Container(
                               width: 308.39,
                               height: 175.02,
-                              child: Stack(),
+                              child: const Stack(),
                             ),
                           ),
                           Positioned(
@@ -1082,7 +1082,7 @@ class EventSummary extends StatelessWidget {
                               width: 360,
                               height: 102.62,
                               decoration:
-                                  BoxDecoration(color: Color(0xFF464646)),
+                                  const BoxDecoration(color: Color(0xFF464646)),
                             ),
                           ),
                           Positioned(
@@ -1092,7 +1092,7 @@ class EventSummary extends StatelessWidget {
                               width: 357,
                               height: 125.90,
                               decoration:
-                                  BoxDecoration(color: Color(0xFFD9D9D9)),
+                                  const BoxDecoration(color: Color(0xFFD9D9D9)),
                             ),
                           ),
                           Positioned(
@@ -1102,7 +1102,7 @@ class EventSummary extends StatelessWidget {
                               width: 360,
                               height: 125.90,
                               decoration:
-                                  BoxDecoration(color: Color(0xFFD9D9D9)),
+                                  const BoxDecoration(color: Color(0xFFD9D9D9)),
                             ),
                           ),
                         ],

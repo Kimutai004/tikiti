@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
+import 'package:tikiti/event-dets.dart';
 import 'package:tikiti/profile.dart';
 import 'package:tikiti/search.dart';
 
@@ -39,101 +39,123 @@ class Index extends StatelessWidget {
             width: 360,
             height: 800,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(color: Colors.white),
             child: Stack(
               children: [
-
                 StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                  .collection('events')
-                  .snapshots(),
+                  stream: FirebaseFirestore.instance
+                      .collection('events')
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    }
 
-                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Something went wrong');
-                  }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Text("Loading");
+                    }
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading");
-                  }
-
-                  return ListView(
-                    padding: const EdgeInsets.only(top: 80.0, left: 14.0),
-                    children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-                      return Container(
-                        width: 360,
-                        height: 100,
-                        decoration: BoxDecoration(color: Color.fromARGB(0, 0, 0, 0)),
-                        child: Row(
-                          children: <Widget>[
-                            // New container for the image
-                            Container(
-                              width: 156,
-                              height: 100,
-                              child: data['path'] != null ? Image.file(File(data['path'])) : Container(
-                               
-                                  decoration: ShapeDecoration(
-                                    color: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                        width: 1,
-                                        color: Colors.black.withOpacity(0.23999999463558197),
+                    return ListView(
+                      padding: const EdgeInsets.only(top: 80.0, left: 14.0),
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data() as Map<String, dynamic>;
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EventDescription(eventId: document.id,)),
+                            );
+                          },
+                          child: Container(
+                            width: 360,
+                            height: 100,
+                            decoration: const BoxDecoration(
+                                color: Color.fromARGB(0, 0, 0, 0)),
+                            child: Row(
+                              children: <Widget>[
+                                // New container for the image
+                                Container(
+                                  width: 156,
+                                  height: 100,
+                                  child: data['path'] != null
+                                      ? Image.file(File(data['path']))
+                                      : Container(
+                                          decoration: ShapeDecoration(
+                                            color: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                width: 1,
+                                                color: Colors.black.withOpacity(
+                                                    0.23999999463558197),
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                        ),
+                                ),
+                                const SizedBox(
+                                    width:
+                                        10), // Spacing between image and text
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        data['event_title'] ?? 'Default Title'),
+                                    const SizedBox(
+                                        height:
+                                            5), // Spacing between title and description
+                                    Text(data['event_desc'] ??
+                                        'Default Description'),
+                                    const SizedBox(
+                                        height:
+                                            5), // Spacing between description and date
+                                    Text(data['start'] ?? 'Default Date'),
+                                  ],
+                                ),
+                                const SizedBox(width: 10),
+                                // Add more fields as needed
+                                Positioned(
+                                  left: 280,
+                                  top: 176,
+                                  child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage("assets/Share.png"),
+                                        fit: BoxFit.contain,
                                       ),
-                                      borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
                                 ),
-                            ),
-                            SizedBox(width: 10), // Spacing between image and text
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(data['event_title'] ?? 'Default Title'),
-                                SizedBox(height: 5), // Spacing between title and description
-                                Text(data['event_desc'] ?? 'Default Description'),
-                                SizedBox(height: 5), // Spacing between description and date
-                                Text(data['start'] ?? 'Default Date'),
+                                Positioned(
+                                  left: 313,
+                                  top: 176,
+                                  child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                        image:
+                                            AssetImage("assets/Favorite.png"),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
-                            SizedBox(width: 10),
-                            // Add more fields as needed
-                            Positioned(
-                              left: 280,
-                              top: 176,
-                              child: Container(
-                                width: 20,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage("assets/Share.png"),
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 313,
-                              top: 176,
-                              child: Container(
-                                width: 20,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage("assets/Favorite.png"),
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  );
-                },
-              ),
-                
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
                 Positioned(
                   left: 78,
                   top: 12,
@@ -152,7 +174,7 @@ class Index extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 113,
                   top: 19,
                   child: Text(
@@ -173,7 +195,7 @@ class Index extends StatelessWidget {
                   child: Container(
                     width: 12,
                     height: 12,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/Search.png"),
                         fit: BoxFit.contain,
@@ -187,17 +209,15 @@ class Index extends StatelessWidget {
                   child: Container(
                     width: 33,
                     height: 33,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image:
-                              AssetImage("assets/Tikiti.png"),
+                        image: AssetImage("assets/Tikiti.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
                   ),
                 ),
-                
-                Positioned(
+                const Positioned(
                   left: 24,
                   top: 63,
                   child: SizedBox(
@@ -215,11 +235,7 @@ class Index extends StatelessWidget {
                     ),
                   ),
                 ),
-                
-                
-                
-                
-                Positioned(
+                const Positioned(
                   left: 144,
                   top: 481,
                   child: Text(
@@ -237,46 +253,46 @@ class Index extends StatelessWidget {
                   left: 107,
                   top: 740,
                   child: GestureDetector(
-                  onTap: () {
-                    // Add code to navigate to search.dart
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Search()),
-                    );
-                  },
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/Search.png"),
-                      fit: BoxFit.contain,
+                    onTap: () {
+                      // Add code to navigate to search.dart
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Search()),
+                      );
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Search.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
-                    ),
-                  ),
                   ),
                 ),
                 Positioned(
                   left: 273,
                   top: 740,
                   child: GestureDetector(
-                  onTap: () {
-                    // Add code to navigate to profile.dart
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Profile()),
-                    );
-                  },
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/Account.png"),
-                      fit: BoxFit.contain,
+                    onTap: () {
+                      // Add code to navigate to profile.dart
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Profile()),
+                      );
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Account.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
-                    ),
-                  ),
                   ),
                 ),
                 Positioned(
@@ -285,10 +301,9 @@ class Index extends StatelessWidget {
                   child: Container(
                     width: 40,
                     height: 40,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image:
-                            AssetImage("assets/Home.png"),
+                        image: AssetImage("assets/Home.png"),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -298,24 +313,23 @@ class Index extends StatelessWidget {
                   left: 190,
                   top: 740,
                   child: GestureDetector(
-                  onTap: () {
-                    // Add code to navigate to ticket.dat
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Ticket()),
-                    );
-                    
-                  },
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/Ticket.png"),
-                      fit: BoxFit.contain,
+                    onTap: () {
+                      // Add code to navigate to ticket.dat
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Ticket()),
+                      );
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/Ticket.png"),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
-                    ),
-                  ),
                   ),
                 ),
                 Positioned(
@@ -325,9 +339,9 @@ class Index extends StatelessWidget {
                     width: 129,
                     height: 39,
                     decoration: BoxDecoration(
-                      color: Color(0x7CD9D9D9),
+                      color: const Color(0x7CD9D9D9),
                       borderRadius: BorderRadius.circular(5),
-                      border: Border(
+                      border: const Border(
                         left: BorderSide(width: 3, color: Color(0xFFFF3D00)),
                         top: BorderSide(color: Color(0xFFFF3D00)),
                         right: BorderSide(color: Color(0xFFFF3D00)),
@@ -336,7 +350,7 @@ class Index extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 135,
                   top: 680,
                   child: SizedBox(
@@ -361,16 +375,14 @@ class Index extends StatelessWidget {
                   child: Container(
                     width: 25,
                     height: 29,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image:
-                            AssetImage("assets/Location (1).png"),
+                        image: AssetImage("assets/Location (1).png"),
                         fit: BoxFit.contain,
                       ),
                     ),
                   ),
                 ),
-                
               ],
             ),
           ),

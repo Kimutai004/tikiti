@@ -28,7 +28,7 @@ class LinkedAccounts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Linked Accounts'),
+        title: const Text('Linked Accounts'),
       ),
       body: ListView(
         children: [
@@ -36,7 +36,7 @@ class LinkedAccounts extends StatelessWidget {
           width: 360,
           height: 800,
           clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Colors.white),
+          decoration: const BoxDecoration(color: Colors.white),
           child: Stack(
             children: [
               Positioned(
@@ -45,7 +45,7 @@ class LinkedAccounts extends StatelessWidget {
                 child: Container(
                   width: 23,
                   height: 30,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage("https://via.placeholder.com/23x30"),
                       fit: BoxFit.contain,
@@ -53,7 +53,7 @@ class LinkedAccounts extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 78,
                 top: 22,
                 child: SizedBox(
@@ -78,7 +78,7 @@ class LinkedAccounts extends StatelessWidget {
                 child: Container(
                   width: 110,
                   height: 109,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     color: Color(0xFFD9D9D9),
                     shape: OvalBorder(),
                   ),
@@ -90,7 +90,7 @@ class LinkedAccounts extends StatelessWidget {
                 child: Container(
                   width: 100,
                   height: 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image:
                           AssetImage("assets/User.png"),
@@ -99,7 +99,7 @@ class LinkedAccounts extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 95,
                 top: 225,
                 child: Text(
@@ -113,7 +113,7 @@ class LinkedAccounts extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 134,
                 top: 199,
                 child: Text(
@@ -127,7 +127,7 @@ class LinkedAccounts extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 83,
                 top: 288,
                 child: Text(
@@ -141,7 +141,7 @@ class LinkedAccounts extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 83,
                 top: 351,
                 child: Text(
@@ -161,7 +161,7 @@ class LinkedAccounts extends StatelessWidget {
                 child: Container(
                   width: 20,
                   height: 21,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Google.png"),
                       fit: BoxFit.contain,
@@ -175,7 +175,7 @@ class LinkedAccounts extends StatelessWidget {
                 child: Container(
                   width: 22,
                   height: 30,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Facebook.png"),
                       fit: BoxFit.contain,
@@ -189,7 +189,7 @@ class LinkedAccounts extends StatelessWidget {
                 child: Container(
                   width: 100,
                   height: 39,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Toggle Off.png"),
                       fit: BoxFit.contain,
@@ -203,7 +203,7 @@ class LinkedAccounts extends StatelessWidget {
                 child: Container(
                   width: 100,
                   height: 49,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Toggle Off.png"),
                       fit: BoxFit.contain,

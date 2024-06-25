@@ -55,7 +55,7 @@ class Login extends StatelessWidget {
                       color: Colors.yellow, // Set the color to yellow
                       borderRadius: BorderRadius.circular(4), // Add rounded corners
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.check,
                       color: Colors.white,
                       size: 18,
@@ -69,7 +69,7 @@ class Login extends StatelessWidget {
                 child: Container(
                   width: 248,
                   height: 42,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xC6F6F6F6),
                     border: Border(
                       bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -77,14 +77,14 @@ class Login extends StatelessWidget {
                   ),
                   child: TextField(
                     controller: _emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter your text',
                     ),
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 44,
                 top: 287,
                 child: Text(
@@ -104,7 +104,7 @@ class Login extends StatelessWidget {
                 child: Container(
                   width: 248,
                   height: 42,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xC6F6F6F6),
                     border: Border(
                       bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -112,14 +112,14 @@ class Login extends StatelessWidget {
                   ),
                   child: TextField(
                     controller: _passwordController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Enter your text',
                     ),
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 43,
                 top: 178,
                 child: Text(
@@ -133,7 +133,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 100,
                 top: 402,
                 child: Text(

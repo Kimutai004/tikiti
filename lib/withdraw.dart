@@ -28,7 +28,7 @@ class Withdraw extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Withdraw'),
+        title: const Text('Withdraw'),
       ),
       body: ListView(
         children: [
@@ -36,7 +36,7 @@ class Withdraw extends StatelessWidget {
           width: 360,
           height: 800,
           clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Colors.white),
+          decoration: const BoxDecoration(color: Colors.white),
           child: Stack(
             children: [
               Positioned(
@@ -45,7 +45,7 @@ class Withdraw extends StatelessWidget {
                 child: Container(
                   width: 360,
                   height: 64,
-                  decoration: BoxDecoration(color: Color(0xFFF6F6F6)),
+                  decoration: const BoxDecoration(color: Color(0xFFF6F6F6)),
                 ),
               ),
               Positioned(
@@ -54,7 +54,7 @@ class Withdraw extends StatelessWidget {
                 child: Container(
                   width: 23,
                   height: 30,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage("https://via.placeholder.com/23x30"),
                       fit: BoxFit.contain,
@@ -62,7 +62,7 @@ class Withdraw extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 71,
                 top: 90,
                 child: Text(
@@ -77,7 +77,7 @@ class Withdraw extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 245,
                 top: 90,
                 child: Text(
@@ -97,7 +97,7 @@ class Withdraw extends StatelessWidget {
                 top: 116,
                 child: Container(
                   width: 160,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 1,
@@ -115,9 +115,9 @@ class Withdraw extends StatelessWidget {
                   width: 81,
                   height: 41,
                   decoration: ShapeDecoration(
-                    color: Color(0xD6099920),
+                    color: const Color(0xD6099920),
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
+                      side: const BorderSide(width: 1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -130,9 +130,9 @@ class Withdraw extends StatelessWidget {
                   width: 81,
                   height: 41,
                   decoration: ShapeDecoration(
-                    color: Color(0xC6FF2929),
+                    color: const Color(0xC6FF2929),
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1),
+                      side: const BorderSide(width: 1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -144,7 +144,7 @@ class Withdraw extends StatelessWidget {
                 child: Container(
                   width: 30,
                   height: 33,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage("https://via.placeholder.com/30x33"),
                       fit: BoxFit.contain,
@@ -152,7 +152,7 @@ class Withdraw extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 45,
                 top: 147,
                 child: SizedBox(
@@ -171,7 +171,7 @@ class Withdraw extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 134,
                 top: 143,
                 child: SizedBox(
@@ -197,14 +197,14 @@ class Withdraw extends StatelessWidget {
                   width: 310,
                   height: 175,
                   decoration: ShapeDecoration(
-                    color: Color(0xFFD9D9D9),
+                    color: const Color(0xFFD9D9D9),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 27,
                 top: 212,
                 child: Text(
@@ -247,7 +247,7 @@ class Withdraw extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 95,
                 top: 333,
                 child: SizedBox(
@@ -266,7 +266,7 @@ class Withdraw extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 27,
                 top: 274,
                 child: Text(
@@ -281,7 +281,7 @@ class Withdraw extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 100,
                 top: 23,
                 child: Text(

@@ -31,7 +31,7 @@ class Ticket extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Events CheckIn'),
+        title: const Text('Events CheckIn'),
         backgroundColor: Colors.grey[700],
       ),
       drawer: Drawer(
@@ -41,7 +41,7 @@ class Ticket extends StatelessWidget {
               width: 360,
               height: 800,
               clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(color: Colors.white),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
                   Positioned(
@@ -50,7 +50,7 @@ class Ticket extends StatelessWidget {
                     child: Container(
                       width: 236,
                       height: 800,
-                      decoration: BoxDecoration(color: Color(0xFF626262)),
+                      decoration: const BoxDecoration(color: Color(0xFF626262)),
                     ),
                   ),
                   Positioned(
@@ -59,7 +59,7 @@ class Ticket extends StatelessWidget {
                     child: Container(
                       width: 236,
                       height: 154,
-                      decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
+                      decoration: const BoxDecoration(color: Color(0xFFF4F4F4)),
                     ),
                   ),
                     Positioned(
@@ -72,7 +72,7 @@ class Ticket extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Home()),
                       );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                       width: 49,
                       child: Text(
                         'Events',
@@ -97,7 +97,7 @@ class Ticket extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => AddEvent()),
                       );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                       width: 98,
                       child: Text(
                         'Create Event',
@@ -122,7 +122,7 @@ class Ticket extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => Ticket()),
                           );
                         },
-                        child: SizedBox(
+                        child: const SizedBox(
                           width: 98,
                           child: Text(
                             'Attendees',
@@ -137,7 +137,7 @@ class Ticket extends StatelessWidget {
                         ),
                       ),
                     ),
-                  Positioned(
+                  const Positioned(
                     left: 74,
                     top: 323,
                     child: SizedBox(
@@ -164,7 +164,7 @@ class Ticket extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Login()),
                       );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                       width: 98,
                       child: Text(
                         'LogOut',
@@ -185,7 +185,7 @@ class Ticket extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
@@ -199,7 +199,7 @@ class Ticket extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
@@ -213,7 +213,7 @@ class Ticket extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/People.png"),
                           fit: BoxFit.contain,
@@ -227,7 +227,7 @@ class Ticket extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Profile.png"),
                           fit: BoxFit.contain,
@@ -241,7 +241,7 @@ class Ticket extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Logout.png"),
                           fit: BoxFit.contain,
@@ -255,7 +255,7 @@ class Ticket extends StatelessWidget {
                     child: Container(
                       width: 88,
                       height: 87,
-                      decoration: ShapeDecoration(
+                      decoration: const ShapeDecoration(
                         color: Color(0xFFD9D9D9),
                         shape: OvalBorder(),
                       ),
@@ -267,7 +267,7 @@ class Ticket extends StatelessWidget {
                     child: Container(
                       width: 74,
                       height: 74,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/User.png"),
                           fit: BoxFit.contain,
@@ -275,7 +275,7 @@ class Ticket extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 91,
                     top: 115,
                     child: Text(
@@ -301,7 +301,7 @@ class Ticket extends StatelessWidget {
           width: 360,
           height: 800,
           clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Colors.white),
+          decoration: const BoxDecoration(color: Colors.white),
           child: Stack(
             children: [
               Positioned(
@@ -310,10 +310,10 @@ class Ticket extends StatelessWidget {
                 child: Container(
                   width: 360,
                   height: 63,
-                  decoration: BoxDecoration(color: Color(0xFF706E6E)),
+                  decoration: const BoxDecoration(color: Color(0xFF706E6E)),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 77,
                 top: 19,
                 child: Text(
@@ -334,7 +334,7 @@ class Ticket extends StatelessWidget {
                 child: Container(
                   width: 61,
                   height: 31,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage("https://via.placeholder.com/61x31"),
                       fit: BoxFit.contain,
@@ -348,7 +348,7 @@ class Ticket extends StatelessWidget {
                 child: Container(
                   width: 59,
                   height: 50,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage("https://via.placeholder.com/59x50"),
                       fit: BoxFit.contain,
@@ -362,7 +362,7 @@ class Ticket extends StatelessWidget {
                 child: Container(
                   width: 307,
                   height: 602,
-                  decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                  decoration: const BoxDecoration(color: Color(0xFFD9D9D9)),
                 ),
               ),
               Positioned(
@@ -376,19 +376,19 @@ class Ticket extends StatelessWidget {
                     color: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     shadows: [
-                      BoxShadow(
+                      const BoxShadow(
                         color: Color(0x19000000),
                         blurRadius: 0,
                         offset: Offset(0, 0),
                         spreadRadius: 1,
                       ),
-                      BoxShadow(
+                      const BoxShadow(
                         color: Color(0x19000000),
                         blurRadius: 6,
                         offset: Offset(0, 4),
                         spreadRadius: -1,
                       ),
-                      BoxShadow(
+                      const BoxShadow(
                         color: Color(0x19000000),
                         blurRadius: 4,
                         offset: Offset(0, 2),
@@ -405,7 +405,7 @@ class Ticket extends StatelessWidget {
                         width: double.infinity,
                         height: 72,
                         clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(color: Color(0xFFF1F5F9)),
+                        decoration: const BoxDecoration(color: Color(0xFFF1F5F9)),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -416,7 +416,7 @@ class Ticket extends StatelessWidget {
                                 height: 73,
                                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                 clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   border: Border(
                                     left: BorderSide(
                                       strokeAlign: BorderSide.strokeAlignOutside,
@@ -437,7 +437,7 @@ class Ticket extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -465,7 +465,7 @@ class Ticket extends StatelessWidget {
                                 height: 72,
                                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                 clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   border: Border(
                                     left: BorderSide(
                                       strokeAlign: BorderSide.strokeAlignOutside,
@@ -486,7 +486,7 @@ class Ticket extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -513,7 +513,7 @@ class Ticket extends StatelessWidget {
                                 height: 80,
                                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                 clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   border: Border(
                                     left: BorderSide(
                                       strokeAlign: BorderSide.strokeAlignOutside,
@@ -534,7 +534,7 @@ class Ticket extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -562,7 +562,7 @@ class Ticket extends StatelessWidget {
                                 height: 47,
                                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                 clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   border: Border(
                                     left: BorderSide(
                                       strokeAlign: BorderSide.strokeAlignOutside,
@@ -583,7 +583,7 @@ class Ticket extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -611,7 +611,7 @@ class Ticket extends StatelessWidget {
                       Container(
                         height: 490,
                         clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(color: Colors.white),
+                        decoration: const BoxDecoration(color: Colors.white),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -621,7 +621,7 @@ class Ticket extends StatelessWidget {
                               width: double.infinity,
                               height: 62,
                               clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
                                   left: BorderSide(
@@ -653,7 +653,7 @@ class Ticket extends StatelessWidget {
                                       height: 62,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -681,7 +681,7 @@ class Ticket extends StatelessWidget {
                                       height: 58,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -709,7 +709,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -737,7 +737,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -766,7 +766,7 @@ class Ticket extends StatelessWidget {
                             Container(
                               width: double.infinity,
                               clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
                                   left: BorderSide(
@@ -798,7 +798,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -826,7 +826,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -854,7 +854,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -882,7 +882,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -911,7 +911,7 @@ class Ticket extends StatelessWidget {
                             Container(
                               width: double.infinity,
                               clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
                                   left: BorderSide(
@@ -943,7 +943,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -971,7 +971,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -999,7 +999,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -1027,7 +1027,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -1056,7 +1056,7 @@ class Ticket extends StatelessWidget {
                             Container(
                               width: double.infinity,
                               clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
                                   left: BorderSide(
@@ -1088,7 +1088,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -1116,7 +1116,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -1144,7 +1144,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -1172,7 +1172,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -1201,7 +1201,7 @@ class Ticket extends StatelessWidget {
                             Container(
                               width: double.infinity,
                               clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 border: Border(
                                   left: BorderSide(
@@ -1233,7 +1233,7 @@ class Ticket extends StatelessWidget {
                                       height: 47,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -1261,7 +1261,7 @@ class Ticket extends StatelessWidget {
                                       height: 47,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -1289,7 +1289,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,
@@ -1317,7 +1317,7 @@ class Ticket extends StatelessWidget {
                                       height: 107,
                                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                                       clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           left: BorderSide(
                                             strokeAlign: BorderSide.strokeAlignOutside,

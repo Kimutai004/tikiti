@@ -41,10 +41,10 @@ class AndroidLarge1 extends StatelessWidget {
           width: 412,
           height: 815,
           clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Color.fromARGB(222, 232, 71, 35)),
+          decoration: const BoxDecoration(color: Color.fromARGB(222, 232, 71, 35)),
           child: Stack(
             children: [
-              Positioned(
+              const Positioned(
                 left: 24,
                 top: 72,
                 child: SizedBox(
@@ -62,7 +62,7 @@ class AndroidLarge1 extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 26,
                 top: 116,
                 child: SizedBox(
@@ -93,7 +93,7 @@ class AndroidLarge1 extends StatelessWidget {
                     width: 248,
                     height: 40,
                     decoration: ShapeDecoration(
-                      color: Color(0xFFFF3E01),
+                      color: const Color(0xFFFF3E01),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -108,9 +108,9 @@ class AndroidLarge1 extends StatelessWidget {
                   width: 248,
                   height: 40,
                   decoration: ShapeDecoration(
-                    color: Color(0xFFF6F6F6),
+                    color: const Color(0xFFF6F6F6),
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(
+                      side: const BorderSide(
                         width: 2,
                         strokeAlign: BorderSide.strokeAlignOutside,
                         color: Color(0xFF706E6E),
@@ -127,9 +127,9 @@ class AndroidLarge1 extends StatelessWidget {
                   width: 248,
                   height: 40,
                   decoration: ShapeDecoration(
-                    color: Color(0xFFF6F6F6),
+                    color: const Color(0xFFF6F6F6),
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(
+                      side: const BorderSide(
                         width: 2,
                         strokeAlign: BorderSide.strokeAlignOutside,
                         color: Color(0xFF706E6E),
@@ -139,7 +139,7 @@ class AndroidLarge1 extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 105,
                 top: 334,
                 child: Text(
@@ -154,7 +154,7 @@ class AndroidLarge1 extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 115,
                 top: 394,
                 child: Text(
@@ -169,7 +169,7 @@ class AndroidLarge1 extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 120,
                 top: 454,
                 child: Text(
@@ -190,7 +190,7 @@ class AndroidLarge1 extends StatelessWidget {
                 child: Container(
                   width: 22,
                   height: 30,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Facebook.png"),
                       fit: BoxFit.contain,
@@ -204,7 +204,7 @@ class AndroidLarge1 extends StatelessWidget {
                 child: Container(
                   width: 20,
                   height: 21,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Google.png"),
                       fit: BoxFit.contain,
@@ -222,7 +222,7 @@ class AndroidLarge1 extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => Login()),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'Have an Account, Click here to Login',
                     textAlign: TextAlign.center,
                     style: TextStyle(

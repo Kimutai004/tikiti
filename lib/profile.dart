@@ -33,7 +33,7 @@ class Profile extends StatelessWidget {
           width: 360,
           height: 800,
           clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Colors.white),
+          decoration: const BoxDecoration(color: Colors.white),
           child: Stack(
             children: [
               Positioned(
@@ -42,7 +42,7 @@ class Profile extends StatelessWidget {
                 child: Container(
                   width: 360,
                   height: 299,
-                  decoration: BoxDecoration(color: Color(0xFFF6F6F6)),
+                  decoration: const BoxDecoration(color: Color(0xFFF6F6F6)),
                 ),
               ),
               Positioned(
@@ -51,7 +51,7 @@ class Profile extends StatelessWidget {
                 child: Container(
                   width: 128,
                   height: 123,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     color: Color(0xFFD9D9D9),
                     shape: OvalBorder(),
                   ),
@@ -63,7 +63,7 @@ class Profile extends StatelessWidget {
                 child: Container(
                   width: 100,
                   height: 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image:
                           AssetImage('assets/User.png'),
@@ -81,7 +81,7 @@ class Profile extends StatelessWidget {
                     ..rotateZ(1.57),
                   child: Container(
                     width: 67.16,
-                    decoration: ShapeDecoration(
+                    decoration: const ShapeDecoration(
                       shape: RoundedRectangleBorder(
                         side: BorderSide(
                           width: 1,
@@ -102,7 +102,7 @@ class Profile extends StatelessWidget {
                     ..rotateZ(1.57),
                   child: Container(
                     width: 67,
-                    decoration: ShapeDecoration(
+                    decoration: const ShapeDecoration(
                       shape: RoundedRectangleBorder(
                         side: BorderSide(
                           width: 1,
@@ -114,7 +114,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 24,
                 top: 255,
                 child: Text(
@@ -128,7 +128,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 131,
                 top: 255,
                 child: Text(
@@ -142,7 +142,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 261,
                 top: 255,
                 child: Text(
@@ -156,7 +156,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 98,
                 top: 180,
                 child: Text(
@@ -170,7 +170,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 138,
                 top: 156,
                 child: Text(
@@ -184,7 +184,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 15,
                 top: 220,
                 child: SizedBox(
@@ -201,7 +201,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 158,
                 top: 220,
                 child: Text(
@@ -216,7 +216,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 276,
                 top: 220,
                 child: Text(
@@ -237,10 +237,10 @@ class Profile extends StatelessWidget {
                 child: Container(
                   width: 360,
                   height: 87,
-                  decoration: BoxDecoration(color: Colors.white),
+                  decoration: const BoxDecoration(color: Colors.white),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 11,
                 top: 424,
                 child: Text(
@@ -255,7 +255,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 11,
                 top: 491,
                 child: Text(
@@ -270,7 +270,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 10,
                 top: 337,
                 child: Text(
@@ -285,7 +285,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 11,
                 top: 558,
                 child: Text(
@@ -300,7 +300,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 15,
                 top: 625,
                 child: Text(
@@ -315,7 +315,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 15,
                 top: 692,
                 child: Text(
@@ -335,7 +335,7 @@ class Profile extends StatelessWidget {
                 top: 462,
                 child: Container(
                   width: 360,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 0.50,
@@ -351,7 +351,7 @@ class Profile extends StatelessWidget {
                 top: 531,
                 child: Container(
                   width: 360,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 0.50,
@@ -367,7 +367,7 @@ class Profile extends StatelessWidget {
                 top: 598,
                 child: Container(
                   width: 360,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 0.50,
@@ -383,7 +383,7 @@ class Profile extends StatelessWidget {
                 top: 665,
                 child: Container(
                   width: 360,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 0.50,
@@ -400,7 +400,7 @@ class Profile extends StatelessWidget {
                 child: Container(
                   width: 42,
                   height: 31,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/More Than.png"),
                       fit: BoxFit.contain,
@@ -414,7 +414,7 @@ class Profile extends StatelessWidget {
                 child: Container(
                   width: 42,
                   height: 31,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                      image: AssetImage("assets/More Than.png"),
                       fit: BoxFit.contain,
@@ -428,7 +428,7 @@ class Profile extends StatelessWidget {
                 child: Container(
                   width: 42,
                   height: 31,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/More Than.png"),
                       fit: BoxFit.contain,
@@ -445,13 +445,13 @@ class Profile extends StatelessWidget {
                   decoration: ShapeDecoration(
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                      side: const BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 230,
                 top: 412,
                 child: SizedBox(

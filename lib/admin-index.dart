@@ -38,8 +38,8 @@ class Home extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text('Events'),
-        backgroundColor: Color(0xFF706E6E),
+        title: const Text('Events'),
+        backgroundColor: const Color(0xFF706E6E),
       ),
       drawer: Drawer(
         child: Column(
@@ -48,7 +48,7 @@ class Home extends StatelessWidget {
               width: 360,
               height: 800,
               clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(color: Colors.white),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
                   Positioned(
@@ -57,7 +57,7 @@ class Home extends StatelessWidget {
                     child: Container(
                       width: 236,
                       height: 800,
-                      decoration: BoxDecoration(color: Color(0xFF626262)),
+                      decoration: const BoxDecoration(color: Color(0xFF626262)),
                     ),
                   ),
                   Positioned(
@@ -66,7 +66,7 @@ class Home extends StatelessWidget {
                     child: Container(
                       width: 236,
                       height: 154,
-                      decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
+                      decoration: const BoxDecoration(color: Color(0xFFF4F4F4)),
                     ),
                   ),
                     Positioned(
@@ -79,7 +79,7 @@ class Home extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Home()),
                       );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                       width: 49,
                       child: Text(
                         'Events',
@@ -104,7 +104,7 @@ class Home extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => AddEvent()),
                       );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                       width: 98,
                       child: Text(
                         'Create Event',
@@ -129,7 +129,7 @@ class Home extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => Ticket()),
                           );
                         },
-                        child: SizedBox(
+                        child: const SizedBox(
                           width: 98,
                           child: Text(
                             'Attendees',
@@ -144,7 +144,7 @@ class Home extends StatelessWidget {
                         ),
                       ),
                     ),
-                  Positioned(
+                  const Positioned(
                     left: 74,
                     top: 323,
                     child: SizedBox(
@@ -172,7 +172,7 @@ class Home extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Login()),
                         );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                       width: 98,
                       child: Text(
                         'LogOut',
@@ -193,7 +193,7 @@ class Home extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
@@ -207,7 +207,7 @@ class Home extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
@@ -221,7 +221,7 @@ class Home extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/People.png"),
                           fit: BoxFit.contain,
@@ -235,7 +235,7 @@ class Home extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Profile.png"),
                           fit: BoxFit.contain,
@@ -249,7 +249,7 @@ class Home extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Logout.png"),
                           fit: BoxFit.contain,
@@ -263,7 +263,7 @@ class Home extends StatelessWidget {
                     child: Container(
                       width: 88,
                       height: 87,
-                      decoration: ShapeDecoration(
+                      decoration: const ShapeDecoration(
                         color: Color(0xFFD9D9D9),
                         shape: OvalBorder(),
                       ),
@@ -275,7 +275,7 @@ class Home extends StatelessWidget {
                     child: Container(
                       width: 74,
                       height: 74,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/User.png"),
                           fit: BoxFit.contain,
@@ -283,7 +283,7 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 91,
                     top: 115,
                     child: Text(
@@ -309,7 +309,7 @@ class Home extends StatelessWidget {
             width: 360,
             height: 800,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(color: Colors.white),
             child: Stack(
               children: [
                 
@@ -321,8 +321,8 @@ class Home extends StatelessWidget {
                           // Handle Live section tap
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          decoration: const BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
                                 width: 2,
@@ -330,7 +330,7 @@ class Home extends StatelessWidget {
                               ),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Live',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -350,8 +350,8 @@ class Home extends StatelessWidget {
                           // Handle Upcoming section tap
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          decoration: const BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
                                 width: 2,
@@ -359,7 +359,7 @@ class Home extends StatelessWidget {
                               ),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Upcoming',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -379,8 +379,8 @@ class Home extends StatelessWidget {
                           // Handle Past section tap
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          decoration: const BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
                                 width: 2,
@@ -388,7 +388,7 @@ class Home extends StatelessWidget {
                               ),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Past',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -413,11 +413,11 @@ class Home extends StatelessWidget {
 
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {
-                    return Text('Something went wrong');
+                    return const Text('Something went wrong');
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading");
+                    return const Text("Loading");
                   }
 
                   return ListView(
@@ -427,7 +427,7 @@ class Home extends StatelessWidget {
                       return Container(
                         width: 360,
                         height: 100,
-                        decoration: BoxDecoration(color: Color.fromARGB(0, 0, 0, 0)),
+                        decoration: const BoxDecoration(color: Color.fromARGB(0, 0, 0, 0)),
                         child: Row(
                           children: <Widget>[
                             // New container for the image
@@ -436,18 +436,18 @@ class Home extends StatelessWidget {
                               height: 100,
                               child: data['path'] != null ? Image.file(File(data['path'])) : Container(),
                             ),
-                            SizedBox(width: 10), // Spacing between image and text
+                            const SizedBox(width: 10), // Spacing between image and text
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(data['event_title'] ?? 'Default Title'),
-                                SizedBox(height: 5), // Spacing between title and description
+                                const SizedBox(height: 5), // Spacing between title and description
                                 Text(data['event_desc'] ?? 'Default Description'),
-                                SizedBox(height: 5), // Spacing between description and date
+                                const SizedBox(height: 5), // Spacing between description and date
                                 Text(data['start'] ?? 'Default Date'),
                               ],
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             // Add more fields as needed
                           ],
                         ),
@@ -463,7 +463,7 @@ class Home extends StatelessWidget {
                   child: Container(
                     width: 75,
                     height: 75,
-                    decoration: ShapeDecoration(
+                    decoration: const ShapeDecoration(
                       color: Color(0xFF706E6E),
                       shape: OvalBorder(),
                     ),
@@ -482,7 +482,7 @@ class Home extends StatelessWidget {
                     child: Container(
                       width: 75,
                       height: 75,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Add (1).png"),
                           fit: BoxFit.contain,

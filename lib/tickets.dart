@@ -31,7 +31,7 @@ class Tickets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tickets'),
+        title: const Text('Tickets'),
       ),
       body: ListView(
         children: [
@@ -39,11 +39,11 @@ class Tickets extends StatelessWidget {
             width: 360,
             height: 800,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(color: Colors.white),
             child: Stack(
               children: [
                 
-                Positioned(
+                const Positioned(
                   left: 25,
                   top: 30,
                   child: SizedBox(
@@ -62,7 +62,7 @@ class Tickets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 60,
                   top: 119,
                   child: Text(
@@ -77,7 +77,7 @@ class Tickets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 204,
                   top: 119,
                   child: Text(
@@ -97,7 +97,7 @@ class Tickets extends StatelessWidget {
                   top: 149,
                   child: Container(
                     width: 111.02,
-                    decoration: ShapeDecoration(
+                    decoration: const ShapeDecoration(
                       shape: RoundedRectangleBorder(
                         side: BorderSide(
                           width: 1,
@@ -114,7 +114,7 @@ class Tickets extends StatelessWidget {
                   child: Container(
                     width: 324,
                     height: 75,
-                    decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
+                    decoration: const BoxDecoration(color: Color(0xFFF5F4F4)),
                   ),
                 ),
                 Positioned(
@@ -123,7 +123,7 @@ class Tickets extends StatelessWidget {
                   child: Container(
                     width: 107,
                     height: 75,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image:
                             AssetImage("assets/Rectangle 97.png"),
@@ -132,7 +132,7 @@ class Tickets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 149,
                   top: 180,
                   child: SizedBox(
@@ -149,7 +149,7 @@ class Tickets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 149,
                   top: 206,
                   child: SizedBox(
@@ -172,7 +172,7 @@ class Tickets extends StatelessWidget {
                   child: Container(
                     width: 324,
                     height: 75,
-                    decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
+                    decoration: const BoxDecoration(color: Color(0xFFF5F4F4)),
                   ),
                 ),
                 Positioned(
@@ -181,7 +181,7 @@ class Tickets extends StatelessWidget {
                   child: Container(
                     width: 107,
                     height: 75,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image:
                             AssetImage("assets/Rectangle 97.png"),
@@ -190,7 +190,7 @@ class Tickets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 149,
                   top: 266,
                   child: SizedBox(
@@ -207,7 +207,7 @@ class Tickets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 149,
                   top: 292,
                   child: SizedBox(
@@ -230,7 +230,7 @@ class Tickets extends StatelessWidget {
                   child: Container(
                     width: 324,
                     height: 75,
-                    decoration: BoxDecoration(color: Color(0xFFF5F4F4)),
+                    decoration: const BoxDecoration(color: Color(0xFFF5F4F4)),
                   ),
                 ),
                 Positioned(
@@ -239,7 +239,7 @@ class Tickets extends StatelessWidget {
                   child: Container(
                     width: 107,
                     height: 75,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image:
                             AssetImage("assets/Rectangle 97.png"),
@@ -248,7 +248,7 @@ class Tickets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 150,
                   top: 352,
                   child: SizedBox(
@@ -265,7 +265,7 @@ class Tickets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 150,
                   top: 378,
                   child: SizedBox(
@@ -295,7 +295,7 @@ class Tickets extends StatelessWidget {
                   child: Container(
                     width: 40,
                     height: 40,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Search.png"),
                       fit: BoxFit.contain,
@@ -317,7 +317,7 @@ class Tickets extends StatelessWidget {
                   child: Container(
                     width: 40,
                     height: 40,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Account.png"),
                       fit: BoxFit.contain,
@@ -339,7 +339,7 @@ class Tickets extends StatelessWidget {
                   child: Container(
                     width: 40,
                     height: 40,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Home.png"),
                       fit: BoxFit.contain,
@@ -361,7 +361,7 @@ class Tickets extends StatelessWidget {
                   child: Container(
                     width: 40,
                     height: 40,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Ticket.png"),
                       fit: BoxFit.contain,

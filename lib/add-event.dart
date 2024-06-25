@@ -83,8 +83,8 @@ class _AddEventState extends State<AddEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Event'),
-        backgroundColor: Color(0xFF706E6E),
+        title: const Text('Add Event'),
+        backgroundColor: const Color(0xFF706E6E),
       ),
       drawer: Drawer(
         child: Column(
@@ -93,7 +93,7 @@ class _AddEventState extends State<AddEvent> {
               width: 360,
               height: 800,
               clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(color: Colors.white),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
                   Positioned(
@@ -102,7 +102,7 @@ class _AddEventState extends State<AddEvent> {
                     child: Container(
                       width: 236,
                       height: 800,
-                      decoration: BoxDecoration(color: Color(0xFF626262)),
+                      decoration: const BoxDecoration(color: Color(0xFF626262)),
                     ),
                   ),
                   Positioned(
@@ -111,7 +111,7 @@ class _AddEventState extends State<AddEvent> {
                     child: Container(
                       width: 236,
                       height: 154,
-                      decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
+                      decoration: const BoxDecoration(color: Color(0xFFF4F4F4)),
                     ),
                   ),
                   Positioned(
@@ -124,7 +124,7 @@ class _AddEventState extends State<AddEvent> {
                           MaterialPageRoute(builder: (context) => Home()),
                         );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                         width: 49,
                         child: Text(
                           'Events',
@@ -149,7 +149,7 @@ class _AddEventState extends State<AddEvent> {
                           MaterialPageRoute(builder: (context) => AddEvent()),
                         );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                         width: 98,
                         child: Text(
                           'Create Event',
@@ -174,7 +174,7 @@ class _AddEventState extends State<AddEvent> {
                           MaterialPageRoute(builder: (context) => Ticket()),
                         );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                         width: 98,
                         child: Text(
                           'Attendees',
@@ -189,7 +189,7 @@ class _AddEventState extends State<AddEvent> {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 74,
                     top: 323,
                     child: SizedBox(
@@ -216,7 +216,7 @@ class _AddEventState extends State<AddEvent> {
                           MaterialPageRoute(builder: (context) => Login()),
                         );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                         width: 98,
                         child: Text(
                           'LogOut',
@@ -237,7 +237,7 @@ class _AddEventState extends State<AddEvent> {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
@@ -251,7 +251,7 @@ class _AddEventState extends State<AddEvent> {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
@@ -265,7 +265,7 @@ class _AddEventState extends State<AddEvent> {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/People.png"),
                           fit: BoxFit.contain,
@@ -279,7 +279,7 @@ class _AddEventState extends State<AddEvent> {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Profile.png"),
                           fit: BoxFit.contain,
@@ -293,7 +293,7 @@ class _AddEventState extends State<AddEvent> {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Logout.png"),
                           fit: BoxFit.contain,
@@ -307,7 +307,7 @@ class _AddEventState extends State<AddEvent> {
                     child: Container(
                       width: 88,
                       height: 87,
-                      decoration: ShapeDecoration(
+                      decoration: const ShapeDecoration(
                         color: Color(0xFFD9D9D9),
                         shape: OvalBorder(),
                       ),
@@ -319,7 +319,7 @@ class _AddEventState extends State<AddEvent> {
                     child: Container(
                       width: 74,
                       height: 74,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/User.png"),
                           fit: BoxFit.contain,
@@ -327,7 +327,7 @@ class _AddEventState extends State<AddEvent> {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 91,
                     top: 115,
                     child: Text(
@@ -353,7 +353,7 @@ class _AddEventState extends State<AddEvent> {
             width: 600,
             height: 1463,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(color: Color(0xFFFBFBFB)),
+            decoration: const BoxDecoration(color: Color(0xFFFBFBFB)),
             child: Stack(
               children: [
                 Positioned(
@@ -362,7 +362,7 @@ class _AddEventState extends State<AddEvent> {
                   child: Container(
                     width: 500,
                     height: 150,
-                    decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                    decoration: const BoxDecoration(color: Color(0xFFD9D9D9)),
                   ),
                 ),
                 Positioned(
@@ -388,7 +388,7 @@ class _AddEventState extends State<AddEvent> {
                               File(_imagePath!),
                               fit: BoxFit.cover,
                             )
-                          : Center(
+                          : const Center(
                               child: Text(
                                 'Tap to select an image',
                                 style: TextStyle(
@@ -400,7 +400,7 @@ class _AddEventState extends State<AddEvent> {
           
                   ),
 
-                Positioned(
+                const Positioned(
                   left: 14,
                   top: 200,
                   child: Text(
@@ -423,13 +423,13 @@ class _AddEventState extends State<AddEvent> {
                     height: 37,
                     child: TextField(
                       controller: _eventtitlecontroller,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(width: 1),
+                          borderSide: const BorderSide(width: 1),
                         ),
                         filled: true,
                         fillColor: Colors.white,
@@ -440,7 +440,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 14,
                   top: 265,
                   child: Text(
@@ -463,13 +463,13 @@ class _AddEventState extends State<AddEvent> {
                     height: 37,
                     child: TextField(
                       controller: _eventdesccontroller,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(width: 1),
+                          borderSide: const BorderSide(width: 1),
                         ),
                         filled: true,
                         fillColor: Colors.white,
@@ -480,7 +480,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 25,
                   top: 446,
                   child: Text(
@@ -503,9 +503,9 @@ class _AddEventState extends State<AddEvent> {
                       String online = 'online Event';
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(198, 255, 255, 255),
+                      backgroundColor: const Color.fromARGB(198, 255, 255, 255),
                       shape: RoundedRectangleBorder(
-                        side: BorderSide(width: 1),
+                        side: const BorderSide(width: 1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
@@ -523,9 +523,9 @@ class _AddEventState extends State<AddEvent> {
                       String physical = 'Physical Event';
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(225, 255, 81, 0),
+                      backgroundColor: const Color.fromARGB(225, 255, 81, 0),
                       shape: RoundedRectangleBorder(
-                        side: BorderSide(width: 1),
+                        side: const BorderSide(width: 1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
@@ -535,7 +535,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 25,
                   top: 541,
                   child: Text(
@@ -570,7 +570,7 @@ class _AddEventState extends State<AddEvent> {
                         color: Colors.black,
                       ),
                       items: [
-                        DropdownMenuItem(
+                        const DropdownMenuItem(
                           value: "Organiser",
                           child: Text("Organiser"),
                         ),
@@ -587,7 +587,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 25,
                   top: 640,
                   child: Text(
@@ -602,7 +602,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 31,
                   top: 341,
                   child: Text(
@@ -658,7 +658,7 @@ class _AddEventState extends State<AddEvent> {
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(width: 1),
+                          side: const BorderSide(width: 1),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -669,13 +669,13 @@ class _AddEventState extends State<AddEvent> {
                                   ' ' +
                                   "${selectedstartDate!.hour.toString().padLeft(2, '0')}:${selectedstartDate!.minute.toString().padLeft(2, '0')}"
                               : 'Select Date & Time',
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 200,
                   top: 341,
                   child: Text(
@@ -731,7 +731,7 @@ class _AddEventState extends State<AddEvent> {
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(width: 1),
+                          side: const BorderSide(width: 1),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -742,13 +742,13 @@ class _AddEventState extends State<AddEvent> {
                                   ' ' +
                                   "${selectedEndDate!.hour.toString().padLeft(2, '0')}:${selectedEndDate!.minute.toString().padLeft(2, '0')}"
                               : 'Select End Date & Time',
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ),
                     ),
                   )
                 ),
-                Positioned(
+                const Positioned(
                   left: 31,
                   top: 681,
                   child: Text(
@@ -773,7 +773,7 @@ class _AddEventState extends State<AddEvent> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(width: 1),
+                          borderSide: const BorderSide(width: 1),
                         ),
                         filled: true,
                         fillColor: Colors.white,
@@ -781,7 +781,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 68,
                   top: 492,
                   child: Text(
@@ -796,7 +796,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 213,
                   top: 492,
                   child: Text(
@@ -811,7 +811,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 156,
                   top: 679,
                   child: Text(
@@ -835,13 +835,13 @@ class _AddEventState extends State<AddEvent> {
                     decoration: ShapeDecoration(
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
-                        side: BorderSide(width: 1),
+                        side: const BorderSide(width: 1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 289,
                   top: 679,
                   child: Text(
@@ -865,7 +865,7 @@ class _AddEventState extends State<AddEvent> {
                     decoration: ShapeDecoration(
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
-                        side: BorderSide(width: 1),
+                        side: const BorderSide(width: 1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
@@ -923,7 +923,7 @@ class _AddEventState extends State<AddEvent> {
                       width: 274,
                       height: 33,
                       decoration: ShapeDecoration(
-                        color: Color(0xFFFD4C00),
+                        color: const Color(0xFFFD4C00),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         ),
@@ -931,7 +931,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 35,
                   top: 1415,
                   child: SizedBox(
@@ -956,7 +956,7 @@ class _AddEventState extends State<AddEvent> {
                   child: Container(
                     width: 30,
                     height: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/Expand Arrow.png"),
                         fit: BoxFit.contain,
@@ -970,7 +970,7 @@ class _AddEventState extends State<AddEvent> {
                   child: Container(
                     width: 30,
                     height: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/Time.png"),
                         fit: BoxFit.contain,
@@ -984,7 +984,7 @@ class _AddEventState extends State<AddEvent> {
                   child: Container(
                     width: 30,
                     height: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/Time.png"),
                         fit: BoxFit.contain,
@@ -992,7 +992,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 26,
                   top: 815,
                   child: Text(
@@ -1017,17 +1017,17 @@ class _AddEventState extends State<AddEvent> {
                       controller: _ticketscontroller,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xC6F6F6F6),
+                        fillColor: const Color(0xC6F6F6F6),
                         border: OutlineInputBorder(
                           borderSide:
-                              BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 32,
                   top: 922,
                   child: Text(
@@ -1052,17 +1052,17 @@ class _AddEventState extends State<AddEvent> {
                       controller: _onlinecontroller,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xC6F6F6F6),
+                        fillColor: const Color(0xC6F6F6F6),
                         border: OutlineInputBorder(
                           borderSide:
-                              BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 41,
                   top: 1015,
                   child: Text(
@@ -1077,7 +1077,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 34,
                   top: 1108,
                   child: Text(
@@ -1102,10 +1102,10 @@ class _AddEventState extends State<AddEvent> {
                       controller: _locationcontroller,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xC6F6F6F6),
+                        fillColor: const Color(0xC6F6F6F6),
                         border: OutlineInputBorder(
                           borderSide:
-                              BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -1122,10 +1122,10 @@ class _AddEventState extends State<AddEvent> {
                       controller: _earlyticketscontroller,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xC6F6F6F6),
+                        fillColor: const Color(0xC6F6F6F6),
                         border: OutlineInputBorder(
                           borderSide:
-                              BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -1142,17 +1142,17 @@ class _AddEventState extends State<AddEvent> {
                       controller: _earlypricecontroller,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xC6F6F6F6),
+                        fillColor: const Color(0xC6F6F6F6),
                         border: OutlineInputBorder(
                           borderSide:
-                              BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 48,
                   top: 1163,
                   child: Text(
@@ -1167,7 +1167,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 142,
                   top: 1130,
                   child: Text(
@@ -1182,7 +1182,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 267,
                   top: 1130,
                   child: Text(
@@ -1207,10 +1207,10 @@ class _AddEventState extends State<AddEvent> {
                       controller: _regticketscontroller,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xC6F6F6F6),
+                        fillColor: const Color(0xC6F6F6F6),
                         border: OutlineInputBorder(
                           borderSide:
-                              BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -1227,17 +1227,17 @@ class _AddEventState extends State<AddEvent> {
                       controller: _regpricecontroller,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xC6F6F6F6),
+                        fillColor: const Color(0xC6F6F6F6),
                         border: OutlineInputBorder(
                           borderSide:
-                              BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 54,
                   top: 1217,
                   child: Text(
@@ -1262,10 +1262,10 @@ class _AddEventState extends State<AddEvent> {
                       controller: _vipticketscontroller,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xC6F6F6F6),
+                        fillColor: const Color(0xC6F6F6F6),
                         border: OutlineInputBorder(
                           borderSide:
-                              BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -1282,17 +1282,17 @@ class _AddEventState extends State<AddEvent> {
                       controller: _vippricecontroller,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xC6F6F6F6),
+                        fillColor: const Color(0xC6F6F6F6),
                         border: OutlineInputBorder(
                           borderSide:
-                              BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 67,
                   top: 1271,
                   child: Text(
@@ -1307,7 +1307,7 @@ class _AddEventState extends State<AddEvent> {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 73,
                   top: 1357,
                   child: Text(
@@ -1327,7 +1327,7 @@ class _AddEventState extends State<AddEvent> {
                   child: Container(
                     width: 25,
                     height: 25,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image:
                             NetworkImage("https://via.placeholder.com/25x25"),

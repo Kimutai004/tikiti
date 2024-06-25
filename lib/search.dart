@@ -37,7 +37,7 @@ class Search extends StatelessWidget {
           width: 360,
           height: 800,
           clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Colors.white),
+          decoration: const BoxDecoration(color: Colors.white),
           child: Stack(
             children: [
               Positioned(
@@ -46,7 +46,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 274,
                   height: 29,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     border: Border(
                       bottom: BorderSide(width: 2, color: Color(0xFFFF3D00)),
@@ -60,7 +60,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 12,
                   height: 12,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Search.png"),
                       fit: BoxFit.contain,
@@ -68,7 +68,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 3,
                 top: 100,
                 child: SizedBox(
@@ -94,15 +94,15 @@ class Search extends StatelessWidget {
                   width: 97,
                   height: 39,
                   decoration: BoxDecoration(
-                    color: Color(0x7CD9D9D9),
+                    color: const Color(0x7CD9D9D9),
                     borderRadius: BorderRadius.circular(5),
-                    border: Border(
+                    border: const Border(
                       left: BorderSide(width: 3, color: Color(0xFFFF3D00)),
                     ),
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 5,
                 top: 65,
                 child: SizedBox(
@@ -127,7 +127,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 25,
                   height: 29,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Location (1).png"),
                       fit: BoxFit.contain,
@@ -141,7 +141,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 67,
                   height: 31,
-                  decoration: BoxDecoration(color: Color(0xFFFF3D00)),
+                  decoration: const BoxDecoration(color: Color(0xFFFF3D00)),
                 ),
               ),
               Positioned(
@@ -150,7 +150,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 65,
                   height: 31,
-                  decoration: BoxDecoration(color: Color(0xFFFF3D00)),
+                  decoration: const BoxDecoration(color: Color(0xFFFF3D00)),
                 ),
               ),
               Positioned(
@@ -159,10 +159,10 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 68,
                   height: 31,
-                  decoration: BoxDecoration(color: Color(0xFFFF3D00)),
+                  decoration: const BoxDecoration(color: Color(0xFFFF3D00)),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 121,
                 top: 65,
                 child: SizedBox(
@@ -181,7 +181,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 198,
                 top: 65,
                 child: SizedBox(
@@ -200,7 +200,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 272,
                 top: 65,
                 child: SizedBox(
@@ -225,7 +225,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 294,
                   height: 274,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xFFFCFCFC),
                     border: Border(
                       left: BorderSide(width: 3, color: Color(0xFFFF3D00)),
@@ -239,7 +239,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 292,
                   height: 135,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Rectangle 97.png"),
                       fit: BoxFit.fill,
@@ -247,7 +247,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 34,
                 top: 294,
                 child: SizedBox(
@@ -264,7 +264,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 34,
                 top: 358,
                 child: Text(
@@ -278,7 +278,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 34,
                 top: 385,
                 child: Text(
@@ -298,7 +298,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 35,
                   height: 35,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     color: Color(0xFFD9D9D9),
                     shape: OvalBorder(),
                   ),
@@ -310,7 +310,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 35,
                   height: 35,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     color: Color(0xFFD9D9D9),
                     shape: OvalBorder(),
                   ),
@@ -322,7 +322,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 20,
                   height: 20,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Share.png"),
                       fit: BoxFit.contain,
@@ -336,7 +336,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 20,
                   height: 20,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Favorite.png"),
                       fit: BoxFit.contain,
@@ -350,7 +350,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 294,
                   height: 274,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     border: Border(
                       left: BorderSide(width: 3, color: Color(0xFFFF3D00)),
@@ -364,7 +364,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 292,
                   height: 135,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Rectangle 97.png"),
                       fit: BoxFit.fill,
@@ -372,7 +372,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 34,
                 top: 586,
                 child: SizedBox(
@@ -389,7 +389,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 34,
                 top: 650,
                 child: Text(
@@ -403,7 +403,7 @@ class Search extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 34,
                 top: 677,
                 child: Text(
@@ -423,7 +423,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 35,
                   height: 35,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     color: Color(0xFFD9D9D9),
                     shape: OvalBorder(),
                   ),
@@ -435,7 +435,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 35,
                   height: 35,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     color: Color(0xFFD9D9D9),
                     shape: OvalBorder(),
                   ),
@@ -447,7 +447,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 20,
                   height: 20,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Share.png"),
                       fit: BoxFit.contain,
@@ -461,7 +461,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 20,
                   height: 20,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Favorite.png"),
                       fit: BoxFit.contain,
@@ -475,7 +475,7 @@ class Search extends StatelessWidget {
                 child: Container(
                   width: 40,
                   height: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/Search.png"),
                       fit: BoxFit.contain,
@@ -496,7 +496,7 @@ class Search extends StatelessWidget {
                   child: Container(
                   width: 40,
                   height: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                     image: AssetImage("assets/Account.png"),
                     fit: BoxFit.contain,
@@ -518,7 +518,7 @@ class Search extends StatelessWidget {
                   child: Container(
                   width: 40,
                   height: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                     image: AssetImage("assets/Home.png"),
                     fit: BoxFit.contain,
@@ -540,7 +540,7 @@ class Search extends StatelessWidget {
                   child: Container(
                   width: 40,
                   height: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                     image: AssetImage("assets/Ticket.png"),
                     fit: BoxFit.contain,

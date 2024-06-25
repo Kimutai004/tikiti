@@ -43,7 +43,7 @@ class EventDets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Event Details'),
+        title: const Text('Event Details'),
       ),
       drawer: Drawer(
         child: Column(
@@ -52,7 +52,7 @@ class EventDets extends StatelessWidget {
               width: 360,
               height: 800,
               clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(color: Colors.white),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
                   Positioned(
@@ -61,7 +61,7 @@ class EventDets extends StatelessWidget {
                     child: Container(
                       width: 300,
                       height: 800,
-                      decoration: BoxDecoration(color: Color(0xFF626262)),
+                      decoration: const BoxDecoration(color: Color(0xFF626262)),
                     ),
                   ),
                   Positioned(
@@ -70,7 +70,7 @@ class EventDets extends StatelessWidget {
                     child: Container(
                       width: 300,
                       height: 154,
-                      decoration: BoxDecoration(color: Color(0xFFF4F4F4)),
+                      decoration: const BoxDecoration(color: Color(0xFFF4F4F4)),
                     ),
                   ),
                   Positioned(
@@ -83,7 +83,7 @@ class EventDets extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Home()),
                         );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                         width: 49,
                         child: Text(
                           'Events',
@@ -108,7 +108,7 @@ class EventDets extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => AddEvent()),
                         );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                         width: 98,
                         child: Text(
                           'Create Event',
@@ -133,7 +133,7 @@ class EventDets extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Ticket()),
                         );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                         width: 98,
                         child: Text(
                           'Attendees',
@@ -148,7 +148,7 @@ class EventDets extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 74,
                     top: 323,
                     child: SizedBox(
@@ -175,7 +175,7 @@ class EventDets extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Login()),
                         );
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                         width: 98,
                         child: Text(
                           'LogOut',
@@ -196,7 +196,7 @@ class EventDets extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
@@ -210,7 +210,7 @@ class EventDets extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Events.png"),
                           fit: BoxFit.contain,
@@ -224,7 +224,7 @@ class EventDets extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/People.png"),
                           fit: BoxFit.contain,
@@ -238,7 +238,7 @@ class EventDets extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Profile.png"),
                           fit: BoxFit.contain,
@@ -252,7 +252,7 @@ class EventDets extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/Logout.png"),
                           fit: BoxFit.contain,
@@ -266,7 +266,7 @@ class EventDets extends StatelessWidget {
                     child: Container(
                       width: 88,
                       height: 87,
-                      decoration: ShapeDecoration(
+                      decoration: const ShapeDecoration(
                         color: Color(0xFFD9D9D9),
                         shape: OvalBorder(),
                       ),
@@ -278,7 +278,7 @@ class EventDets extends StatelessWidget {
                     child: Container(
                       width: 74,
                       height: 74,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/User.png"),
                           fit: BoxFit.contain,
@@ -286,7 +286,7 @@ class EventDets extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     left: 91,
                     top: 115,
                     child: Text(
@@ -312,7 +312,7 @@ class EventDets extends StatelessWidget {
             width: 360,
             height: 831,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(color: Color(0xFFFBFBFB)),
+            decoration: const BoxDecoration(color: Color(0xFFFBFBFB)),
             child: Stack(
               children: [
                 Positioned(
@@ -344,7 +344,7 @@ class EventDets extends StatelessWidget {
                       width: 274,
                       height: 33,
                       decoration: ShapeDecoration(
-                        color: Color(0xFFFD4C00),
+                        color: const Color(0xFFFD4C00),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                         ),
@@ -352,7 +352,7 @@ class EventDets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 62,
                   top: 695,
                   child: SizedBox(
@@ -371,7 +371,7 @@ class EventDets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 31,
                   top: 101,
                   child: Text(
@@ -392,7 +392,7 @@ class EventDets extends StatelessWidget {
                   child: Container(
                     width: 248,
                     height: 42,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -400,14 +400,14 @@ class EventDets extends StatelessWidget {
                     ),
                     child: TextField(
                       controller: _ticketscontroller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
-                      style: TextStyle(color: Colors.black), // Add this line
+                      style: const TextStyle(color: Colors.black), // Add this line
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 37,
                   top: 208,
                   child: Text(
@@ -428,7 +428,7 @@ class EventDets extends StatelessWidget {
                   child: Container(
                     width: 248,
                     height: 42,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -436,12 +436,12 @@ class EventDets extends StatelessWidget {
                     ),
                     child: TextField(
                       controller: _onlinecontroller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintStyle:
                             TextStyle(color: Colors.black), // Add this line
                       ),
-                      style: TextStyle(color: Colors.black), // Add this line
+                      style: const TextStyle(color: Colors.black), // Add this line
                     ),
                   ),
                 ),
@@ -451,7 +451,7 @@ class EventDets extends StatelessWidget {
                   child: Container(
                     width: 248,
                     height: 42,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -459,15 +459,15 @@ class EventDets extends StatelessWidget {
                     ),
                     child: TextField(
                       controller: _locationcontroller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
                       onChanged: (value) {},
-                      style: TextStyle(color: Colors.black), // Add this line
+                      style: const TextStyle(color: Colors.black), // Add this line
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 46,
                   top: 301,
                   child: Text(
@@ -482,7 +482,7 @@ class EventDets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 39,
                   top: 394,
                   child: Text(
@@ -497,7 +497,7 @@ class EventDets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 53,
                   top: 449,
                   child: Text(
@@ -518,7 +518,7 @@ class EventDets extends StatelessWidget {
                   child: Container(
                     width: 79,
                     height: 42,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -526,10 +526,10 @@ class EventDets extends StatelessWidget {
                     ),
                     child: TextField(
                       controller: _earlyticketscontroller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
-                      style: TextStyle(color: Colors.black), // Add this line
+                      style: const TextStyle(color: Colors.black), // Add this line
                     ),
                   ),
                 ),
@@ -539,7 +539,7 @@ class EventDets extends StatelessWidget {
                   child: Container(
                     width: 79,
                     height: 42,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -547,14 +547,14 @@ class EventDets extends StatelessWidget {
                     ),
                     child: TextField(
                       controller: _earlypricecontroller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
-                      style: TextStyle(color: Colors.black), // Add this line
+                      style: const TextStyle(color: Colors.black), // Add this line
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 59,
                   top: 503,
                   child: Text(
@@ -575,7 +575,7 @@ class EventDets extends StatelessWidget {
                   child: Container(
                     width: 79,
                     height: 42,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -583,10 +583,10 @@ class EventDets extends StatelessWidget {
                     ),
                     child: TextField(
                       controller: _regticketscontroller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
-                      style: TextStyle(color: Colors.black), // Add this line
+                      style: const TextStyle(color: Colors.black), // Add this line
                     ),
                   ),
                 ),
@@ -596,7 +596,7 @@ class EventDets extends StatelessWidget {
                   child: Container(
                     width: 79,
                     height: 42,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -604,14 +604,14 @@ class EventDets extends StatelessWidget {
                     ),
                     child: TextField(
                       controller: _regpricecontroller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
-                      style: TextStyle(color: Colors.black), // Add this line
+                      style: const TextStyle(color: Colors.black), // Add this line
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 72,
                   top: 557,
                   child: Text(
@@ -632,7 +632,7 @@ class EventDets extends StatelessWidget {
                   child: Container(
                     width: 79,
                     height: 42,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -640,7 +640,7 @@ class EventDets extends StatelessWidget {
                     ),
                     child: TextField(
                       controller: _vipticketscontroller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
                     ),
@@ -652,7 +652,7 @@ class EventDets extends StatelessWidget {
                   child: Container(
                     width: 79,
                     height: 42,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xC6F6F6F6),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
@@ -660,13 +660,13 @@ class EventDets extends StatelessWidget {
                     ),
                     child: TextField(
                       controller: _vippricecontroller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 250,
                   top: 420,
                   child: Text(
@@ -681,7 +681,7 @@ class EventDets extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 150,
                   top: 420,
                   child: Text(
@@ -705,7 +705,7 @@ class EventDets extends StatelessWidget {
                     activeColor: Colors.orange,
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 78,
                   top: 643,
                   child: Text(
