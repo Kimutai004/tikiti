@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:mpesa_flutter_plugin/mpesa_flutter_plugin.dart';
 import 'package:tikiti/signup.dart';
 import 'package:tikiti/login.dart';
 
@@ -9,6 +9,9 @@ import 'package:tikiti/login.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+   MpesaFlutterPlugin.setConsumerKey("ZER8qjaVD9qUG4Ovwccrti0NcWO2qYMAqUbIyamGblDDsAGw");
+  MpesaFlutterPlugin.setConsumerSecret("Er9PLZMAkXu3AueuirVPY9iCoW7TGua2Sqa7Whv1lFnrNNAmPamBeNh78nbuZOcL");
+
 
   runApp(const MyApp());
 }
@@ -41,7 +44,8 @@ class AndroidLarge1 extends StatelessWidget {
           width: 412,
           height: 815,
           clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(color: Color.fromARGB(222, 232, 71, 35)),
+          decoration:
+              const BoxDecoration(color: Color.fromARGB(222, 232, 71, 35)),
           child: Stack(
             children: [
               const Positioned(

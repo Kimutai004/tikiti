@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/event-dets.dart';
 import 'package:tikiti/profile.dart';
 import 'package:tikiti/search.dart';
+import 'package:tikiti/tickets.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -317,7 +317,7 @@ class Index extends StatelessWidget {
                       // Add code to navigate to ticket.dat
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Ticket()),
+                        MaterialPageRoute(builder: (context) => Tickets()),
                       );
                     },
                     child: Container(

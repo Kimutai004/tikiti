@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tikiti/Deposit.dart';
 
 void main() {
   runApp(const FigmaToCodeApp());
@@ -270,10 +271,33 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
+                left: 0,
+                top: 390,
+                child: Container(
+                  width: 360,
+                  decoration: const ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        width: 0.50,
+                        strokeAlign: BorderSide.strokeAlignCenter,
+                        color: Color(0xFFD5D5D5),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
                 left: 10,
                 top: 337,
-                child: Text(
+                child: GestureDetector(
+                  onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Deposit()),
+                  );
+                  },
+                  child: Text(
                   'Deposit & Withdrawal',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -283,8 +307,23 @@ class Profile extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     height: 0,
                   ),
+                  ),
                 ),
-              ),
+                ),
+                Positioned(
+                left: 276,
+                top: 318,
+                child: Container(
+                  width: 42,
+                  height: 31,
+                  decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/More Than.png"),
+                    fit: BoxFit.contain,
+                  ),
+                  ),
+                ),
+                ),
               const Positioned(
                 left: 11,
                 top: 558,
@@ -408,20 +447,7 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                left: 276,
-                top: 318,
-                child: Container(
-                  width: 42,
-                  height: 31,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                     image: AssetImage("assets/More Than.png"),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ),
+              
               Positioned(
                 left: 276,
                 top: 548,
