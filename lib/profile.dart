@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Deposit.dart';
 
@@ -354,10 +355,21 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              const Positioned(
+                Positioned(
                 left: 15,
                 top: 692,
-                child: Text(
+                child: GestureDetector(
+                  onTap: () async {
+                    try {
+                      await FirebaseAuth.instance.signOut();
+                      // Navigate to login screen or show a confirmation message
+                      Navigator.pushReplacementNamed(context, '/login');
+                    } catch (e) {
+                      // Handle errors, if any
+                      print('Error: $e');
+                    }
+                  },
+                  child: Text(
                   'LogOut',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -367,8 +379,9 @@ class Profile extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     height: 0,
                   ),
+                  ),
                 ),
-              ),
+                ),
               Positioned(
                 left: 0,
                 top: 462,

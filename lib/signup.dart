@@ -112,7 +112,6 @@ class _SignupPageState extends State<SignupPage> {
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Enter your text',
-                        
                       ),
                     ),
                   ),

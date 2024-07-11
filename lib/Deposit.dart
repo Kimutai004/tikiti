@@ -1,13 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mpesa_flutter_plugin/mpesa_flutter_plugin.dart';
 import 'payment_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() {
-  
-  MpesaFlutterPlugin.setConsumerKey("ZER8qjaVD9qUG4Ovwccrti0NcWO2qYMAqUbIyamGblDDsAGw");
-  MpesaFlutterPlugin.setConsumerSecret("Er9PLZMAkXu3AueuirVPY9iCoW7TGua2Sqa7Whv1lFnrNNAmPamBeNh78nbuZOcL");
+  MpesaFlutterPlugin.setConsumerKey(
+      "ZER8qjaVD9qUG4Ovwccrti0NcWO2qYMAqUbIyamGblDDsAGw");
+  MpesaFlutterPlugin.setConsumerSecret(
+      "Er9PLZMAkXu3AueuirVPY9iCoW7TGua2Sqa7Whv1lFnrNNAmPamBeNh78nbuZOcL");
   runApp(const FigmaToCodeApp());
+}
+
+class FirestoreService {
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  Future<void> addTransaction(Map<String, dynamic> transactionData) async {
+    await _db.collection('transactions').add(transactionData);
+  }
 }
 
 class FigmaToCodeApp extends StatelessWidget {
@@ -36,14 +47,16 @@ class Deposit extends StatefulWidget {
 }
 
 class _DepositState extends State<Deposit> {
+  FirestoreService _firestoreService = FirestoreService();
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+
+
   String selectedMethod = 'Mpesa';
   final phoneController = TextEditingController();
   final amountController = TextEditingController();
 
-  
-
-    // Here you would call your STK push API
-    void initiateStkPush() async {
+  // Here you would call your STK push API
+  void initiateStkPush() async {
     final phone = phoneController.text;
     final amount = amountController.text;
 
@@ -57,13 +70,31 @@ class _DepositState extends State<Deposit> {
           amount: double.parse(amount),
           partyA: phone,
           partyB: "174379",
-          callBackURL: Uri.parse("https://webhook.site/259bc1c0-9938-473a-bce8-ec481d7f7a17"),
+          callBackURL: Uri.parse(
+              "https://webhook.site/259bc1c0-9938-473a-bce8-ec481d7f7a17"),
           accountReference: "Test123",
           phoneNumber: phone,
-          baseUri: Uri.parse("https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"),
+          baseUri: Uri.parse(
+              "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"),
           transactionDesc: "Test Payment",
-          passKey: "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",
+          passKey:
+              "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",
         );
+
+        // Assuming transactionInitialisation contains transaction details
+        Map<String, dynamic> transactionData = {
+          'phone': phone,
+          'amount': amount,
+          'status': 'Pending',
+          'method': 'Mpesa',
+          'transactionId': transactionInitialisation['MerchantRequestID'],
+          'TransactionDate': transactionInitialisation['TransactionDate'],
+          'Balance': transactionInitialisation['Balance'],
+          'user_id': userId,
+        };
+
+        // Save transaction to Firestore
+        await _firestoreService.addTransaction(transactionData);
 
         print("TRANSACTION RESULT: " + transactionInitialisation.toString());
       } catch (e) {
@@ -73,7 +104,6 @@ class _DepositState extends State<Deposit> {
       // Implement Airtel Money API call here
       print('Initiating STK push: Airtel Money, $phone, $amount');
     }
-
   }
 
   @override
@@ -197,7 +227,9 @@ class _DepositState extends State<Deposit> {
                             fit: BoxFit.contain,
                           ),
                         ),
-                        margin: EdgeInsets.only(left: 0), // Add this line to move the container to the left
+                        margin: EdgeInsets.only(
+                            left:
+                                0), // Add this line to move the container to the left
                       ),
                     ),
                   ),

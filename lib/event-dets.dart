@@ -62,6 +62,13 @@ class _EventDescriptionState extends State<EventDescription> {
     });
   }
 
+  void _totalprice(){
+    setState(() {
+      int total = 0;
+      total = _counter  + _regcounter + _vipcounter;
+    });
+  }
+
   Future<LatLng> _getLocationCoordinates(String locationName) async {
   try {
     List<Location> locations = await locationFromAddress(locationName);
@@ -217,39 +224,51 @@ class _EventDescriptionState extends State<EventDescription> {
                           ),
                         ),
                       ),
-                      Positioned(
+                        Positioned(
                         left: 38,
                         top: 954,
                         child: GestureDetector(
                           onTap: () {
-                            // Generate QR code
-                            // Post ticket details to Cloud Firestore
+                          // Generate QR code
+                          // Post ticket details to Cloud Firestore
+                          FirebaseFirestore.instance.collection('tickets').add({
+                            'event_id': widget.eventId,
+                            'event_title': event['event_title'] ?? 'No Title',
+                            'event_poster': event['path'] ?? 'No Image Available',
+                            'ticket_type': 'VIP',
+                            'price': (
+                            (double.tryParse(event['early_price'] ?? '0') ?? 0) * _counter +
+                            (double.tryParse(event['reg_price'] ?? '0') ?? 0) * _regcounter +
+                            (double.tryParse(event['vip_price'] ?? '0') ?? 0) * _vipcounter
+                          ).toStringAsFixed(2)
+                            // Add more ticket details as needed
+                          });
                           },
                           child: Container(
-                            width: 274,
-                            height: 33,
-                            decoration: ShapeDecoration(
-                              color: const Color(0xFFFD4C00),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Buy Tickets',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
-                                ),
-                              ),
+                          width: 274,
+                          height: 33,
+                          decoration: ShapeDecoration(
+                            color: const Color(0xFFFD4C00),
+                            shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
                             ),
                           ),
+                          child: Center(
+                            child: Text(
+                            'Buy Tickets',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                            ),
+                            ),
+                          ),
+                          ),
                         ),
-                      ),
+                        ),
                       const Positioned(
                         left: 28,
                         top: 697,
@@ -532,25 +551,29 @@ class _EventDescriptionState extends State<EventDescription> {
                           ),
                         ),
                       ),
-                      Positioned(
-  left: 198,
-  top: 910,
-  child: SizedBox(
-    width: 122,
-    height: 22,
-    child: Text(
-      'Ksh ${event['early_price'] * _counter + event['reg_price'] * _regcounter + event['vip_price'] * _vipcounter}',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 15,
-        fontFamily: 'Inter',
-        fontWeight: FontWeight.w600,
-        height: 1.0,
-      ),
-    ),
-  ),
-),
+                     Positioned(
+                      left: 198,
+                      top: 910,
+                      child: SizedBox(
+                        width: 122,
+                        height: 22,
+                        child: Text(
+                          (
+                            (double.tryParse(event['early_price'] ?? '0') ?? 0) * _counter +
+                            (double.tryParse(event['reg_price'] ?? '0') ?? 0) * _regcounter +
+                            (double.tryParse(event['vip_price'] ?? '0') ?? 0) * _vipcounter
+                          ).toStringAsFixed(2), // Using toStringAsFixed(2) to format the result as a decimal number with 2 decimal places
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w600,
+                            height: 1.0,
+                          ),
+                        ),
+                      ),
+                    ),
 
                       Positioned(
                         left: 28,

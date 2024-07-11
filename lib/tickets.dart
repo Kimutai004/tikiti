@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tikiti/index.dart';
+import 'package:tikiti/index.dart' as tikiti;
 import 'package:tikiti/profile.dart';
 import 'package:tikiti/search.dart';
 
@@ -97,56 +98,100 @@ class Tickets extends StatelessWidget {
                     decoration: const BoxDecoration(color: Color(0xFFF5F4F4)),
                   ),
                 ),
-                Positioned(
-                  left: 24,
-                  top: 78,
-                  child: Container(
-                    width: 107,
-                    height: 75,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/Rectangle 97.png"),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
+                FutureBuilder<QuerySnapshot>(
+      future: FirebaseFirestore.instance.collection('tickets').get(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return Center(child: Text('No tickets found'));
+        }
+        return ListView.builder(
+          itemCount: snapshot.data!.docs.length,
+          itemBuilder: (BuildContext context, int index) {
+            DocumentSnapshot event = snapshot.data!.docs[index];
+
+            // Ensure all required fields are present
+            String eventPoster = event.data().toString().contains('event_poster') ? event['event_poster'] : '';
+            String eventTitle = event.data().toString().contains('event_title') ? event['event_title'] : 'Untitled Event';
+            String eventDate = event.data().toString().contains('date') ? event['date'] : 'Date not available';
+            String price = event.data().toString().contains('price') ? event['price'] : '0.00';
+            String ticketType = event.data().toString().contains('ticket_type') ? event['ticket_type'] : 'Unknown';
+
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+              child: Container(
+                width: 107,
+                height: 75,
+                decoration: BoxDecoration(
+                  image: eventPoster.isNotEmpty
+                      ? DecorationImage(
+                          image: NetworkImage(eventPoster),
+                          fit: BoxFit.fill,
+                        )
+                      : null,
+                  color: eventPoster.isEmpty ? Colors.grey : null,
                 ),
-                const Positioned(
-                  left: 149,
-                  top: 90,
-                  child: SizedBox(
-                    width: 183,
-                    child: Text(
-                      'Kitchen Cooking Competition',
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      eventTitle,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12,
                         fontFamily: 'Kavoon',
                         fontWeight: FontWeight.w400,
-                        height: 0,
+                        height: 1.0,
                       ),
                     ),
-                  ),
-                ),
-                const Positioned(
-                  left: 149,
-                  top: 116,
-                  child: SizedBox(
-                    width: 177,
-                    child: Text(
-                      'Sat 25 may 2024, 1500hrs - 2100hrs',
+                    SizedBox(height: 4),
+                    Text(
+                      eventDate,
                       style: TextStyle(
                         color: Color(0xFFFF3D00),
                         fontSize: 12,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w400,
-                        height: 0,
+                        height: 1.0,
                       ),
                     ),
-                  ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Price: $price',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 1.0,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Type: $ticketType',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 1.0,
+                      ),
+                    ),
+                  ],
                 ),
-                
+              ),
+            );
+          },
+        );
+      },
+    ),
+
+      
                 Positioned(
                   left: 118,
                   top: 744,
@@ -198,7 +243,7 @@ class Tickets extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Index()),
+                    MaterialPageRoute(builder: (context) => tikiti.Index()),
                     );
                   },
                   child: Container(

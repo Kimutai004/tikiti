@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/admin-index.dart';
 import 'package:tikiti/login.dart';
@@ -1116,40 +1117,48 @@ class _AddEventState extends State<AddEvent> {
                   left: 135,
                   top: 1150,
                   child: Container(
-                    width: 79,
-                    height: 42,
-                    child: TextField(
-                      controller: _earlyticketscontroller,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xC6F6F6F6),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                    controller: _earlyticketscontroller,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                    ],
+                    decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                      borderSide:
+                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                      borderRadius: BorderRadius.circular(10),
                     ),
+                    ),
+                  ),
                   ),
                 ),
                 Positioned(
                   left: 242,
                   top: 1150,
                   child: Container(
-                    width: 79,
-                    height: 42,
-                    child: TextField(
-                      controller: _earlypricecontroller,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xC6F6F6F6),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                    controller: _earlypricecontroller,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                    ],
+                    decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                      borderSide:
+                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                      borderRadius: BorderRadius.circular(10),
                     ),
+                    ),
+                  ),
                   ),
                 ),
                 const Positioned(
@@ -1201,40 +1210,48 @@ class _AddEventState extends State<AddEvent> {
                   left: 135,
                   top: 1204,
                   child: Container(
-                    width: 79,
-                    height: 42,
-                    child: TextField(
-                      controller: _regticketscontroller,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xC6F6F6F6),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                    controller: _regticketscontroller,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                    ],
+                    decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                      borderSide:
+                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                      borderRadius: BorderRadius.circular(10),
                     ),
+                    ),
+                  ),
                   ),
                 ),
                 Positioned(
                   left: 242,
                   top: 1204,
                   child: Container(
-                    width: 79,
-                    height: 42,
-                    child: TextField(
-                      controller: _regpricecontroller,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xC6F6F6F6),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                    controller: _regpricecontroller,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                    ],
+                    decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                      borderSide:
+                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                      borderRadius: BorderRadius.circular(10),
                     ),
+                    ),
+                  ),
                   ),
                 ),
                 const Positioned(
@@ -1256,40 +1273,48 @@ class _AddEventState extends State<AddEvent> {
                   left: 135,
                   top: 1258,
                   child: Container(
-                    width: 79,
-                    height: 42,
-                    child: TextField(
-                      controller: _vipticketscontroller,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xC6F6F6F6),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                    controller: _vipticketscontroller,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                    ],
+                    decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                      borderSide:
+                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                      borderRadius: BorderRadius.circular(10),
                     ),
+                    ),
+                  ),
                   ),
                 ),
                 Positioned(
                   left: 242,
                   top: 1258,
                   child: Container(
-                    width: 79,
-                    height: 42,
-                    child: TextField(
-                      controller: _vippricecontroller,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xC6F6F6F6),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+                  width: 79,
+                  height: 42,
+                  child: TextField(
+                    controller: _vippricecontroller,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                    ],
+                    decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xC6F6F6F6),
+                    border: OutlineInputBorder(
+                      borderSide:
+                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
+                      borderRadius: BorderRadius.circular(10),
                     ),
+                    ),
+                  ),
                   ),
                 ),
                 const Positioned(
