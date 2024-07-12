@@ -305,58 +305,6 @@ class Ticket extends StatelessWidget {
           child: Stack(
             children: [
               Positioned(
-                left: 0,
-                top: 0,
-                child: Container(
-                  width: 360,
-                  height: 63,
-                  decoration: const BoxDecoration(color: Color(0xFF706E6E)),
-                ),
-              ),
-              const Positioned(
-                left: 77,
-                top: 19,
-                child: Text(
-                  'Events CheckIn ',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontFamily: 'Kavoon',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 0,
-                top: 13,
-                child: Container(
-                  width: 61,
-                  height: 31,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/61x31"),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 275,
-                top: 4,
-                child: Container(
-                  width: 59,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/59x50"),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
                 left: 27,
                 top: 119,
                 child: Container(
@@ -367,7 +315,7 @@ class Ticket extends StatelessWidget {
               ),
               Positioned(
                 left: 27,
-                top: 119,
+                top: 10,
                 child: Container(
                   width: 307,
                   height: 602,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/add-event.dart';
 import 'package:tikiti/login.dart';
+import 'package:tikiti/event-summary.dart';
 import 'dart:io';
 
 void main() {
@@ -413,49 +414,57 @@ class Home extends StatelessWidget {
 
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {
-                    return const Text('Something went wrong');
+                  return const Text('Something went wrong');
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Text("Loading");
+                  return const Text("Loading");
                   }
 
                   return ListView(
-                    padding: const EdgeInsets.only(top: 80.0, left: 14.0),
-                    children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-                      return Container(
-                        width: 360,
-                        height: 100,
-                        decoration: const BoxDecoration(color: Color.fromARGB(0, 0, 0, 0)),
-                        child: Row(
-                          children: <Widget>[
-                            // New container for the image
-                            Container(
-                              width: 100,
-                              height: 100,
-                              child: data['path'] != null ? Image.file(File(data['path'])) : Container(),
-                            ),
-                            const SizedBox(width: 10), // Spacing between image and text
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(data['event_title'] ?? 'Default Title'),
-                                const SizedBox(height: 5), // Spacing between title and description
-                                Text(data['event_desc'] ?? 'Default Description'),
-                                const SizedBox(height: 5), // Spacing between description and date
-                                Text(data['start'] ?? 'Default Date'),
-                              ],
-                            ),
-                            const SizedBox(width: 10),
-                            // Add more fields as needed
-                          ],
-                        ),
+                  padding: const EdgeInsets.only(top: 80.0, left: 14.0),
+                  children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                    Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                    return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EventSummary(eventId: document.id,)),
                       );
-                    }).toList(),
+                    },
+                    child: Container(
+                      width: 360,
+                      height: 100,
+                      decoration: const BoxDecoration(color: Color.fromARGB(0, 0, 0, 0)),
+                      child: Row(
+                      children: <Widget>[
+                        // New container for the image
+                        Container(
+                        width: 100,
+                        height: 100,
+                        child: data['path'] != null ? Image.file(File(data['path'])) : Container(),
+                        ),
+                        const SizedBox(width: 10), // Spacing between image and text
+                        Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(data['event_title'] ?? 'Default Title'),
+                          const SizedBox(height: 5), // Spacing between title and description
+                          Text(data['event_desc'] ?? 'Default Description'),
+                          const SizedBox(height: 5), // Spacing between description and date
+                          Text(data['start'] ?? 'Default Date'),
+                        ],
+                        ),
+                        const SizedBox(width: 10),
+                        // Add more fields as needed
+                      ],
+                      ),
+                    ),
+                    );
+                  }).toList(),
                   );
                 },
-              ),
+                ),
 
                 Positioned(
                   left: 257,
