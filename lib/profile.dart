@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Deposit.dart';
@@ -158,20 +159,20 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              const Positioned(
+                Positioned(
                 left: 98,
                 top: 180,
                 child: Text(
-                  'parody434@gmail.com',
+                  FirebaseAuth.instance.currentUser?.email ?? '',
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
                   ),
                 ),
-              ),
+                ),
               const Positioned(
                 left: 138,
                 top: 156,
@@ -186,38 +187,106 @@ class Profile extends StatelessWidget {
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
                 left: 15,
                 top: 220,
                 child: SizedBox(
                   width: 83,
-                  child: Text(
-                    ' 3000/=',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
+                  child: StreamBuilder<DocumentSnapshot>(
+                    stream: FirebaseAuth.instance.currentUser != null
+                        ? FirebaseFirestore.instance
+                            .collection('accounts')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .snapshots()
+                        : null,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      }
+                      if (!snapshot.hasData || snapshot.data?.data() == null) {
+                        return Text(
+                          '0/=',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                          ),
+                        );
+                      }
+                      var balance = snapshot.data?.get('balance') ?? '0';
+                      return Text(
+                        '$balance/=',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
-              const Positioned(
-                left: 158,
-                top: 220,
-                child: Text(
-                  '3',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                ),
-              ),
+              Positioned(
+  left: 158,
+  top: 220,
+  child: StreamBuilder<QuerySnapshot>(
+    stream: FirebaseAuth.instance.currentUser != null
+        ? FirebaseFirestore.instance
+            .collection('tickets')
+            .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+            .snapshots()
+        : null,
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return CircularProgressIndicator();
+      }
+      if (snapshot.hasError) {
+        // Debugging: Print or display the error
+        print(snapshot.error);
+        return Text(
+          'Error',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.red,
+            fontSize: 20,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w400,
+            height: 0,
+          ),
+        );
+      }
+      if (!snapshot.hasData) {
+        return Text(
+          '0',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w400,
+            height: 0,
+          ),
+        );
+      }
+      int ticketsCount = snapshot.data!.docs.length;
+      return Text(
+        ticketsCount.toString(),
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w400,
+          height: 0,
+        ),
+      );
+    },
+  ),
+),
               const Positioned(
                 left: 276,
                 top: 220,

@@ -124,7 +124,6 @@ class _DepositState extends State<Deposit> {
       double newBalance = currentBalance + depositAmount;
 
       // Update the balance in Firestore
-      
       await _db.collection('accounts').doc(userId).update({
         'balance': newBalance,
       });
@@ -132,6 +131,23 @@ class _DepositState extends State<Deposit> {
       print('Account balance updated successfully');
     } catch (e) {
       print('Failed to update account balance: $e');
+    }
+  }
+
+  Future<void> _createAccountTable() async {
+    try {
+      // Check if the accounts collection already exists
+      bool collectionExists = await _db.collection('accounts').doc().get().then((doc) => doc.exists);
+
+      if (!collectionExists) {
+        // Create the accounts collection
+        await _db.collection('accounts').doc().set({});
+        print('Accounts collection created successfully');
+      } else {
+        print('Accounts collection already exists');
+      }
+    } catch (e) {
+      print('Failed to create accounts collection: $e');
     }
   }
 

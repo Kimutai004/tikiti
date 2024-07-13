@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -232,6 +233,7 @@ class _EventDescriptionState extends State<EventDescription> {
                           // Generate QR code
                           // Post ticket details to Cloud Firestore
                           FirebaseFirestore.instance.collection('tickets').add({
+                            'user_id': FirebaseAuth.instance.currentUser?.uid,
                             'event_id': widget.eventId,
                             'event_title': event['event_title'] ?? 'No Title',
                             'event_poster': event['path'] ?? 'No Image Available',
