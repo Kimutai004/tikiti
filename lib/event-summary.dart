@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tikiti/Event-tickets.dart';
 import 'package:tikiti/add-event.dart';
@@ -8,6 +9,7 @@ class EventSummary extends StatefulWidget {
   final String eventId;
 
   EventSummary({required this.eventId});
+
 
   @override
   EventSummaryState createState() => EventSummaryState();
@@ -292,16 +294,120 @@ class EventSummaryState extends State<EventSummary> {
               decoration: const BoxDecoration(color: Colors.white),
               child: Stack(
                 children: [
-                  
                   Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 420,
-                      height: 219,
-                      decoration: const BoxDecoration(color: Color(0xFFD9D9D9)),
-                    ),
-                  ),
+  left: 50,
+  top: 100,
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                width: 50,
+                height: 150,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              Container(
+                width: 50,
+                height: 150 - 50, // Adjust the height to match the bar's height
+                decoration: BoxDecoration(
+                  color: Colors.transparent, // Transparent so only the bar's top part is visible
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Early Bird',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                width: 50,
+                margin: EdgeInsets.only(left: 50),
+                height: 150,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              Container(
+                width: 50,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Regular',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                width: 50,
+                margin: EdgeInsets.only(left: 50),
+                height: 150,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Text(
+            'VIP',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+),
+
                   Positioned(
                     left: 14,
                     top: 294,
@@ -531,34 +637,85 @@ class EventSummaryState extends State<EventSummary> {
                       ),
                     ),
                   ),
-                  const Positioned(
-                    left: 203,
-                    top: 314,
-                    child: Text(
-                      'Ksh 3,0000,000',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                  const Positioned(
+                  Positioned(
+  left: 203,
+  top: 314,
+  child: FutureBuilder<QuerySnapshot>(
+    future: FirebaseFirestore.instance
+        .collection('tickets')
+        .where('event_id', isEqualTo: widget.eventId)
+        .get(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        // Wrap CircularProgressIndicator in a SizedBox for explicit sizing or positioning
+        return SizedBox(width: 50, height: 50, child: CircularProgressIndicator());
+      } else if (snapshot.hasError) {
+        return Text('Error');
+      } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+        var totalAmountPaid = 0.0;
+        for (var doc in snapshot.data!.docs) {
+          var data = doc.data() as Map<String, dynamic>; // Ensure data() is correctly used
+          var price = double.tryParse(data['price']?.toString() ?? '0') ?? 0.0;
+          totalAmountPaid += price;
+        }
+        return Text(
+          'Ksh ${totalAmountPaid.toStringAsFixed(2)}',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 12,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w400,
+            height: 1, // Ensure height is reasonable for visibility
+          ),
+        );
+      } else {
+        return Text('No data available');
+      }
+    },
+  ),
+),
+
+                    Positioned(
                     left: 203,
                     top: 348,
-                    child: Text(
-                      'Ksh 2,7000,000',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        height: 0,
-                      ),
+                    child: FutureBuilder<QuerySnapshot>(
+                      future: FirebaseFirestore.instance
+                        .collection('tickets')
+                        .where('event_id', isEqualTo: widget.eventId)
+                        .get(),
+                      builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('Error');
+                      } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                        var totalAmountPaid = 0.0;
+                        for (var doc in snapshot.data!.docs) {
+                        var data = doc.data() as Map<String, dynamic>;
+                        var price = double.tryParse(data['price']?.toString() ?? '0') ?? 0.0;
+                        totalAmountPaid += price;
+                        }
+                        var amount = totalAmountPaid * 0.9;
+                        return Text(
+                        'Ksh ${amount.toStringAsFixed(2)}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                        );
+                      } else {
+                        return Text('No data available');
+                      }
+                      },
                     ),
-                  ),
+                    ),
                   const Positioned(
                     left: 236,
                     top: 553,

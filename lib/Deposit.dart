@@ -49,6 +49,9 @@ class Deposit extends StatefulWidget {
 class _DepositState extends State<Deposit> {
   FirestoreService _firestoreService = FirestoreService();
   final userId = FirebaseAuth.instance.currentUser!.uid;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  
 
 
   String selectedMethod = 'Mpesa';
@@ -96,6 +99,9 @@ class _DepositState extends State<Deposit> {
         // Save transaction to Firestore
         await _firestoreService.addTransaction(transactionData);
 
+        // Update account balance
+        await _updateAccountBalance(double.parse(amount));
+
         print("TRANSACTION RESULT: " + transactionInitialisation.toString());
       } catch (e) {
         print("CAUGHT EXCEPTION: " + e.toString());
@@ -103,6 +109,29 @@ class _DepositState extends State<Deposit> {
     } else if (selectedMethod == 'Airtel Money') {
       // Implement Airtel Money API call here
       print('Initiating STK push: Airtel Money, $phone, $amount');
+    }
+  }
+
+  Future<void> _updateAccountBalance(double depositAmount) async {
+    try {
+      // Get the current balance from Firestore
+      DocumentSnapshot accountSnapshot =
+          await _db.collection('accounts').doc(userId).get();
+      Map<String, dynamic>? accountData = accountSnapshot.data() as Map<String, dynamic>?;
+      double currentBalance = accountData?['balance'] ?? 0;
+
+      // Calculate the new balance after deposit
+      double newBalance = currentBalance + depositAmount;
+
+      // Update the balance in Firestore
+      
+      await _db.collection('accounts').doc(userId).update({
+        'balance': newBalance,
+      });
+
+      print('Account balance updated successfully');
+    } catch (e) {
+      print('Failed to update account balance: $e');
     }
   }
 

@@ -235,7 +235,11 @@ class _EventDescriptionState extends State<EventDescription> {
                             'event_id': widget.eventId,
                             'event_title': event['event_title'] ?? 'No Title',
                             'event_poster': event['path'] ?? 'No Image Available',
-                            'ticket_type': 'VIP',
+                            'ticket_type': {
+                              if (_counter > 0) 'early_bird': _counter,
+                              if (_regcounter > 0) 'regular': _regcounter,
+                              if (_vipcounter > 0) 'vip': _vipcounter,
+                            },
                             'price': (
                             (double.tryParse(event['early_price'] ?? '0') ?? 0) * _counter +
                             (double.tryParse(event['reg_price'] ?? '0') ?? 0) * _regcounter +
