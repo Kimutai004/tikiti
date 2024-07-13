@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mpesa_flutter_plugin/mpesa_flutter_plugin.dart';
-import 'payment_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() {
@@ -47,11 +46,7 @@ class Deposit extends StatefulWidget {
 }
 
 class _DepositState extends State<Deposit> {
-  FirestoreService _firestoreService = FirestoreService();
   final userId = FirebaseAuth.instance.currentUser!.uid;
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-
-  
 
 
   String selectedMethod = 'Mpesa';
@@ -96,11 +91,6 @@ class _DepositState extends State<Deposit> {
           'user_id': userId,
         };
 
-        // Save transaction to Firestore
-        await _firestoreService.addTransaction(transactionData);
-
-        // Update account balance
-        await _updateAccountBalance(double.parse(amount));
 
         print("TRANSACTION RESULT: " + transactionInitialisation.toString());
       } catch (e) {
@@ -112,45 +102,34 @@ class _DepositState extends State<Deposit> {
     }
   }
 
-  Future<void> _updateAccountBalance(double depositAmount) async {
-    try {
-      // Get the current balance from Firestore
-      DocumentSnapshot accountSnapshot =
-          await _db.collection('accounts').doc(userId).get();
-      Map<String, dynamic>? accountData = accountSnapshot.data() as Map<String, dynamic>?;
-      double currentBalance = accountData?['balance'] ?? 0;
+  // Function to update or create an account document after a transaction
+Future<void> updateOrCreateAccountDocument(Map<String, dynamic> transactionData) async {
+  DocumentReference accountRef = FirebaseFirestore.instance.collection('accounts').doc(userId);
 
-      // Calculate the new balance after deposit
-      double newBalance = currentBalance + depositAmount;
-
-      // Update the balance in Firestore
-      await _db.collection('accounts').doc(userId).update({
-        'balance': newBalance,
+  FirebaseFirestore.instance.runTransaction((transaction) async {
+    DocumentSnapshot snapshot = await transaction.get(accountRef);
+    if (!snapshot.exists) {
+      // Account document does not exist, create it
+      transaction.set(accountRef, {
+        'transactions': [transactionData], // Initialize with the first transaction
+        // Add any other initial account details here
       });
-
-      print('Account balance updated successfully');
-    } catch (e) {
-      print('Failed to update account balance: $e');
+    } else {
+      // Account document exists, update it
+      List<dynamic> transactions = List.from(snapshot['transactions']);
+      transactions.add(transactionData);
+      transaction.update(accountRef, {'transactions': transactions});
     }
-  }
+  }).then((result) {
+      print("Account document updated or created");
+  }).catchError((error) {
+    print("Error updating or creating account document: $error");
+  });
+}
 
-  Future<void> _createAccountTable() async {
-    try {
-      // Check if the accounts collection already exists
-      bool collectionExists = await _db.collection('accounts').doc().get().then((doc) => doc.exists);
 
-      if (!collectionExists) {
-        // Create the accounts collection
-        await _db.collection('accounts').doc().set({});
-        print('Accounts collection created successfully');
-      } else {
-        print('Accounts collection already exists');
-      }
-    } catch (e) {
-      print('Failed to create accounts collection: $e');
-    }
-  }
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
