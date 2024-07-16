@@ -159,15 +159,15 @@ class _TicketsState extends State<Tickets> {
                     Text('Type: $ticketType'),
                               // Display QR code
                       Container(
-  width: 200.0,
-  height: 200.0,
-  child: QrImageView(
-    data: event['qr_token'] ?? '',
-    version: QrVersions.auto,
-    size: 200.0, // This size attribute might be redundant here
-    foregroundColor: Colors.white,
-  ),
-),
+                        width: 200.0,
+                        height: 200.0,
+                        child: QrImageView(
+                          data: event['qr_token'] ?? '',
+                          version: QrVersions.auto,
+                          size: 200.0, // This size attribute might be redundant here
+                          foregroundColor: Colors.white,
+                        ),
+                      ),
 
                     ],
                   ),
