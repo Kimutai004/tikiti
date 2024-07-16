@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 
 class EventDescription extends StatefulWidget {
@@ -17,6 +17,7 @@ class EventDescription extends StatefulWidget {
 }
 
 class _EventDescriptionState extends State<EventDescription> {
+
   int _counter = 0;
   int _regcounter = 0;
   int _vipcounter = 0;
@@ -230,8 +231,10 @@ class _EventDescriptionState extends State<EventDescription> {
                         top: 954,
                         child: GestureDetector(
                           onTap: () {
-                          // Generate QR code
-                          // Post ticket details to Cloud Firestore
+                            // Generate a unique QR code token
+                             String qrToken = Uuid().v4();
+                        
+                                   // Post ticket details to Cloud Firestore
                           FirebaseFirestore.instance.collection('tickets').add({
                             'user_id': FirebaseAuth.instance.currentUser?.uid,
                             'event_id': widget.eventId,
@@ -246,9 +249,14 @@ class _EventDescriptionState extends State<EventDescription> {
                             (double.tryParse(event['early_price'] ?? '0') ?? 0) * _counter +
                             (double.tryParse(event['reg_price'] ?? '0') ?? 0) * _regcounter +
                             (double.tryParse(event['vip_price'] ?? '0') ?? 0) * _vipcounter
-                          ).toStringAsFixed(2)
+                          ).toStringAsFixed(2),
+                          'qr_token': qrToken, 
                             // Add more ticket details as needed
                           });
+
+                           // Show a confirmation message or navigate to a different screen
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Ticket Purchased Successfully')));
+          
                           },
                           child: Container(
                           width: 274,

@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tikiti/index.dart';
+import 'package:tikiti/index.dart' as tikiti;
 import 'admin-index.dart'; // Assuming you have a Home widget in home.dart
 
 class SignupPage extends StatefulWidget {
@@ -37,7 +38,12 @@ class _SignupPageState extends State<SignupPage> {
             width: 360,
             height: 800,
             clipBehavior: Clip.antiAlias,
-            decoration: const BoxDecoration(color: Color.fromARGB(255, 234, 218, 218)),
+            decoration: ShapeDecoration(
+            color: Color.fromARGB(255, 255, 255, 255),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+          ),
             child: Stack(
               children: [
                 Positioned(
@@ -49,6 +55,7 @@ class _SignupPageState extends State<SignupPage> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/Tikiti.png'),
+                        
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -59,27 +66,32 @@ class _SignupPageState extends State<SignupPage> {
                   top: 700,
                   child: GestureDetector(
                     onTap: () {
-                      FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                        email: _emailController.text, // Use _emailController
-                        password:
-                            _passwordController.text, // Use _passwordController
-                      ).then((value) {
-                          if (_dropdownValue == 'Organiser') {
-                            Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Home()),
-                              );
-                            } else {
-                              Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Index()),
-                              );
-                            }
-                          }).catchError((onError) {
-                        print(onError);
-                      });
-                    },
+  FirebaseAuth.instance
+      .createUserWithEmailAndPassword(
+    email: _emailController.text, // Use _emailController for email
+    password: _passwordController.text, // Use _passwordController for password
+  )
+  .then((userCredential) {
+    // After successful user creation, create a document in Firestore
+    FirebaseFirestore.instance.collection('accounts').doc(userCredential.user!.uid).set({
+      'userId': userCredential.user!.uid, // Capture user ID
+      'email': _emailController.text, // Capture email address
+      'accountBalance': 0, // Set account balance to 0
+      'role': _dropdownValue, // Store the user role
+    }).then((_) {
+      // Navigate to the next screen after account creation
+      if (_dropdownValue == 'Organiser') {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      } else {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => tikiti.Index()));
+      }
+    }).catchError((error) {
+      print("Failed to add user: $error");
+    });
+  }).catchError((onError) {
+    print(onError);
+  });
+},
                     child: Container(
                       width: 300,
                       height: 40,
@@ -98,8 +110,9 @@ class _SignupPageState extends State<SignupPage> {
                   child: Container(
                     width: 300,
                     height: 42,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Color(0xC6F6F6F6),
+                      borderRadius: BorderRadius.circular(10),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       ),
@@ -122,8 +135,9 @@ class _SignupPageState extends State<SignupPage> {
                   child: Container(
                     width: 300,
                     height: 42,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Color(0xC6F6F6F6),
+                      borderRadius: BorderRadius.circular(10),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       ),
@@ -146,8 +160,9 @@ class _SignupPageState extends State<SignupPage> {
                   child: Container(
                     width: 300,
                     height: 42,
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(140, 246, 246, 246),
+                    decoration: BoxDecoration(
+                      color: Color(0xC6F6F6F6),
+                      borderRadius: BorderRadius.circular(10),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       ),
@@ -183,8 +198,9 @@ class _SignupPageState extends State<SignupPage> {
                   child: Container(
                     width: 300,
                     height: 42,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Color(0xC6F6F6F6),
+                      borderRadius: BorderRadius.circular(10),
                       border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       ),
@@ -286,9 +302,9 @@ class _SignupPageState extends State<SignupPage> {
                     width: 300,
                     height: 42,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.7799999713897705),
+                      color: Color(0xC6F6F6F6),
                       borderRadius: BorderRadius.circular(10),
-                      border: const Border(
+                      border: Border(
                         bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
                       ),
                     ),

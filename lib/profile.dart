@@ -215,7 +215,7 @@ class Profile extends StatelessWidget {
                           ),
                         );
                       }
-                      var balance = snapshot.data?.get('balance') ?? '0';
+                      var balance = snapshot.data?.get('accountBalance') ?? '0';
                       return Text(
                         '$balance/=',
                         style: TextStyle(

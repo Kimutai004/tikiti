@@ -42,6 +42,7 @@ dependencies:
   mpesa_flutter_plugin: ^1.6.1
   http: ^1.2.1
   qr_flutter: ^4.1.0
+  uuid: ^4.4.2
   geocoding: ^3.0.0
   vertical_barchart: ^2.0.0+2
 

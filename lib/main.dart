@@ -45,7 +45,7 @@ class AndroidLarge1 extends StatelessWidget {
           height: 815,
           clipBehavior: Clip.antiAlias,
           decoration:
-              const BoxDecoration(color: Color.fromARGB(222, 232, 71, 35)),
+              const BoxDecoration(color: Color.fromARGB(255, 255, 255, 255)),
           child: Stack(
             children: [
               const Positioned(

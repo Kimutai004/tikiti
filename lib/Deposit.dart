@@ -46,6 +46,12 @@ class Deposit extends StatefulWidget {
 }
 
 class _DepositState extends State<Deposit> {
+
+  
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   final userId = FirebaseAuth.instance.currentUser!.uid;
 
 
@@ -91,6 +97,13 @@ class _DepositState extends State<Deposit> {
           'user_id': userId,
         };
 
+        // Post transaction details to Firestore
+        postTransactionDetails(transactionData);
+
+        // Update account balance
+      updateAccountBalance(userId, int.parse(amount));
+        
+
 
         print("TRANSACTION RESULT: " + transactionInitialisation.toString());
       } catch (e) {
@@ -102,30 +115,36 @@ class _DepositState extends State<Deposit> {
     }
   }
 
-  // Function to update or create an account document after a transaction
-Future<void> updateOrCreateAccountDocument(Map<String, dynamic> transactionData) async {
-  DocumentReference accountRef = FirebaseFirestore.instance.collection('accounts').doc(userId);
+  void postTransactionDetails(Map<String, dynamic> transactionData) async {
+    await _firestore.collection('transactions').add(transactionData).then((docRef) {
+      print("Transaction details posted successfully: ${docRef.id}");
+    }).catchError((error) {
+      print("Failed to post transaction details: $error");
+    });
+  }
+  void updateAccountBalance(String userId, int amount) async {
+  DocumentReference userAccountRef = _firestore.collection('accounts').doc(userId);
 
-  FirebaseFirestore.instance.runTransaction((transaction) async {
-    DocumentSnapshot snapshot = await transaction.get(accountRef);
-    if (!snapshot.exists) {
-      // Account document does not exist, create it
-      transaction.set(accountRef, {
-        'transactions': [transactionData], // Initialize with the first transaction
-        // Add any other initial account details here
-      });
-    } else {
-      // Account document exists, update it
-      List<dynamic> transactions = List.from(snapshot['transactions']);
-      transactions.add(transactionData);
-      transaction.update(accountRef, {'transactions': transactions});
-    }
-  }).then((result) {
-      print("Account document updated or created");
-  }).catchError((error) {
-    print("Error updating or creating account document: $error");
-  });
+  try {
+    await _firestore.runTransaction((transaction) async {
+      DocumentSnapshot snapshot = await transaction.get(userAccountRef);
+
+      if (!snapshot.exists) {
+        throw Exception("User account does not exist!");
+      }
+
+      int currentBalance = snapshot['accountBalance']; // Ensure this field name matches
+      int newBalance = currentBalance + amount;
+
+      transaction.update(userAccountRef, {'accountBalance': newBalance}); // Ensure this field name matches
+
+      print("Account balance updated successfully");
+    });
+  } catch (error) {
+    print("Failed to update account balance: $error");
+  }
 }
+
 
 
 
