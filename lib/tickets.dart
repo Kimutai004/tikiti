@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tikiti/index.dart' as tikiti;
 import 'package:tikiti/profile.dart';
 import 'dart:io';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:tikiti/search.dart';
 
 class Tickets extends StatefulWidget {
@@ -119,6 +120,7 @@ class _TicketsState extends State<Tickets> {
             return Center(child: Text('No tickets found'));
           }
           return ListView.builder(
+            
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (BuildContext context, int index) {
             DocumentSnapshot event = snapshot.data!.docs[index];
@@ -127,6 +129,8 @@ class _TicketsState extends State<Tickets> {
             String eventPoster = event['event_poster'] ?? '';
             String eventTitle = event['event_title'] ?? 'Untitled Event';
             String price = event['price'] ?? '0.00';
+            
+
             
             // Check if ticketType is a map or a string
             String ticketType;
@@ -142,17 +146,29 @@ class _TicketsState extends State<Tickets> {
                 context: context,
                 builder: (BuildContext context) {
                 return AlertDialog(
+                  
                   title: Text(eventTitle),
                   content: SingleChildScrollView(
                   child: ListBody(
                     children: <Widget>[
                     // Check if eventPoster is not empty and display the image from a file
-          eventPoster.isNotEmpty
-            ? Image.file(File(eventPoster))
-            : SizedBox.shrink(),
-          Text('Price: $price'),
-          Text('Type: $ticketType'),
-                    // display qr code
+                    eventPoster.isNotEmpty
+                      ? Image.file(File(eventPoster))
+                      : SizedBox.shrink(),
+                    Text('Price: $price'),
+                    Text('Type: $ticketType'),
+                              // Display QR code
+                      Container(
+  width: 200.0,
+  height: 200.0,
+  child: QrImageView(
+    data: event['qr_token'] ?? '',
+    version: QrVersions.auto,
+    size: 200.0, // This size attribute might be redundant here
+    foregroundColor: Colors.white,
+  ),
+),
+
                     ],
                   ),
                   ),
@@ -190,7 +206,7 @@ class _TicketsState extends State<Tickets> {
           // Spacer or SizedBox can be used to create some space between the image and text
           SizedBox(width: 8),
           // Texts container
-          Expanded( // Use Expanded to ensure the column takes the rest of the space
+          Expanded(
             child: Column(
             crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start (left)
             mainAxisAlignment: MainAxisAlignment.center, // Center the column
