@@ -409,30 +409,29 @@ Expanded(
   child: StreamBuilder<QuerySnapshot>(
     
     stream: () {
-      
-      
       DateTime now = DateTime.now();
-      String formattedNow = DateFormat('yyyy-MM-dd').format(now); // Formatting current date
+      // Format the current date to 'yyyy-MM-dd'. This assumes your Firestore 'start' and 'end' dates are stored in this format.
+      String formattedNow = DateFormat('yyyy-MM-dd').format(now);
+
       if (selectedTab == 'Live') {
-        return FirebaseFirestore.instance
+        // This query filters for events that are currently happening
+         return FirebaseFirestore.instance
             .collection('events')
             .where('user_id', isEqualTo: userId)
-            .where('start', isLessThanOrEqualTo: formattedNow)
-            .where('end', isGreaterThanOrEqualTo: formattedNow)
+            .where('start', isLessThanOrEqualTo: formattedNow) // Events that have started
+            .where('end', isGreaterThanOrEqualTo: formattedNow) // and have not yet ended
             .snapshots();
       } else if (selectedTab == 'Upcoming') {
         return FirebaseFirestore.instance
             .collection('events')
             .where('user_id', isEqualTo: userId)
-            
-            .where('start', isGreaterThan: formattedNow)
+            .where('start', isGreaterThan: formattedNow) // Events that will start in the future
             .snapshots();
       } else if (selectedTab == 'Past') {
         return FirebaseFirestore.instance
             .collection('events')
             .where('user_id', isEqualTo: userId)
-            
-            .where('end', isLessThan: formattedNow)
+            .where('end', isLessThanOrEqualTo: formattedNow) // Events that have already ended
             .snapshots();
       } else {
         // Default case, can adjust based on requirements
