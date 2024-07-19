@@ -8,7 +8,7 @@ import 'package:tikiti/login.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:tikiti/profile.dart';
 
 class AddEvent extends StatefulWidget {
   @override
@@ -22,18 +22,158 @@ class _AddEventState extends State<AddEvent> {
   final userId = FirebaseAuth.instance.currentUser!.uid;
   String downloadURL = '';
   File? image;
-  
+  String? _selection;
 
+  String? _selectedEventType;
+  final List<String> _eventTypes = ['Conference', 'Seminar', 'Workshop', 'Meetup'];
 
-  void dropdownCallback(String SelectedValue) {
-    if (SelectedValue is String) {
-      setState(() {
-        _dropdownValue = SelectedValue;
+  final TextEditingController _startController = TextEditingController();
+  final TextEditingController _endController = TextEditingController();
+  final TextEditingController _eventtitlecontroller = TextEditingController();
+  final TextEditingController _eventdesccontroller = TextEditingController();
+  final TextEditingController _earlyticketscontroller = TextEditingController();
+  final TextEditingController _earlypricecontroller = TextEditingController();
+  final TextEditingController _regticketscontroller = TextEditingController();
+  final TextEditingController _regpricecontroller = TextEditingController();
+  final TextEditingController _vipticketscontroller = TextEditingController();
+  final TextEditingController _vippricecontroller = TextEditingController();
+  final TextEditingController _meetingLinkController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _physicallocationController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  void _submitData() async {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Processing Data')),
+      );
+
+      // Example data submission to Firestore
+      await FirebaseFirestore.instance.collection('events').add({
+        'user_id': userId,
+                          'early_tickets': _earlyticketscontroller.text,
+                          'early_price': _earlypricecontroller.text,
+                          'reg_tickets': _regticketscontroller.text,
+                          'reg_price': _regpricecontroller.text,
+                          'vip_tickets': _vipticketscontroller.text,
+                          'vip_price': _vippricecontroller.text,
+                          'online_link': _meetingLinkController.text,
+                          'location': _physicallocationController.text,
+                          'dropdown_value': _selection,
+                          'event_title': _eventtitlecontroller.text,
+                          'event_desc': _eventdesccontroller.text,
+                          'path': _imagePath,
+                          'start': _startController.text,
+                          'end': _endController.text,
+                          'event_type': _selectedEventType,
+                          'custom_ticket_types': _customTicketTypes,
+                          'custom_ticket_prices': _customTicketPrices,
+                          'custom_ticket_quantity': _customTicketQuantity,
       });
+      
+      // Show a confirmation message or handle the submission result
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Data submitted to Firestore')),
+      );
     }
   }
 
-  String _dropdownValue = 'Organiser'; // Initial dropdown value
+
+  Future<void> _pickDateTime(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (pickedDate == null) return;
+
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (pickedTime == null) return;
+
+    final DateTime finalDateTime = DateTime(
+      pickedDate.year,
+      pickedDate.month,
+      pickedDate.day,
+      pickedTime.hour,
+      pickedTime.minute,
+    );
+
+    _startController.text = DateFormat('yyyy-MM-dd – HH:mm').format(finalDateTime);
+  }
+
+  Future<void> _pickendDateTime(BuildContext context) async {
+    final DateTime? pickedendDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (pickedendDate == null) return;
+
+    final TimeOfDay? pickedendTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (pickedendTime == null) return;
+
+    final DateTime finalDateTime = DateTime(
+      pickedendDate.year,
+      pickedendDate.month,
+      pickedendDate.day,
+      pickedendTime.hour,
+      pickedendTime.minute,
+    );
+
+    _endController.text = DateFormat('yyyy-MM-dd – HH:mm').format(finalDateTime);
+  }
+
+  void _showSelectionOptions() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select Location Type'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                title: Text('Online'),
+                onTap: () {
+                  setState(() {
+                    _selection = 'Online';
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                title: Text('Physical'),
+                onTap: () {
+                  setState(() {
+                    _selection = 'Physical';
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                title: Text('Both'),
+                onTap: () {
+                  setState(() {
+                    _selection = 'Both';
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -45,17 +185,68 @@ class _AddEventState extends State<AddEvent> {
     }
   }
 
-  final TextEditingController _eventtitlecontroller = TextEditingController();
-  final TextEditingController _eventdesccontroller = TextEditingController();
-  final TextEditingController _earlyticketscontroller = TextEditingController();
-  final TextEditingController _earlypricecontroller = TextEditingController();
-  final TextEditingController _regticketscontroller = TextEditingController();
-  final TextEditingController _regpricecontroller = TextEditingController();
-  final TextEditingController _vipticketscontroller = TextEditingController();
-  final TextEditingController _vippricecontroller = TextEditingController();
-  final TextEditingController _ticketscontroller = TextEditingController();
-  final TextEditingController _onlinecontroller = TextEditingController();
-  final TextEditingController _locationcontroller = TextEditingController();
+  List<Map<String, dynamic>> _customTicketTypes = [];
+  List<Map<String, dynamic>> _customTicketPrices = [];
+  List<Map<String, dynamic>> _customTicketQuantity = [];
+  
+  void _addCustomTicketType() {
+    TextEditingController ticketTypeController = TextEditingController();
+    TextEditingController ticketNumberController = TextEditingController();
+    TextEditingController ticketPriceController = TextEditingController();
+  
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Add Custom Ticket Type'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                controller: ticketTypeController,
+                
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(labelText: 'Ticket Type'),
+              ),
+              TextFormField(
+                controller: ticketNumberController,
+                
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(labelText: 'No. of Tickets'),
+                keyboardType: TextInputType.number,
+              ),
+              TextFormField(
+                controller: ticketPriceController,
+                
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(labelText: 'Price in KES'),
+                keyboardType: TextInputType.number,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('Add'),
+              onPressed: () {
+                setState(() {
+                  _customTicketTypes.add({
+                    'type': ticketTypeController.text,
+                    'number': ticketNumberController.text,
+                    'price': ticketPriceController.text,
+                  });
+                  _customTicketPrices.add({
+                    'type': ticketTypeController.text,
+                    'price': ticketPriceController.text,
+                  });
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,1284 +256,464 @@ class _AddEventState extends State<AddEvent> {
         backgroundColor: const Color(0xFF706E6E),
       ),
       drawer: Drawer(
-        child: Column(
-          children: [
-            Container(
-              width: 360,
-              height: 800,
-              clipBehavior: Clip.antiAlias,
-              decoration: const BoxDecoration(color: Colors.white),
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 236,
-                      height: 800,
-                      decoration: const BoxDecoration(color: Color(0xFF626262)),
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 236,
-                      height: 154,
-                      decoration: const BoxDecoration(color: Color(0xFFF4F4F4)),
-                    ),
-                  ),
-                  Positioned(
-                    left: 74,
-                    top: 185,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Home()),
-                        );
-                      },
-                      child: const SizedBox(
-                        width: 49,
-                        child: Text(
-                          'Events',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 74,
-                    top: 231,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AddEvent()),
-                        );
-                      },
-                      child: const SizedBox(
-                        width: 98,
-                        child: Text(
-                          'Create Event',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 74,
-                    top: 277,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Ticket()),
-                        );
-                      },
-                      child: const SizedBox(
-                        width: 98,
-                        child: Text(
-                          'Attendees',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Positioned(
-                    left: 74,
-                    top: 323,
-                    child: SizedBox(
-                      width: 98,
-                      child: Text(
-                        'Profile',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          height: 1,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 74,
-                    top: 415,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Login()),
-                        );
-                      },
-                      child: const SizedBox(
-                        width: 98,
-                        child: Text(
-                          'LogOut',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 23,
-                    top: 178,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/Events.png"),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 23,
-                    top: 224,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/Events.png"),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 23,
-                    top: 270,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/People.png"),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 23,
-                    top: 316,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/Profile.png"),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 23,
-                    top: 408,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/Logout.png"),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 84,
-                    top: 23,
-                    child: Container(
-                      width: 88,
-                      height: 87,
-                      decoration: const ShapeDecoration(
-                        color: Color(0xFFD9D9D9),
-                        shape: OvalBorder(),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 91,
-                    top: 30,
-                    child: Container(
-                      width: 74,
-                      height: 74,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/User.png"),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Positioned(
-                    left: 91,
-                    top: 115,
-                    child: Text(
-                      'Parody',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w700,
-                        height: 1,
-                      ),
-                    ),
-                  ),
-                ],
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text("Parody"),
+              accountEmail: null,
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage("assets/User.png"),
               ),
+            ),
+            ListTile(
+              leading: Icon(Icons.event),
+              title: Text('Events'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.create),
+              title: Text('Create Event'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddEvent()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.people),
+              title: Text('Attendees'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Ticket()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text('Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Profile()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('LogOut'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              },
             ),
           ],
         ),
       ),
-      body: ListView(
-        children: [
-          Container(
-            width: 600,
-            height: 1463,
-            clipBehavior: Clip.antiAlias,
-            decoration: const BoxDecoration(color: Color(0xFFFBFBFB)),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  child: Container(
-                    width: 500,
-                    height: 150,
-                    decoration: const BoxDecoration(color: Color(0xFFD9D9D9)),
-                  ),
-                ),
-                Positioned(
-                  left: 0,
-                  top: 0,
-                    child: GestureDetector(
-                    onTap: () async {
-                      final ImagePicker picker = ImagePicker();
-                      final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-                      if (pickedImage != null) {
-                        setState(() {
-                          _imagePath = pickedImage.path;
-                        });
-                        
-                      }
-                    },
-                    child: Container(
-                      width: 500,
-                      height: 150,
-                      color: const Color.fromARGB(255, 227, 227, 227),
-                      child: _imagePath != null
-                          ? Image.file(
-                              File(_imagePath!),
-                              fit: BoxFit.cover,
-                            )
-                          : const Center(
-                              child: Text(
-                                'Tap to select an image',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(4, 4, 4, 1)),
-                              ),
-                            ),
-                    ),
-                    ),
-          
-                  ),
-
-                const Positioned(
-                  left: 14,
-                  top: 200,
-                  child: Text(
-                    'Event Title',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 107,
-                  top: 190,
-                  child: Container(
-                    width: 250,
-                    height: 37,
-                    child: TextField(
-                      controller: _eventtitlecontroller,
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 1),
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              GestureDetector(
+                onTap: _pickImage,
+                child: Container(
+                  width: double.infinity,
+                  height: 250,
+                  color: Color.fromARGB(255, 227, 227, 227),
+                  child: _imagePath != null
+                      ? Image.file(
+                          File(_imagePath!),
+                          fit: BoxFit.cover,
+                        )
+                      : Center(
+                          child: Text(
+                            'Tap to select an image',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
-                      onChanged: (value) {
-                        // Use the entered data
-                      },
-                    ),
+                ),
+              ),
+                TextFormField(
+                controller: _eventtitlecontroller,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  labelText: 'Event title',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                  return 'Please enter your Event Title';
+                  }
+                  return null;
+                },
+                ),
+                TextFormField(
+                controller: _eventdesccontroller,
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  labelText: 'Event Description',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                  return 'Please enter the Event Description';
+                  }
+                  return null;
+                },
+                ),
+              InkWell(
+              onTap: _showSelectionOptions,
+              child: IgnorePointer(
+                child: TextFormField(
+                controller: _locationController,
+                
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  labelText: 'Location Type',
+                ),
+                ),
+              ),
+              ),
+              if (_selection == 'Online' || _selection == 'Both')
+              TextFormField(
+                controller: _meetingLinkController,
+                
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                labelText: 'Meeting Link',
+                ),
+                validator: (value) {
+                if (_selection == 'Online' || _selection == 'Both') {
+                  if (value == null || value.isEmpty) {
+                  return 'Please enter the meeting link';
+                  }
+                }
+                return null;
+                },
+              ),
+              if (_selection == 'Physical' || _selection == 'Both')
+              TextFormField(
+                controller: _physicallocationController,
+                
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                labelText: 'Physical Location',
+                ),
+                validator: (value) {
+                if (_selection == 'Physical' || _selection == 'Both') {
+                  if (value == null || value.isEmpty) {
+                  return 'Please enter the physical location';
+                  }
+                }
+                return null;
+                },
+              ),
+              DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  labelText: 'Event Type',
+                ),
+                value: _selectedEventType,
+                
+                style: TextStyle(color: Colors.black),
+                items: _eventTypes.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    _selectedEventType = newValue;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select an event type';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _startController,
+                
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  labelText: 'Start',
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () => _pickDateTime(context),
                   ),
                 ),
-                const Positioned(
-                  left: 14,
-                  top: 265,
-                  child: Text(
-                    'Event Description',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please pick a start date and time';
+                  }
+                  return null;
+                },
+                readOnly: true,
+              ),
+              TextFormField(
+                controller: _endController,
+                
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  labelText: 'End',
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () => _pickendDateTime(context),
                   ),
                 ),
-                Positioned(
-                  left: 32,
-                  top: 293,
-                  child: Container(
-                    width: 284,
-                    height: 37,
-                    child: TextField(
-                      controller: _eventdesccontroller,
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 1),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
-                      onChanged: (value) {
-                        // Use the entered data
-                      },
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 25,
-                  top: 446,
-                  child: Text(
-                    'Location',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 25,
-                  top: 476,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      String online = 'online Event';
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(198, 255, 255, 255),
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Container(
-                      width: 85,
-                      height: 37,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 176,
-                  top: 476,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      String physical = 'Physical Event';
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(225, 255, 81, 0),
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Container(
-                      width: 85,
-                      height: 37,
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 25,
-                  top: 541,
-                  child: Text(
-                    'Event Type',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 25,
-                  top: 590,
-                  child: Container(
-                    width: 300,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 255, 255, 255)
-                          .withOpacity(0.7799999713897705),
-                      borderRadius: BorderRadius.circular(10),
-                      border: const Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      ),
-                    ),
-                    child: DropdownButton<String>(
-                      value: _dropdownValue,
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      items: [
-                        const DropdownMenuItem(
-                          value: "Organiser",
-                          child: Text("Organiser"),
-                        ),
-                        const DropdownMenuItem(
-                          value: "Participant",
-                          child: Text("Participant"),
-                        ),
-                      ],
-                      onChanged: (String? value) {
-                        setState(() {
-                          _dropdownValue = value!;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 25,
-                  top: 640,
-                  child: Text(
-                    'Tickets',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 31,
-                  top: 341,
-                  child: Text(
-                    'Start',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 35,
-                  top: 379,
-                  child: GestureDetector(
-                    onTap: () {
-                      // Show date picker
-                      showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2025),
-                      ).then((selectedDate) {
-                        if (selectedDate != null) {
-                          // Show time picker
-                          showTimePicker(
-                            context: context,
-                            initialTime: TimeOfDay.now(),
-                          ).then((selectedTime) {
-                            if (selectedTime != null) {
-                              // Combine date and time
-                              DateTime selectedDateTime = DateTime(
-                                selectedDate.year,
-                                selectedDate.month,
-                                selectedDate.day,
-                                selectedTime.hour,
-                                selectedTime.minute,
-                              );
-                              setState(() {
-                                selectedstartDate = selectedDateTime;
-                              });
-                            }
-                          });
-                        }
-                      });
-                    },
-                    child: Container(
-                      width: 150,
-                      height: 50,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          selectedstartDate != null
-                              ? "${selectedstartDate!.toLocal()}".split(' ')[0] +
-                                  ' ' +
-                                  "${selectedstartDate!.hour.toString().padLeft(2, '0')}:${selectedstartDate!.minute.toString().padLeft(2, '0')}"
-                              : 'Select Date & Time',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 200,
-                  top: 341,
-                  child: Text(
-                    'End',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 200,
-                  top: 379,
-                   child: GestureDetector(
-                    onTap: () {
-                      // Show date picker
-                      showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2025),
-                      ).then((selectedDate) {
-                        if (selectedDate != null) {
-                          // Show time picker
-                          showTimePicker(
-                            context: context,
-                            initialTime: TimeOfDay.now(),
-                          ).then((selectedTime) {
-                            if (selectedTime != null) {
-                              // Combine date and time
-                              DateTime selectedDateTime = DateTime(
-                                selectedDate.year,
-                                selectedDate.month,
-                                selectedDate.day,
-                                selectedTime.hour,
-                                selectedTime.minute,
-                              );
-                              setState(() {
-                                selectedEndDate = selectedDateTime;
-                              });
-                            }
-                          });
-                        }
-                      });
-                    },
-                    child: Container(
-                      width: 150,
-                      height: 50,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          selectedEndDate != null
-                              ? "${selectedEndDate!.toLocal()}".split(' ')[0] +
-                                  ' ' +
-                                  "${selectedEndDate!.hour.toString().padLeft(2, '0')}:${selectedEndDate!.minute.toString().padLeft(2, '0')}"
-                              : 'Select End Date & Time',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  )
-                ),
-                const Positioned(
-                  left: 31,
-                  top: 681,
-                  child: Text(
-                    'Early Bird',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 14,
-                  top: 670,
-                  child: Container(
-                    width: 93,
-                    height: 37,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 1),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 68,
-                  top: 492,
-                  child: Text(
-                    'Online',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 213,
-                  top: 492,
-                  child: Text(
-                    'Physical',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 156,
-                  top: 679,
-                  child: Text(
-                    'Regular',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 136,
-                  top: 670,
-                  child: Container(
-                    width: 93,
-                    height: 37,
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 289,
-                  top: 679,
-                  child: Text(
-                    'VIP',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 254,
-                  top: 670,
-                  child: Container(
-                    width: 93,
-                    height: 37,
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 35,
-                  top: 1407,
-                  child: GestureDetector(
-                    onTap: () async {
-                      try {
-                        String? formattedStartDate;
-                          if (selectedstartDate != null) {
-                            formattedStartDate = DateFormat('yyyy-MM-dd').format(selectedstartDate!);
-                          }
-
-                          String? formattedEndDate;
-                          if (selectedEndDate != null) {
-                            formattedEndDate = DateFormat('yyyy-MM-dd').format(selectedEndDate!);
-                          }
-
-                          
-                        // Get a reference to the "events" collection
-                        CollectionReference eventsCollection =
-                            FirebaseFirestore.instance.collection('events');
-                        DocumentReference newEventRef =
-                            await eventsCollection.add({
-                              'user_id': userId,
-                          'early_tickets': _earlyticketscontroller.text,
-                          'early_price': _earlypricecontroller.text,
-                          'reg_tickets': _regticketscontroller.text,
-                          'reg_price': _regpricecontroller.text,
-                          'vip_tickets': _vipticketscontroller.text,
-                          'vip_price': _vippricecontroller.text,
-                          'no_of_tickets': _ticketscontroller.text,
-                          'online_link': _onlinecontroller.text,
-                          'location': _locationcontroller.text,
-                          'dropdown_value': _dropdownValue,
-                          'event_title': _eventtitlecontroller.text,
-                          'event_desc': _eventdesccontroller.text,
-                          'path': _imagePath,
-                          'online': 'online Event',
-                          'physical': 'Physical Event',
-                          'start': formattedStartDate,
-                          'end': formattedEndDate,
-                        });;
-                        
-
-                        print('Data sent successfully');
-                      } catch (e) {
-                        print('Error sending data: $e');
-                      }
-                    },
-                    child: Container(
-                      width: 274,
-                      height: 33,
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFFFD4C00),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 35,
-                  top: 1415,
-                  child: SizedBox(
-                    width: 273,
-                    height: 33,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please pick a start date and time';
+                  }
+                  return null;
+                },
+                readOnly: true,
+              ),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
                     child: Text(
-                      'Submit',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        height: 0,
-                      ),
+                      'Early Bird',
+                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ),
-                ),
-                Positioned(
-                  left: 268,
-                  top: 585,
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/Expand Arrow.png"),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 120,
-                  top: 383,
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/Time.png"),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 278,
-                  top: 383,
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/Time.png"),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 26,
-                  top: 815,
-                  child: Text(
-                    'No Of  T ickets',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 51,
-                  top: 842,
-                  child: Container(
-                    width: 248,
-                    height: 42,
-                    child: TextField(
-                      controller: _ticketscontroller,
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _earlyticketscontroller,
+                      
+                style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xC6F6F6F6),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                        labelText: 'No. of Tickets',
                       ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter tickets';
+                        }
+                        return null;
+                      },
                     ),
                   ),
-                ),
-                const Positioned(
-                  left: 32,
-                  top: 922,
-                  child: Text(
-                    'Online Link',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 51,
-                  top: 949,
-                  child: Container(
-                    width: 248,
-                    height: 42,
-                    child: TextField(
-                      controller: _onlinecontroller,
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _earlypricecontroller,
+                      
+                style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xC6F6F6F6),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                        labelText: 'Price in KES',
                       ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter price';
+                        }
+                        return null;
+                      },
                     ),
                   ),
-                ),
-                const Positioned(
-                  left: 41,
-                  top: 1015,
-                  child: Text(
-                    'Location',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
+                    child: Text(
+                      'Regular',
+                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ),
-                ),
-                const Positioned(
-                  left: 34,
-                  top: 1108,
-                  child: Text(
-                    'Ticket Prices and Seats',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 51,
-                  top: 1042,
-                  child: Container(
-                    width: 248,
-                    height: 42,
-                    child: TextField(
-                      controller: _locationcontroller,
+                  SizedBox(width: 30),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _regticketscontroller,
+                      
+                style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
-                        filled: true,
-                        fillColor: const Color(0xC6F6F6F6),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                          borderRadius: BorderRadius.circular(10),
+                        labelText: 'No. of Tickets',
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter tickets';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _regpricecontroller,
+                      
+                style: TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        labelText: 'Price in KES',
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter price';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
+                    child: Text(
+                      'VIP',
+                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                  ),
+                  SizedBox(width: 50),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _vipticketscontroller,
+                      
+                style: TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        labelText: 'No. of Tickets',
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter tickets';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _vippricecontroller,
+                      
+                style: TextStyle(color: Colors.black),
+                      
+                      decoration: InputDecoration(
+                        labelText: 'Price in KES',
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter price';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              ..._customTicketTypes.map((ticket) {
+                return Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      child: Text(
+                        ticket['type'],
+                        style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'No. of Tickets',
                         ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Enter tickets';
+                          }
+                          return null;
+                        },
+                        initialValue: ticket['number'],
+                        onChanged: (value) {
+                          ticket['number'] = value;
+                        },
                       ),
                     ),
-                  ),
-                ),
-                Positioned(
-                  left: 135,
-                  top: 1150,
-                  child: Container(
-                  width: 79,
-                  height: 42,
-                  child: TextField(
-                    controller: _earlyticketscontroller,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color(0xC6F6F6F6),
-                    border: OutlineInputBorder(
-                      borderSide:
-                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    ),
-                  ),
-                  ),
-                ),
-                Positioned(
-                  left: 242,
-                  top: 1150,
-                  child: Container(
-                  width: 79,
-                  height: 42,
-                  child: TextField(
-                    controller: _earlypricecontroller,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color(0xC6F6F6F6),
-                    border: OutlineInputBorder(
-                      borderSide:
-                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    ),
-                  ),
-                  ),
-                ),
-                const Positioned(
-                  left: 48,
-                  top: 1163,
-                  child: Text(
-                    'Early Bird',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 142,
-                  top: 1130,
-                  child: Text(
-                    'No of Seats',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 267,
-                  top: 1130,
-                  child: Text(
-                    'Price',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 135,
-                  top: 1204,
-                  child: Container(
-                  width: 79,
-                  height: 42,
-                  child: TextField(
-                    controller: _regticketscontroller,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color(0xC6F6F6F6),
-                    border: OutlineInputBorder(
-                      borderSide:
-                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    ),
-                  ),
-                  ),
-                ),
-                Positioned(
-                  left: 242,
-                  top: 1204,
-                  child: Container(
-                  width: 79,
-                  height: 42,
-                  child: TextField(
-                    controller: _regpricecontroller,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color(0xC6F6F6F6),
-                    border: OutlineInputBorder(
-                      borderSide:
-                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    ),
-                  ),
-                  ),
-                ),
-                const Positioned(
-                  left: 54,
-                  top: 1217,
-                  child: Text(
-                    'Regular',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 135,
-                  top: 1258,
-                  child: Container(
-                  width: 79,
-                  height: 42,
-                  child: TextField(
-                    controller: _vipticketscontroller,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color(0xC6F6F6F6),
-                    border: OutlineInputBorder(
-                      borderSide:
-                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    ),
-                  ),
-                  ),
-                ),
-                Positioned(
-                  left: 242,
-                  top: 1258,
-                  child: Container(
-                  width: 79,
-                  height: 42,
-                  child: TextField(
-                    controller: _vippricecontroller,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color(0xC6F6F6F6),
-                    border: OutlineInputBorder(
-                      borderSide:
-                        const BorderSide(width: 1, color: Color(0xFFFF3D00)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    ),
-                  ),
-                  ),
-                ),
-                const Positioned(
-                  left: 67,
-                  top: 1271,
-                  child: Text(
-                    'VIP',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Kavoon',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  left: 73,
-                  top: 1357,
-                  child: Text(
-                    'i Agree With Terms And Conditions',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 10,
-                      fontFamily: 'Kaisei Decol',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 27,
-                  top: 1351,
-                  child: Container(
-                    width: 25,
-                    height: 25,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            NetworkImage("https://via.placeholder.com/25x25"),
-                        fit: BoxFit.contain,
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Price in KES',
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Enter price';
+                          }
+                          return null;
+                        },
+                        initialValue: ticket['price'],
+                        onChanged: (value) {
+                          ticket['price'] = value;
+                        },
+
                       ),
+                      
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+      IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: () {
+          setState(() {
+            _customTicketTypes.remove(ticket);
+          });
+        },
       ),
+                  ],
+                );
+              }).toList(),
+              Container(
+  decoration: BoxDecoration(
+    color: const Color.fromARGB(255, 255, 77, 0), // Background color
+    shape: BoxShape.rectangle, // Optional: makes the container circular
+    borderRadius: BorderRadiusDirectional.circular(10)
+  ),
+  child: IconButton(
+    icon: Icon(Icons.add),
+    color: Colors.white, // Icon color
+    onPressed: _addCustomTicketType,
+  ),
+),
+                Center(
+  child: Padding(
+    padding: const EdgeInsets.symmetric(vertical: 16.0),
+    child: ElevatedButton(
+      onPressed: _submitData,
+      child: Text('Sign Up'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color.fromARGB(255, 255, 64, 0), // Background color
+      ),
+    ),
+  ),
+),
+          ],
+            
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
     );
   }
 }

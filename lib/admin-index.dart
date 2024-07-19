@@ -418,7 +418,7 @@ Expanded(
          return FirebaseFirestore.instance
             .collection('events')
             .where('user_id', isEqualTo: userId)
-            .where('start', isLessThanOrEqualTo: formattedNow) // Events that have started
+            .where('start', isEqualTo: formattedNow) // Events that have started
             .where('end', isGreaterThanOrEqualTo: formattedNow) // and have not yet ended
             .snapshots();
       } else if (selectedTab == 'Upcoming') {
