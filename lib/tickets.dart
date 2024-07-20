@@ -35,6 +35,23 @@ class _TicketsState extends State<Tickets> {
 
   final userId = FirebaseAuth.instance.currentUser!.uid;
 
+  DateTime parseEventDate(String dateString) {
+    return DateTime.parse(dateString);
+  }
+
+  bool isLive(String eventDateStr, String eventTimeStr) {
+    DateTime now = DateTime.now();
+    DateTime startDate = parseEventDate(eventDateStr);
+    DateTime endDate = parseEventDate(eventTimeStr);
+    return now.isAfter(startDate) && now.isBefore(endDate);
+  }
+
+  bool isPast(String eventTimeStr) {
+    DateTime now = DateTime.now();
+    DateTime endDate = parseEventDate(eventTimeStr);
+    return now.isAfter(endDate);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,9 +133,9 @@ class _TicketsState extends State<Tickets> {
                 SizedBox(height: 20),
                 StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                    .collection('tickets')
-                    .where('user_id', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-                    .snapshots(),
+                      .collection('tickets')
+                      .where('user_id', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+                      .snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -129,21 +146,23 @@ class _TicketsState extends State<Tickets> {
                     if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                       return Center(child: Text('No tickets found'));
                     }
+                    var filteredDocs = snapshot.data!.docs.where((doc) {
+                      String eventDateStr = doc['event_date'];
+                      String eventTimeStr = doc['event_time'];
+                      return selectedTab == 'Live' ? isLive(eventDateStr, eventTimeStr) : isPast(eventTimeStr);
+                    }).toList();
+
                     return ListView.builder(
                       shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
+                      itemCount: filteredDocs.length,
                       itemBuilder: (BuildContext context, int index) {
-                        DocumentSnapshot event = snapshot.data!.docs[index];
+                        DocumentSnapshot event = filteredDocs[index];
                         String eventPoster = event['event_poster'] ?? '';
                         String eventTitle = event['event_title'] ?? 'Untitled Event';
                         String price = event['price'] ?? '0.00';
                         String ticketType = (event['ticket_type'] is Map)
                             ? (event['ticket_type'] as Map<String, dynamic>).keys.join(', ')
-                            : (event['ticket_type'] ?? 'Unknown');
-
-                        // Filter based on selectedTab if needed
-                        if (selectedTab == 'Live' && !isLive(event)) return SizedBox.shrink();
-                        if (selectedTab == 'Past' && !isPast(event)) return SizedBox.shrink();
+                            : 'Unknown';
 
                         return GestureDetector(
                           onTap: () {
@@ -167,7 +186,7 @@ class _TicketsState extends State<Tickets> {
                                             data: event['qr_token'] ?? '',
                                             version: QrVersions.auto,
                                             size: 200.0,
-                                            foregroundColor: Colors.white,
+                                            foregroundColor: Color.fromARGB(255, 255, 255, 255),
                                           ),
                                         ),
                                       ],
@@ -283,17 +302,5 @@ class _TicketsState extends State<Tickets> {
       ),
       backgroundColor: Colors.white,
     );
-  }
-
-  bool isLive(DocumentSnapshot event) {
-    // Implement your logic to check if the event is live
-    return true; // Example placeholder
-  }
-
-  
-
-  bool isPast(DocumentSnapshot event) {
-    // Implement your logic to check if the event is past
-    return true; // Example placeholder
   }
 }

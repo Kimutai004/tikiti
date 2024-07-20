@@ -240,6 +240,9 @@ class _EventDescriptionState extends State<EventDescription> {
                             'event_id': widget.eventId,
                             'event_title': event['event_title'] ?? 'No Title',
                             'event_poster': event['path'] ?? 'No Image Available',
+                            'event_location': event['location'] ?? 'No Location Provided',
+                            'event_date': event['start']?.toString() ?? 'No Date Provided',
+                            'event_time': event['end']?.toString() ?? 'No Time Provided',
                             'ticket_type': {
                               if (_counter > 0) 'early_bird': _counter,
                               if (_regcounter > 0) 'regular': _regcounter,
