@@ -5,10 +5,8 @@ import 'package:mpesa_flutter_plugin/mpesa_flutter_plugin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() {
-  MpesaFlutterPlugin.setConsumerKey(
-      "ZER8qjaVD9qUG4Ovwccrti0NcWO2qYMAqUbIyamGblDDsAGw");
-  MpesaFlutterPlugin.setConsumerSecret(
-      "Er9PLZMAkXu3AueuirVPY9iCoW7TGua2Sqa7Whv1lFnrNNAmPamBeNh78nbuZOcL");
+  MpesaFlutterPlugin.setConsumerKey("ZER8qjaVD9qUG4Ovwccrti0NcWO2qYMAqUbIyamGblDDsAGw");
+  MpesaFlutterPlugin.setConsumerSecret("Er9PLZMAkXu3AueuirVPY9iCoW7TGua2Sqa7Whv1lFnrNNAmPamBeNh78nbuZOcL");
   runApp(const FigmaToCodeApp());
 }
 
@@ -26,14 +24,13 @@ class FigmaToCodeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
+      theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
+        scaffoldBackgroundColor: const Color(0xFFF5F5F5),
       ),
       home: Scaffold(
-        body: ListView(
-          children: [
-            Deposit(),
-          ],
+        body: SafeArea(
+          child: Deposit(),
         ),
       ),
     );
@@ -46,46 +43,37 @@ class Deposit extends StatefulWidget {
 }
 
 class _DepositState extends State<Deposit> {
-
-  
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   final userId = FirebaseAuth.instance.currentUser!.uid;
 
-
   String selectedMethod = 'Mpesa';
+  String selectedTab = 'Deposit';
+
   final phoneController = TextEditingController();
   final amountController = TextEditingController();
 
-  // Here you would call your STK push API
   void initiateStkPush() async {
     final phone = phoneController.text;
     final amount = amountController.text;
 
     if (selectedMethod == 'Mpesa') {
       try {
-        dynamic transactionInitialisation;
-        transactionInitialisation =
-            await MpesaFlutterPlugin.initializeMpesaSTKPush(
+        dynamic transactionInitialisation = await MpesaFlutterPlugin.initializeMpesaSTKPush(
           businessShortCode: "174379",
           transactionType: TransactionType.CustomerPayBillOnline,
           amount: double.parse(amount),
           partyA: phone,
           partyB: "174379",
-          callBackURL: Uri.parse(
-              "https://webhook.site/259bc1c0-9938-473a-bce8-ec481d7f7a17"),
+          callBackURL: Uri.parse("https://webhook.site/your-callback-url"),
           accountReference: "Test123",
           phoneNumber: phone,
-          baseUri: Uri.parse(
-              "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"),
+          baseUri: Uri.parse("https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"),
           transactionDesc: "Test Payment",
-          passKey:
-              "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",
+          passKey: "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919",
         );
 
-        // Assuming transactionInitialisation contains transaction details
         Map<String, dynamic> transactionData = {
           'phone': phone,
           'amount': amount,
@@ -97,21 +85,51 @@ class _DepositState extends State<Deposit> {
           'user_id': userId,
         };
 
-        // Post transaction details to Firestore
         postTransactionDetails(transactionData);
 
-        // Update account balance
-      updateAccountBalance(userId, int.parse(amount));
+        await Future.delayed(Duration(seconds: 3));
+        updateAccountBalance(userId, int.parse(amount));
         
-
-
         print("TRANSACTION RESULT: " + transactionInitialisation.toString());
       } catch (e) {
         print("CAUGHT EXCEPTION: " + e.toString());
       }
-    } else if (selectedMethod == 'Airtel Money') {
-      // Implement Airtel Money API call here
-      print('Initiating STK push: Airtel Money, $phone, $amount');
+    }
+  }
+
+  void initiateWithdrawal() async {
+    final phone = phoneController.text;
+    final amount = int.parse(amountController.text);
+
+    try {
+      DocumentSnapshot userAccount = await _firestore.collection('accounts').doc(userId).get();
+      if (userAccount.exists && userAccount['accountBalance'] >= amount) {
+        int currentBalance = userAccount['accountBalance'];
+        int newBalance = currentBalance - amount;
+
+        await _firestore.collection('accounts').doc(userId).update({
+          'accountBalance': newBalance,
+        });
+
+        Map<String, dynamic> transactionData = {
+          'phone': phone,
+          'amount': amount,
+          'status': 'Completed',
+          'method': 'Mpesa',
+          'transactionId': '',
+          'TransactionDate': DateTime.now(),
+          'Balance': newBalance,
+          'user_id': userId,
+        };
+
+        postTransactionDetails(transactionData);
+
+        print("Withdrawal successful. New balance: $newBalance");
+      } else {
+        print("Insufficient balance for withdrawal.");
+      }
+    } catch (e) {
+      print("Withdrawal failed: $e");
     }
   }
 
@@ -122,302 +140,204 @@ class _DepositState extends State<Deposit> {
       print("Failed to post transaction details: $error");
     });
   }
+
   void updateAccountBalance(String userId, int amount) async {
-  DocumentReference userAccountRef = _firestore.collection('accounts').doc(userId);
+    DocumentReference userAccountRef = _firestore.collection('accounts').doc(userId);
 
-  try {
-    await _firestore.runTransaction((transaction) async {
-      DocumentSnapshot snapshot = await transaction.get(userAccountRef);
+    try {
+      await _firestore.runTransaction((transaction) async {
+        DocumentSnapshot snapshot = await transaction.get(userAccountRef);
 
-      if (!snapshot.exists) {
-        throw Exception("User account does not exist!");
-      }
+        if (!snapshot.exists) {
+          throw Exception("User account does not exist!");
+        }
 
-      int currentBalance = snapshot['accountBalance']; // Ensure this field name matches
-      int newBalance = currentBalance + amount;
+        int currentBalance = snapshot['accountBalance'];
+        int newBalance = currentBalance + amount;
 
-      transaction.update(userAccountRef, {'accountBalance': newBalance}); // Ensure this field name matches
+        transaction.update(userAccountRef, {'accountBalance': newBalance});
 
-      print("Account balance updated successfully");
-    });
-  } catch (error) {
-    print("Failed to update account balance: $error");
+        print("Account balance updated successfully");
+      });
+    } catch (error) {
+      print("Failed to update account balance: $error");
+    }
   }
-}
 
-
-
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Deposit & Withdrawals'),
       ),
-      body: ListView(
-        children: [
-          Container(
-            width: 360,
-            height: 800,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(color: Colors.white),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 83,
-                  top: 30,
-                  child: Text(
-                    'Deposit',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFFFF3D00),
-                      fontSize: 10,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 257,
-                  top: 30,
-                  child: Text(
-                    'Withdraw',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 10,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 27,
-                  top: 52,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+           Row(
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedTab = 'Deposit';
+                    });
+                  },
                   child: Container(
-                    width: 160,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          strokeAlign: BorderSide.strokeAlignCenter,
-                          color: Color(0xFFFF3D00),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 2,
+                          color: selectedTab == 'Deposit' ? const Color(0xFFFF3E01) : Colors.transparent,
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Positioned(
-                  left: 144,
-                  top: 78,
-                  child: Container(
-                    width: 81,
-                    height: 41,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          selectedMethod = 'Airtel Money';
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xC6FF2929),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Text(
-                        'Airtel Money',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 37,
-                  top: 78,
-                  child: Container(
-                    width: 81,
-                    height: 41,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          selectedMethod = 'Mpesa';
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xD6099920),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Container(
-                        width: 30,
-                        height: 33,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/Mpesa.png"),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        margin: EdgeInsets.only(
-                            left:
-                                0), // Add this line to move the container to the left
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 55,
-                  top: 92,
-                  child: SizedBox(
-                    width: 63,
-                    height: 37,
-                    child: Text(
-                      'Mpesa',
+                    child: const Text(
+                      'Deposit',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
+                        color: Colors.black,
+                        fontSize: 12,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w400,
-                        height: 0,
+                        height: 1,
                       ),
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 32,
-                  top: 192,
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedTab = 'Withdraw';
+                    });
+                  },
                   child: Container(
-                    width: 310,
-                    height: 175,
-                    decoration: ShapeDecoration(
-                      color: Color(0xFFD9D9D9),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 45,
-                  top: 204,
-                  child: Text(
-                    'Phone number to deposit',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 10,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 55,
-                  top: 225,
-                  child: Container(
-                    width: 243,
-                    height: 31,
-                    child: TextField(
-                      controller: phoneController,
-                      keyboardType: TextInputType.phone,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 2,
+                          color: selectedTab == 'Withdraw' ? const Color(0xFFFF3E01) : Colors.transparent,
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Positioned(
-                  left: 55,
-                  top: 287,
-                  child: Container(
-                    width: 243,
-                    height: 31,
-                    child: TextField(
-                      controller: amountController,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                    child: const Text(
+                      'Withdraw',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 1,
                       ),
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 115,
-                  top: 328,
-                  child: Container(
-                    width: 141,
-                    height: 31,
-                    child: ElevatedButton(
-                      onPressed: initiateStkPush,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFF3D00),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Text(
-                        'Deposit',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 44,
-                  top: 266,
-                  child: Text(
-                    'Amount',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 10,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+            SizedBox(height: 32),
+            Text(
+              selectedTab == 'Deposit' ? 'Phone number to deposit' : 'Phone number to withdraw',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 8),
+            TextField(
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Phone Number',
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Amount',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 8),
+            TextField(
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Amount',
+              ),
+            ),
+            SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: selectedTab == 'Deposit' ? initiateStkPush : initiateWithdrawal,
+              child: Text(selectedTab == 'Deposit' ? 'Deposit' : 'Withdraw'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                backgroundColor: Color(0xFFFF3E01)
+              ),
+            ),
+            SizedBox(height: 32),
+            Text(
+              'Previous Transactions',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: _firestore
+                    .collection('transactions')
+                    .where('user_id', isEqualTo: userId)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (snapshot.hasError) {
+                    return Center(child: Text('Error fetching transactions'));
+                  }
+
+                  final transactions = snapshot.data?.docs ?? [];
+
+                  if (transactions.isEmpty) {
+                    return Center(child: Text('No transactions found'));
+                  }
+
+                  return ListView.builder(
+                    itemCount: transactions.length,
+                    itemBuilder: (context, index) {
+                      final transaction = transactions[index].data() as Map<String, dynamic>;
+                      return Card(
+                        child: ListTile(
+                          title: Text('${transaction['method']} - ${transaction['amount']}'),
+                          subtitle: Text('${transaction['phone']} - ${transaction['TransactionDate']}'),
+                          trailing: Text('${transaction['status']}'),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
+      backgroundColor: Colors.white,
     );
   }
 }
