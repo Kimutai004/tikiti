@@ -289,12 +289,7 @@ class _AddEventState extends State<AddEvent> {
             ListTile(
               leading: Icon(Icons.people),
               title: Text('Attendees'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Ticket()),
-                );
-              },
+              
             ),
             ListTile(
               leading: Icon(Icons.person),

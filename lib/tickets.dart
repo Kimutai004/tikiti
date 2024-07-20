@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tikiti/index.dart' as tikiti;
 import 'package:tikiti/profile.dart';
 import 'dart:io';
@@ -36,8 +37,19 @@ class _TicketsState extends State<Tickets> {
   final userId = FirebaseAuth.instance.currentUser!.uid;
 
   DateTime parseEventDate(String dateString) {
-    return DateTime.parse(dateString);
+  try {
+    // Try parsing with the expected format
+    return DateFormat('yyyy-MM-ddTHH:mm:ss').parse(dateString);
+  } catch (e) {
+    try {
+      // Fallback for another format, e.g., 'yyyy-MM-dd'
+      return DateFormat('yyyy-MM-dd').parse(dateString);
+    } catch (e) {
+      // Handle or throw a custom error if parsing fails
+      throw FormatException('Invalid date format: $dateString');
+    }
   }
+}
 
   bool isLive(String eventDateStr, String eventTimeStr) {
     DateTime now = DateTime.now();
@@ -74,7 +86,7 @@ class _TicketsState extends State<Tickets> {
                           });
                         },
                         child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 20),
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
@@ -105,7 +117,7 @@ class _TicketsState extends State<Tickets> {
                           });
                         },
                         child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 20),
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
