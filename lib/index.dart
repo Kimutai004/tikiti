@@ -69,12 +69,19 @@ class _IndexState extends State<Index> {
             width: 360,
             height: 100,
             decoration: const BoxDecoration(color: Color.fromARGB(0, 0, 0, 0)),
+            margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
             child: Row(
               children: <Widget>[
                 Container(
                   width: 156,
                   height: 100,
-                  child: data['path'] != null ? Image.file(File(data['path'])) : Container(
+                  child: data['path'] != null ? Image.file(
+                                File(data['path']),
+                                width: 156,
+                                height: 100,
+                                fit: BoxFit.fill,
+                              ) : Container(
+                    
                     decoration: ShapeDecoration(
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
@@ -288,6 +295,7 @@ class _IndexState extends State<Index> {
   items: const <BottomNavigationBarItem>[
     BottomNavigationBarItem(
       icon: ImageIcon(AssetImage("assets/Home.png")),
+      
       label: 'Home',
     ),
     BottomNavigationBarItem(

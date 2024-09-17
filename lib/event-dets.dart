@@ -2,8 +2,6 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 
@@ -71,22 +69,7 @@ class _EventDescriptionState extends State<EventDescription> {
     });
   }
 
-  Future<LatLng> _getLocationCoordinates(String locationName) async {
-  try {
-    List<Location> locations = await locationFromAddress(locationName);
-    if (locations.isNotEmpty) {
-      return LatLng(locations.first.latitude, locations.first.longitude);
-    } else {
-      print('No location found for: $locationName');
-      // Return default coordinates or handle as appropriate
-      return const LatLng(0.0, 0.0); // Default coordinates if fetching fails
-    }
-  } catch (e) {
-    print('Error fetching location: $e');
-    // Return default coordinates or handle as appropriate
-    return const LatLng(0.0, 0.0); // Default coordinates if fetching fails
-  }
-}
+  
 
   
   @override
@@ -656,44 +639,7 @@ class _EventDescriptionState extends State<EventDescription> {
                         ),
                       ),
                       // GoogleMap widget to display location
-                      Positioned(
-                        left: 22,
-                        top: 482,
-                        child: Container(
-                          width: 303,
-                          height: 199,
-                          child: FutureBuilder<LatLng>(
-                            future: event['location'] != null ? _getLocationCoordinates(event['location']) : null,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return Center(child: CircularProgressIndicator());
-                              }
-
-                              if (snapshot.hasError) {
-                                return Center(child: Text('Error: ${snapshot.error}'));
-                              }
-
-                              LatLng? location = snapshot.data;
-
-                              return GoogleMap(
-                                initialCameraPosition: CameraPosition(
-                                  target: location ?? LatLng(0.0, 0.0), // Default to (0.0, 0.0) if location is null
-                                  zoom: 15, // Adjust zoom level as needed
-                                ),
-                                markers: Set<Marker>.of([
-                                  Marker(
-                                    markerId: MarkerId('event_location'),
-                                    position: location ?? LatLng(0.0, 0.0), // Default to (0.0, 0.0) if location is null
-                                    infoWindow: InfoWindow(
-                                      title: 'Event Location',
-                                    ),
-                                  ),
-                                ]),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
+                      
 
                       const Positioned(
                         left: 230,
